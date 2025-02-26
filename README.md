@@ -12,3 +12,4 @@ Gerenciamento de agendamento.
 - [@Pablo Rocha](https://github.com/AlbaDr52)
 - [@Richard Almeida](https://github.com/richpdp)
 
+![Texto alternativo](LOGO.png)  
