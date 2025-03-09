@@ -1,0 +1,84 @@
+:root{
+    --primary-color: #486284;
+    --bege: #FFF3DC;
+}
+
+@font-face {
+    font-family: 'DM_Sans';
+    src: url('../fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf');
+}
+
+*{
+    font-family: DM_Sans;
+}
+
+body{
+    height: 100vh;
+}
+
+button{
+    background-color: var(--primary-color);
+    color: var(--bege);
+    cursor: pointer;
+}
+
+main#container {
+    border: 1px solid #B8B8B8;
+
+    margin: 2vh auto 0 auto;
+    padding: 2vh 0;
+    width: 50vw;
+    /* height: 70vh; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1{
+        font-family: DM_Sans;
+        color: var(--primary-color);
+    }
+
+    form{
+        width: 40vw;
+        /* height: 70vh; */
+        margin: 2vh 0;
+
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        gap: 5vh;
+
+        input{
+            font-family: DM_Sans;
+            font-size: 1rem;
+            border-bottom: 1px solid black;
+            padding: 0px 20px;
+            color: #8CA2C0;
+        }
+
+        input:focus {
+            outline: none !important;
+            border-bottom: 1px solid black;
+            /* box-shadow: 0 0 0px #719ECE; */
+        }
+
+        button{
+            margin: 0 auto;
+            height: 5vh;
+            width: 15vw;
+        }
+    }
+}
+
+footer{
+    span{
+        color: #8CA2C0;
+
+        a{
+            color: #8CA2C0;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    }
+}
