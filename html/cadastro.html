@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="shortcut icon" href="../imgs/LOGO.png" type="image/x-icon">
+    <title>Cadastro</title>
+</head>
+<body>
+    <header>
+        <img src="../imgs/logoNoWhite.png" alt="Logo" id="logo_img">
+        <button id="login_btn">Fazer Login</button>
+    </header>
+    <main id="container">
+        <h1>Cadastro</h1>
+        <form id="cadastro_form">
+            <input placeholder="Nome Completo" type="text" id="name_inp" required>
+            <input placeholder="E-mail" type="email" id="email_inp" required>
+            <input placeholder="CPF (Opcional)" type="text" id="cpf_inp">
+            <input placeholder="Aniversário (Opcional)" type="date" id="data_nasc_inp">
+            <input placeholder="Telefone" type="text" id="telefone_inp" required>
+            <input placeholder="Senha" type="password" id="senha_inp" required>
+            <input placeholder="Confirmar Senha" type="password" id="confirm_senha_inp" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <footer>
+            <span>Já possui conta? <a href="./login.html">Login</a></span>
+        </footer>
+    </main>
+</body>
+
+<script src="../js/cadastro.js"></script>
+</html>
