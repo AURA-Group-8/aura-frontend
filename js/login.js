@@ -66,14 +66,8 @@ function validarLogin(){
     .catch(error => console.error("Erro:", error));
 }
 
-const imagem = document.getElementById("logo_img")
+const imagem = document.getElementById("return_img")
 
 imagem.addEventListener("click", (event) => {
     window.location.href = "../html/index.html"
-})
-
-const headerBtn = document.getElementById("cadastro_btn")
-
-headerBtn.addEventListener("click", (event) => {
-    window.location.href = "../html/cadastro.html"
 })

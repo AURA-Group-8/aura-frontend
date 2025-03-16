@@ -16,7 +16,6 @@ formCadastro.addEventListener("submit", (event) =>{
 function validarCampos(){
     campoNome = document.getElementById("name_inp")
     campoEmail = document.getElementById("email_inp")
-    campoCPF = document.getElementById("cpf_inp")
     campoDataNasc = document.getElementById("data_nasc_inp")
     campoTelefone = document.getElementById("telefone_inp")
     campoSenha = document.getElementById("senha_inp")
@@ -24,7 +23,6 @@ function validarCampos(){
 
     formValues.nome = campoNome.value.trim()
     formValues.email = campoEmail.value.trim()
-    formValues.cpf = campoCPF.value.trim()
     formValues.dataNasc = campoDataNasc.value.trim()
     formValues.telefone = campoTelefone.value.trim()
     formValues.senha = campoSenha.value.trim()
@@ -56,8 +54,9 @@ function enviarDados(){
     requestBody.password = formValues.senha;
     requestBody.roleId = 1;
     requestBody.deleted = false;
-    requestBody.createdAt = new Date().toISOString();
-    requestBody.modifiedAt = new Date().toISOString();
+    const now = new Date().toISOString();
+    requestBody.createdAt = now
+    requestBody.modifiedAt = now
 
     fetch("http://localhost:8080/usuarios", {
         method: "POST",
@@ -67,22 +66,37 @@ function enviarDados(){
         body: JSON.stringify(requestBody),
         mode: "cors"
       })
-      .then(response => response.json())
+      .then((response) => {
+        if(response.ok){
+            return response.json()
+        }
+        if(response.status = 409){
+            alert("Usuário já existe")
+        }
+    })
       .then((data) => {
-        alert("Cadastro Realizado com sucesso")
-        window.location.href= '../html/login.html'
+        if(data){
+            alert("Cadastro Realizado com sucesso")
+            window.location.href= '../html/login.html'
+        }
       })
       .catch(error => console.error("Erro:", error));
 }
 
-const imagem = document.getElementById("logo_img")
+const imagem = document.getElementById("return_img")
 
 imagem.addEventListener("click", (event) => {
     window.location.href = "../html/index.html"
 })
 
-const headerBtn = document.getElementById("login_btn")
+const telefone_inp = document.getElementById("telefone_inp")
 
-headerBtn.addEventListener("click", (event) => {
-    window.location.href = "../html/login.html"
+telefone_inp.addEventListener("keyup", () =>{
+    let telefone = telefone_inp.value
+    
+    telefone = telefone.replace(/\D/g,"")                 
+    telefone = telefone.replace(/^(\d\d)(\d)/g,"($1) $2") 
+    telefone = telefone.replace(/(\d{5})(\d)/,"$1-$2")
+    telefone = telefone.substring(0,15)
+    telefone_inp.value = telefone
 })
