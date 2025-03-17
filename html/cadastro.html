@@ -10,20 +10,43 @@
     <title>Cadastro</title>
 </head>
 <body>
+    <img class="wave" id="background_wave_left" src="../imgs/background-wave.png"></img>
+    <img class="wave" id="background_wave_right" src="../imgs/background-wave.png"></img>
     <header>
-        <img src="../imgs/logoNoWhite.png" alt="Logo" id="logo_img">
-        <button id="login_btn">Fazer Login</button>
+        <img src="../imgs/return-arrow.png" alt="return_arrow" id="return_img">
     </header>
     <main id="container">
-        <h1>Cadastro</h1>
+        <header>
+            <img src="../imgs/logo.png" alt="logo">
+            <h1>Cadastro</h1>
+        </header>
         <form id="cadastro_form">
-            <input placeholder="Nome Completo" type="text" id="name_inp" required>
-            <input placeholder="E-mail" type="email" id="email_inp" required>
-            <input placeholder="CPF (Opcional)" type="text" id="cpf_inp">
-            <input placeholder="Aniversário (Opcional)" type="date" id="data_nasc_inp">
-            <input placeholder="Telefone" type="text" id="telefone_inp" required>
-            <input placeholder="Senha" type="password" id="senha_inp" required>
-            <input placeholder="Confirmar Senha" type="password" id="confirm_senha_inp" required>
+            <div class="form_div">
+                <label for="name_inp">Nome Completo</label>
+                <input type="text" id="name_inp" required>
+            </div>
+            <div class="form_div">
+                <label for="email_inp">E-mail</label>
+                <input type="email" id="email_inp" required>
+            </div>
+            <div class="form_div">
+                <label for="data_nasc_inp">Data nascimento (Opcional)</label>
+                <input type="date" id="data_nasc_inp">
+            </div>
+            <div class="form_div">
+                <label for="telefone_inp">Telefone</label>
+                <input type="text" id="telefone_inp" required>
+            </div>
+            <div id="form_div_passwords">
+                <div>
+                    <label for="senha_inp">Senha</label>
+                    <input type="password" id="senha_inp" required>
+                </div>
+                <div>
+                    <label for="confirm_senha_inp">Confirmar Senha</label>
+                    <input type="password" id="confirm_senha_inp" required>
+                </div>
+            </div>
             <button type="submit">Cadastrar</button>
         </form>
         <footer>
