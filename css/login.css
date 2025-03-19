@@ -17,6 +17,18 @@ body{
     background-color: #FFF3DC;
 }
 
+body::before { /* precisei usar isso aqui pra mexer especificamente na imagem de fundo, sem interferir nas outras imagens da tela  */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../imgs/background-wave.png") center/cover no-repeat;
+    opacity: 0.7;
+}
+
+
 button{
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -30,16 +42,6 @@ button{
     opacity: 50%;
     object-fit: fill;
     z-index: -1;
-}
-
-#background_wave_left{
-    top: 0;
-    left: 0;
-}
-
-#background_wave_right{
-    bottom: 0;
-    right: 0;
 }
 
 main#container {
