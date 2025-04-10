@@ -1,11 +1,11 @@
-import Formulario from "./components/Formulario";
+import FormularioCadastro from "./components/FormularioCadastro";
 import Header from "./components/Header";
 
 export default function Cadastro() {
     return (
         <>
                 <Header />
-                <Formulario />
+                <FormularioCadastro />
             
         </>
     )

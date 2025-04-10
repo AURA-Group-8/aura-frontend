@@ -1,5 +1,12 @@
+import { useState } from "react"
 
-export default function Formulario() {
+export default function FormularioCadastro() {
+    const [nomeCompleto, setNomeCompleto] = useState("");
+    const [email, setEmail] = useState("");
+    const [dataNasc, setDataNasc]  = useState("");
+    const [telefone, setTelefone] = useState("");
+
+    const [senha, setSenha] = useState("");
     return (
         <>
             <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative">
@@ -7,19 +14,19 @@ export default function Formulario() {
 
                 <div className="bg-[#982546] w-[40vw] rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
 
-                    <div className="w-[40vw] bg-[#982546] text-[#FFF2DC] font-bold flex justify-beetween items-center mb-8 gap-x-32 hover:border-[#341C1C]">
+                    <div className="w-[40vw] bg-[#982546] text-[#FFF2DC] font-bold flex justify-beetween items-center mb-8 gap-x-16 hover:border-[#341C1C]">
                         <img className="h-12 ml-8" src="/imgs/LOGO.png" alt="" />   <h1 className="text-2xl">Crie sua conta</h1>
                     </div>
 
                     <form className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]" method="POST">
                         <label htmlFor="Campo">Nome Completo:</label>
-                        <input type="text" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
+                        <input  type="text" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
 
                         <label htmlFor="Campo">Email:</label>
                         <input type="text" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
 
                         <label htmlFor="Campo">Data de Nascimento (Opcional):</label>
-                        <input type="text" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
+                        <input type="date" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
 
                         <label htmlFor="Campo">Telefone:</label>
                         <input type="text" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" />
@@ -35,7 +42,7 @@ export default function Formulario() {
                             </div>
                             </div>
 
-                            <button type="submit" className="mt-4 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer">
+                            <button type="submit" className="mt-4 w-full text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer">
                                 Cadastrar
                             </button>
                         
