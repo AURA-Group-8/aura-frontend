@@ -42,7 +42,7 @@ export default function FormularioCadastro() {
                             </div>
                             </div>
 
-                            <button type="submit" className="mt-4 w-full text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer">
+                            <button type="submit" className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
                                 Cadastrar
                             </button>
                         
