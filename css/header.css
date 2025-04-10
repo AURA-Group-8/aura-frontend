@@ -1,0 +1,14 @@
+body>header {
+    width: 100vw;
+    height: 10vh;
+    padding: 2vh 1.6vw;
+    border-bottom: 1px solid #B8B8B8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img#return_img{
+        height: 3vw;
+        cursor: pointer;
+    }
+}

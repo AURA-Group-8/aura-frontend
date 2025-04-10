@@ -1,0 +1,8 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("/public/imgs/background-wave.png");
+    background-size: cover;
+}
