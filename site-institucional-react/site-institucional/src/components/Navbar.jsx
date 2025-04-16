@@ -15,13 +15,14 @@ function Navbar() {
           </ul>
 
           <div className="flex gap-5">
-            <button className="bg-transparent border border-[#982546] text-[#982546] w-20 h-8 rounded-xl">Cadastro</button>
-            <select defaultValue="" className="bg-[#982546] text-[#FFF3DC] w-20 h-8  text-center rounded-xl" >
-            <option value="" disabled hidden>Login</option>
-              <option value="" className="bg-white text-[#982546]">Sou Cliente</option>
-              <option value="" className="bg-white text-[#982546]">Sou Profissional</option>
+            <button className="bg-transparent  border border-[#982546] text-[#982546] w-20 h-9 rounded-xl">Cadastro</button>
+            <select defaultValue="" className=" bg-[#982546] text-center text-[#FFF3DC] rounded-xl p-2 " >
+              <option value="" disabled hidden>Login</option>
+              <option value="" className="bg-white text-[#982546] text-start ">Sou Cliente</option>
+              <option value="" className="bg-white text-[#982546] text-start ">Sou Profissional</option>
             </select>
           </div>
+
         </div>
       </div>
     </>
