@@ -1,7 +1,7 @@
 function Section_3() {
     return (
         <>
-            <div className="h-full flex flex-col justify-center items-center gap-15">
+            <div className="h-full flex flex-col justify-center items-center gap-10">
                 <h1 className="text-center font-bold text-2xl ">
                     <span className="text-[#982546]">Benefícios</span> para você
                 </h1>

@@ -2,36 +2,35 @@ function Footer() {
 
     return (
         <>
-            <div className="h-full flex flex-col justify-center items-center gap-15">
+            <div className=" bg-[#1E0F0F] h-full flex flex-col justify-center items-center gap-15">
 
-                <div className="flex w-full justify-around items-center">
-                    <div className="flex flex-col w-2xs text-center gap-8 ">
-                        <ul className=" text-[#FFF3DC] flex flex-col gap-3 ">
-                            <li className="flex flex-row items-center gap-5"><img src="src/assets/Email.png" className="h-10" alt="" />Contatos1234@auraSA.com</li>
-                            <li className="flex flex-row items-center gap-5"><img src="src/assets/Phone Squared.png" className="h-10" alt="" />(xx)xxxxx-xxxx</li>
+                <h1 className="text-center font-bold text-2xl text-[#FFF3DC] ">
+                    Contatos
+                </h1>
+
+                <div className="w-full flex flex-row justify-evenly">
+
+                    <div className="flex flex-col text-[#FFF3DC] w-50 ">
+                        <ul>
+                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Email-icon.png" alt="" className="h-10 " /><a href="">contatoaura@gmail.com</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Phone-icon.png" alt="" className="h-10 " />(11) 98950-9942</li>
                         </ul>
-                    </div>
-
-                    <div className="flex flex-col items-center gap-10">
-                        <h1 className="text-center font-bold text-2xl text-[#FFF3DC]">
-                            Contatos
-                        </h1>
-                        <img src="src/assets/logo-aura-claro.png" alt="" className="h-48" />
                     </div>
 
                     <div>
-                        <ul className=" text-[#FFF3DC] flex flex-col gap-3 ">
-                            <li className="flex flex-row items-center gap-5"><img src="src/assets/Instagram.png" className="h-10" alt="" />AURA_ofc</li>
-                            <li className="flex flex-row items-center gap-5"><img src="src/assets/X.png" className="h-10" alt="" />ofc_AURA</li>
-                            <li className="flex flex-row items-center gap-5"><img src="src/assets/Facebook.png" className="h-10" alt="" />AURA_aura</li>
-                        </ul>
-
+                        <img src="src/assets/logo-aura-claro.png " alt="" className="h-40 " />
                     </div>
 
-
+                    <div className="flex flex-col text-[#FFF3DC] w-50 ">
+                        <ul>
+                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Instagram-icon.png" alt="" className="h-10 " /><a href="">AURA_ofc</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="src/assets/X-icon.png" alt="" className="h-10 " /><a href="">ofc_AURA</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Facebook-icon.png" alt="" className="h-10 " /><a href="">AURA_aura</a></li>
+                        </ul>
+                    </div>
                 </div>
 
-
+                <p className="text-[#b1afab]">&copy;AURA</p>
             </div>
         </>
     )
