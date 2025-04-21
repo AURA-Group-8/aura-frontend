@@ -1,27 +1,39 @@
 import { useState } from 'react'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import Navbar from './components/Navbar'
-import Section_1 from './components/Section-1'
-import Section_2 from './components/Section-2'
-import Section_3 from './components/Section-3'
-import Section_4 from './components/Section-4'
+import Section_1 from './components/landing-page-sections/Section-1'
+import Section_2 from './components/landing-page-sections/Section-2'
+import Section_3 from './components/landing-page-sections/Section-3'
+import Section_4 from './components/landing-page-sections/Section-4'
 import Footer from './components/Footer'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ConfigCli from './components/client-screens/Config';
+import Tela_inicio_cliente from './components/client-screens/Tela-inicio-cliente';
 
 function App() {
 
   return (
     <>
-      <div className='scroll-smooth'>
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/components/client-screens/Config" element={<ConfigCli />} />
+          <Route path="/" element={<Tela_inicio_cliente />} />
+        </Routes>
+      </BrowserRouter>
+
+
+      {/* <div className='scroll-smooth'>
         <header>
           <Navbar />
         </header>
 
-        <section className="bg-[url('src/assets/bg-img.png')] bg-cover bg-center h-140 w-full" id='inicio'>
+        <section className="bg-[url('/assets/bg-img.png')] bg-cover bg-center h-140 w-full" id='inicio'>
           <Section_1 />
         </section>
 
-        <section className="bg-[#FFF3DC] bg-[url('src/assets/wave-background.png')] bg-center bg-cover h-140 w-full " id='sobre'>
+        <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-140 w-full " id='sobre'>
           <Section_2 />
         </section>
 
@@ -36,7 +48,7 @@ function App() {
         <section className="bg-[#1D0F0F] h-90 w-full " id='footer'>
           <Footer />
         </section>
-      </div>
+      </div> */}
 
     </>
   )

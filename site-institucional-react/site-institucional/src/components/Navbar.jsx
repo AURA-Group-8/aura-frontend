@@ -5,7 +5,7 @@ function Navbar() {
       <div className="w-full h-15 bg-[#FFF3DC] fixed">
         <div className="w-full mx-auto h-full flex justify-around  items-center">
 
-          <img src="src/assets/logo-aura-escuro.png" alt="" className="max-h-30 " />
+          <img src="/assets/logo-escuro-horizontal.png" alt="" className="max-h-30 " />
 
           <ul className="flex flex-row justify-around w-80 gap-8 ">
             <li><a href="#inicio" className="text-[#982546] font-bold">Início</a></li>

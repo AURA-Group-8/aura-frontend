@@ -1,4 +1,4 @@
-import FormsContact from "./FormsContact"
+import FormsContact from "../FormsContact"
 
 function Section_4() {
     return (
