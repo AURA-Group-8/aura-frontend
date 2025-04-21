@@ -1,0 +1,4 @@
+bege - #FFF2DC
+vinho - #982546
+marrom escuro - #341C1C
+vinho escuro - #680E28
