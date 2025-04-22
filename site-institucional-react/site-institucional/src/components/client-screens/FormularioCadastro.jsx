@@ -70,6 +70,13 @@ export default function FormularioCadastro() {
 
         
     }
+    const mascararTelefone = (valor) => {
+        return valor
+          .replace(/\D/g, "") 
+          .replace(/(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{5})(\d)/, "$1-$2")
+          .replace(/(-\d{4})\d+?$/, "$1"); 
+      };
 
     return (
 
@@ -104,7 +111,7 @@ export default function FormularioCadastro() {
                         </label>
 
                         <label>Telefone:
-                            <input type="text" onChange={e => setTelefone(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
+                            <input type="text" value={telefone} onChange={e => setTelefone(mascararTelefone(e.target.value))} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
                         </label>
 
                         <div className="flex gap-4 w-full">
