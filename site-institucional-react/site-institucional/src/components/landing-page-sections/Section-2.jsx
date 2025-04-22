@@ -7,9 +7,9 @@ function Section_2() {
                 </h1>
 
                 <div className="flex flex-row justify-around gap-20">
-                    <img src="src/assets/pincel-2.png" className="max-h-70" alt="" />
-                    <img src="src/assets/logo-escuro-vertical.png" className="max-h-50" alt="" />
-                    <img src="src/assets/pincel-1.png" className="max-h-70" alt="" />
+                    <img src="/assets/pincel-2.png" className="max-h-70" alt="" />
+                    <img src="/assets/logo-escuro-vertical.png" className="max-h-50" alt="" />
+                    <img src="/assets/pincel-1.png" className="max-h-70" alt="" />
                 </div>
 
                 <span className="text-center max-w-200">A Aura é uma empresa de tecnologia dedicada a criar soluções para o setor de beleza.

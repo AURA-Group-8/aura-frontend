@@ -1,17 +1,17 @@
 
 import { useNavigate } from 'react-router-dom';
 
-export default function NavbarCli() {
+export default function NavbarCli({caminho}) {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate("");
 
     return (
 
         <>
 
-            <div className="bg-[#FFF3DC] w-full h-15 flex flex-row justify-between items-center p-2 fixed ">
+            <div className="bg-[#FFF3DC] w-full h-15 flex flex-row justify-between items-center p-2 fixed shadow-2xs">
                 <div>
-                    <img src="/assets/logo-escuro-horizontal.png" alt="" className="h-30" />
+                    <img src="/assets/Back.png" alt="" className="h-10 cursor-pointer" onClick={() => navigate(caminho)} />
                 </div>
 
                 <div className="flex flex-row  ">

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import './App.css'
+
 import Navbar from './components/Navbar'
 import Section_1 from './components/landing-page-sections/Section-1'
 import Section_2 from './components/landing-page-sections/Section-2'
@@ -9,7 +9,12 @@ import Section_4 from './components/landing-page-sections/Section-4'
 import Footer from './components/Footer'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ConfigCli from './components/client-screens/Config';
-import Tela_inicio_cliente from './components/client-screens/Tela-inicio-cliente';
+import Cadastro from './components/client-screens/Cadastro'
+import Login from './components/client-screens/Login'
+import HomePage from './components/HomePage'
+import AlterarSenha from './components/ChangePassword'
+import HomeClient from './components/client-screens/Home-client'
+import Contato from './components/Contato'
 
 function App() {
 
@@ -18,37 +23,16 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/components/client-screens/Cadastro" element={<Cadastro />} />
+          <Route path="/components/client-screens/Login" element={<Login />} />
+          <Route path="/components/AlterarSenha" element={<AlterarSenha/>} />
+          <Route path="/components/Contato" element={<Contato/>} />
+
+          <Route path="/components/client-screens/Home-client" element={<HomeClient/>} />
           <Route path="/components/client-screens/Config" element={<ConfigCli />} />
-          <Route path="/" element={<Tela_inicio_cliente />} />
         </Routes>
       </BrowserRouter>
-
-
-      {/* <div className='scroll-smooth'>
-        <header>
-          <Navbar />
-        </header>
-
-        <section className="bg-[url('/assets/bg-img.png')] bg-cover bg-center h-140 w-full" id='inicio'>
-          <Section_1 />
-        </section>
-
-        <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-140 w-full " id='sobre'>
-          <Section_2 />
-        </section>
-
-        <section className="bg-[#FFF3DC] h-140 w-full " id='para_voce'>
-          <Section_3 />
-        </section>
-
-        <section className="bg-[#241313] h-140 w-full " id='contato'>
-          <Section_4 />
-        </section>
-
-        <section className="bg-[#1D0F0F] h-90 w-full " id='footer'>
-          <Footer />
-        </section>
-      </div> */}
 
     </>
   )

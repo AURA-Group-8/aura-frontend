@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 function Footer() {
 
+    const navigate = useNavigate;
+
     return (
+
+
         <>
             <div className=" bg-[#1E0F0F] h-full flex flex-col justify-center items-center gap-15">
 
@@ -12,20 +18,20 @@ function Footer() {
 
                     <div className="flex flex-col text-[#FFF3DC] w-50 ">
                         <ul>
-                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Email-icon.png" alt="" className="h-10 " /><a href="">contatoaura@gmail.com</a></li>
-                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Phone-icon.png" alt="" className="h-10 " />(11) 98950-9942</li>
+                            <li className="flex flex-row items-center gap-2"><img src="/assets/Email-icon.png" alt="" className="h-10 " /><a href="">contatoaura@gmail.com</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="/assets/Phone-icon.png" alt="" className="h-10 " />(11) 98950-9942</li>
                         </ul>
                     </div>
 
                     <div>
-                        <img src="src/assets/logo-aura-claro.png " alt="" className="h-40 " />
+                        <img src="/assets/logo-aura-claro.png " alt="" className="h-40 " />
                     </div>
 
                     <div className="flex flex-col text-[#FFF3DC] w-50 ">
                         <ul>
-                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Instagram-icon.png" alt="" className="h-10 " /><a href="">AURA_ofc</a></li>
-                            <li className="flex flex-row items-center gap-2"><img src="src/assets/X-icon.png" alt="" className="h-10 " /><a href="">ofc_AURA</a></li>
-                            <li className="flex flex-row items-center gap-2"><img src="src/assets/Facebook-icon.png" alt="" className="h-10 " /><a href="">AURA_aura</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="/assets/Instagram-icon.png" alt="" className="h-10 " /><a href="">AURA_ofc</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="/assets/X-icon.png" alt="" className="h-10 " /><a href="">ofc_AURA</a></li>
+                            <li className="flex flex-row items-center gap-2"><img src="/assets/Facebook-icon.png" alt="" className="h-10 " /><a href="">AURA_aura</a></li>
                         </ul>
                     </div>
                 </div>

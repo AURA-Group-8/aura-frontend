@@ -1,4 +1,26 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
+
 function Navbar() {
+
+  const navigate = useNavigate();
+
+  const [opcao, setOpcao] = useState('');
+
+  const opcaoLogin = (e) => {
+    const loginSelecionado = e.target.value;
+
+    setOpcao(loginSelecionado);
+
+    if (loginSelecionado === "cliente") {
+
+      navigate("/components/client-screens/Login");
+
+    } else if (loginSelecionado === "profissional") {
+
+      navigate("#");
+    }
+  }
 
   return (
     <>
@@ -15,9 +37,9 @@ function Navbar() {
           </ul>
 
           <div className="flex gap-2 ">
-            <button className="bg-transparent border border-[#982546] text-[#982546] w-20 h-9 rounded-xl cursor-pointer">Cadastro</button>
+            <button className="bg-transparent border border-[#982546] text-[#982546] w-20 h-9 rounded-xl cursor-pointer" onClick={() => navigate("/components/client-screens/Cadastro")}>Cadastro</button>
 
-            <select name="" id="" defaultValue="" className="appearance-none bg-[#982546] text-center text-[#FFF3DC] rounded-xl w-30 h-9">
+            <select value={opcao} onChange={opcaoLogin} name="" id="" defaultValue="" className="appearance-none bg-[#982546] text-center text-[#FFF3DC] rounded-xl w-30 h-9">
               <option value="" disabled hidden>Login</option>
               <option value="cliente" className="bg-amber-50 text-[#982546]">Sou cliente</option>
               <option value="profissional" className="bg-amber-50 text-[#982546]">Sou profissional</option>
