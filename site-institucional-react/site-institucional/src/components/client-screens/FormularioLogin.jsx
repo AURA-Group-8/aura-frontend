@@ -31,7 +31,8 @@ export default function FormularioLogin() {
                 if(error.status === 401){
                     console.log("entrei aqui")
                     console.error("Erro ao logar:", error.data);
-                    alert("Email ou senha incorretos.");
+                    setMensagem("❌ Email ou senha incorretos.");
+                    setCaminho("/assets/Alert.png")
                     return;
                 }
             }
