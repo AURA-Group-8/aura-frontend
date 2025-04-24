@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Alerta from "../Pop-up";
 
 export default function FormularioLogin() {
     const [nomeCompleto, setNomeCompleto] = useState("");
     const [email, setEmail] = useState("");
     const [dataNasc, setDataNasc] = useState("");
     const [telefone, setTelefone] = useState("");
+    const [mensagem, setMensagem] = useState("");
+    const [caminho, setCaminho] = useState('');
+
 
     const [senha, setSenha] = useState("");
 
@@ -28,7 +32,7 @@ export default function FormularioLogin() {
                 }, 2000);
             })
             .catch((error) => {
-                if(error.status === 401){
+                if (error.status === 401) {
                     console.log("entrei aqui")
                     console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Email ou senha incorretos.");
@@ -36,14 +40,20 @@ export default function FormularioLogin() {
                     return;
                 }
             }
-        );
-        
+            );
+
     }
 
 
     return (
 
         <>
+            {mensagem && (
+                <Alerta
+                    mensagem={mensagem}
+                    imagem={caminho}
+                />
+            )}
             <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative ">
                 <div className="absolute inset-0 bg-[url('/assets/wave-background.png')] bg-cover bg-center opacity-65 z-0"></div>
 
