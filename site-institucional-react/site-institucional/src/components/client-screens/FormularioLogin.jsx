@@ -4,17 +4,18 @@ import { useNavigate } from "react-router-dom";
 import Alerta from "../Pop-up";
 
 export default function FormularioLogin() {
-    const [nomeCompleto, setNomeCompleto] = useState("");
     const [email, setEmail] = useState("");
-    const [dataNasc, setDataNasc] = useState("");
-    const [telefone, setTelefone] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
-
-
     const [senha, setSenha] = useState("");
 
     const navigate = useNavigate();
+
+    const limparAlert = () => {
+        setTimeout(() => {
+            setMensagem("");
+        }, 2000);
+    }
 
     function loginUsuario(e) {
         e.preventDefault();
@@ -37,6 +38,7 @@ export default function FormularioLogin() {
                     console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Email ou senha incorretos.");
                     setCaminho("/assets/Alert.png")
+                    limparAlert();
                     return;
                 }
             }

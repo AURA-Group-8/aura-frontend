@@ -11,6 +11,7 @@ export default function FormularioCadastro() {
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
+    const [senhaConfirmada, setSenhaConfirmada] = useState("");
 
     const navigate = useNavigate();
     const UserUrl = "http://localhost:8080/usuarios";
@@ -84,6 +85,13 @@ export default function FormularioCadastro() {
             limparAlert();
             return;
         }
+        if(senhaConfirmada !== senha) {
+            setMensagem("❌ As senhas não coincidem.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
         const formattedDate = dataNasc ? `${dataNasc}T00:00:00` : null;
 
         const usuario = {
@@ -108,6 +116,7 @@ export default function FormularioCadastro() {
                 console.error("Erro ao cadastrar usuário:", error);
                 setMensagem("❌ Erro ao cadastrar usuário. Tente novamente mais tarde.");
                 setCaminho("/assets/Alert.png")
+                limparAlert();
                 console.log(error.response.data.message)
             });
 
@@ -171,7 +180,7 @@ export default function FormularioCadastro() {
 
                             <div className="flex flex-col w-1/2 gap-[0.5vh]" >
                                 <label>Confirmar senha:
-                                    <input id="confirmarSenha" type="password" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] " required />
+                                    <input id="confirmarSenha" type="password" onChange={e => setSenhaConfirmada(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] " required />
                                 </label>
                             </div>
                         </div>
