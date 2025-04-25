@@ -16,29 +16,6 @@ export default function FormularioCadastro() {
     const navigate = useNavigate();
     const UserUrl = "http://localhost:8080/usuarios";
 
-    function cadastrarUsuario() {
-        const usuario = {
-            nomeCompleto,
-            email,
-            dataNasc,
-            telefone,
-            senha
-        };
-        axios.post(UserUrl, usuario)
-            .then((response) => {
-                console.log("Usuário cadastrado com sucesso:", response.data);
-                setMensagem("✅ Cadastro realizado com sucesso!");
-                setCaminho("/assets/Check-pop.png")
-            })
-            .catch((error) => {
-                console.error("Erro ao cadastrar usuário:", error);
-                setMensagem("❌ Erro ao cadastrar usuário. Tente novamente mais tarde.");
-                setCaminho("/assets/Alert.png")
-            });
-    }
-
-
-
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
@@ -117,7 +94,7 @@ export default function FormularioCadastro() {
                 setMensagem("❌ Erro ao cadastrar usuário. Tente novamente mais tarde.");
                 setCaminho("/assets/Alert.png")
                 limparAlert();
-                console.log(error.response.data.message)
+                console.error(error.response.data.message)
             });
 
 
@@ -185,7 +162,7 @@ export default function FormularioCadastro() {
                             </div>
                         </div>
 
-                        <button type="submit" onClick={cadastrarUsuario} className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
+                        <button type="submit" onClick={cadastrar} className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
                             Cadastrar
                         </button>
                     </form>
