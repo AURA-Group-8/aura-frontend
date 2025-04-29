@@ -2,11 +2,14 @@ import NavbarCli from "./Navbar-cli";
 import FormsConfig from "../Forms-config";
 import { useState } from "react";
 import Alerta from "../Pop-up";
+import { useNavigate } from "react-router-dom";
 
 export default function ConfigCli() {
 
     const [desabilitado, setDesabilitado] = useState(true);
     const [mensagem, setMensagem] = useState("");
+
+    const navigate = useNavigate();
 
     const editar = () => {
 
@@ -20,6 +23,14 @@ export default function ConfigCli() {
 
         setDesabilitado(!desabilitado);
     }
+
+    const logoOff = () => {
+        sessionStorage.removeItem('authToken');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('username'); 
+        sessionStorage.removeItem('userEmail');
+        navigate('/');
+    };
 
     return (
         <>
@@ -58,7 +69,7 @@ export default function ConfigCli() {
                         </div>
 
                         <div className="flex flex-row justify-between gap-4 pt-5">
-                            <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 self-end cursor-pointer">Sair da conta</button>
+                            <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 self-end cursor-pointer" onClick={logoOff}>Sair da conta</button>
                             <button className="text-[#982546] cursor-pointer">Deletar conta</button>
                         </div>
                     </form>
