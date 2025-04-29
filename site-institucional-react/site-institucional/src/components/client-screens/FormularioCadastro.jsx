@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function FormularioCadastro() {
     const [nomeCompleto, setNomeCompleto] = useState("");
@@ -10,10 +11,12 @@ export default function FormularioCadastro() {
     const [senha, setSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
+    const [senhaConfirmada, setSenhaConfirmada] = useState("");
 
     const navigate = useNavigate();
+    const UserUrl = "http://localhost:8080/usuarios";
 
-    const limparAlert = () =>{
+    const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
@@ -34,16 +37,16 @@ export default function FormularioCadastro() {
         }
         if (nomeCompleto.trim().length < 2) {
             setMensagem("Nome completo deve ter mais de 2 caracteres");
-            setCaminho("/assets/Alert.png");  
-            limparAlert();
-            return;
-            
-        }
-        if (telefone.trim().length != 11) {
-            setMensagem("Telefone deve ter 11 dígitos (com DDD)");
             setCaminho("/assets/Alert.png");
             limparAlert();
-          
+            return;
+
+        }
+        if (telefone.trim().length != 15) {
+            setMensagem("Telefone deve ter 15 dígitos (com DDD)");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+
             return;
         }
         if (senha.trim().length < 6) {
@@ -59,24 +62,55 @@ export default function FormularioCadastro() {
             limparAlert();
             return;
         }
+        if(senhaConfirmada !== senha) {
+            setMensagem("❌ As senhas não coincidem.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
 
-        setMensagem("✅ Cadastro realizado com sucesso!");
-        setCaminho("/assets/Check-pop.png")
+        const formattedDate = dataNasc ? `${dataNasc}T00:00:00` : null;
 
-        setTimeout(() => {
-            navigate("/components/client-screens/Login"); 
-        }, 2000);
+        const usuario = {
+            username: nomeCompleto,
+            email: email,
+            dateOfBirth: formattedDate,
+            phone: telefone,
+            password: senha,
+            roleId: 2
+        };
+        console.log("Dados Enviados: ", usuario)
+        axios.post(UserUrl, usuario)
+            .then((response) => {
+                console.log("Usuário cadastrado com sucesso:", response.data);
+                setMensagem("✅ Cadastro realizado com sucesso!");
+                setCaminho("/assets/Check-pop.png")
+                setTimeout(() => {
+                    navigate("/components/client-screens/Login");
+                }, 2000);
+            })
+            .catch((error) => {
+                console.error("Erro ao cadastrar usuário:", error);
+                setMensagem("❌ Erro ao cadastrar usuário. Tente novamente mais tarde.");
+                setCaminho("/assets/Alert.png")
+                limparAlert();
+                console.error(error.response.data.message)
+            });
 
 
-        
+
+
+
+
+
     }
     const mascararTelefone = (valor) => {
         return valor
-          .replace(/\D/g, "") 
-          .replace(/(\d{2})(\d)/, "($1) $2")
-          .replace(/(\d{5})(\d)/, "$1-$2")
-          .replace(/(-\d{4})\d+?$/, "$1"); 
-      };
+            .replace(/\D/g, "")
+            .replace(/(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{5})(\d)/, "$1-$2")
+            .replace(/(-\d{4})\d+?$/, "$1");
+    };
 
     return (
 
@@ -123,12 +157,12 @@ export default function FormularioCadastro() {
 
                             <div className="flex flex-col w-1/2 gap-[0.5vh]" >
                                 <label>Confirmar senha:
-                                    <input id="confirmarSenha" type="password" className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] " required />
+                                    <input id="confirmarSenha" type="password" onChange={e => setSenhaConfirmada(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] " required />
                                 </label>
                             </div>
                         </div>
 
-                        <button type="submit" className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
+                        <button type="submit" onClick={cadastrar} className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
                             Cadastrar
                         </button>
                     </form>
