@@ -1,12 +1,5 @@
 import { useState } from 'react'
 
-
-import Navbar from './components/Navbar'
-import Section_1 from './components/landing-page-sections/Section-1'
-import Section_2 from './components/landing-page-sections/Section-2'
-import Section_3 from './components/landing-page-sections/Section-3'
-import Section_4 from './components/landing-page-sections/Section-4'
-import Footer from './components/Footer'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ConfigCli from './components/client-screens/Config';
 import Cadastro from './components/client-screens/Cadastro'

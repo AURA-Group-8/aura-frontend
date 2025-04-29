@@ -23,9 +23,16 @@ export default function FormularioLogin() {
             email,
             password: senha
         };
+
         axios.post("http://localhost:8080/usuarios/login", usuario)
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);
+
+                sessionStorage.setItem('authToken', response.data.token);
+                sessionStorage.setItem('userId', response.data.id);
+                sessionStorage.setItem('userName', response.data.username);
+                sessionStorage.setItem('userEmail', response.data.email);
+                
                 setMensagem("✅ Login realizado com sucesso!");
                 setCaminho("/assets/Check-pop.png")
                 setTimeout(() => {
@@ -39,7 +46,11 @@ export default function FormularioLogin() {
                     setMensagem("❌ Email ou senha incorretos.");
                     setCaminho("/assets/Alert.png")
                     limparAlert();
-                    return;
+                }else{
+                    console.error("Erro ao logar:", error.data);
+                    setMensagem("❌ Erro ao logar");
+                    setCaminho("/assets/Alert.png")
+                    limparAlert();
                 }
             }
             );
@@ -66,7 +77,7 @@ export default function FormularioLogin() {
                         <h1 className="text-2xl"> Acesse sua conta</h1>
                     </div>
 
-                    <form className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]">
+                    <form onSubmit={loginUsuario} className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]">
 
                         <label htmlFor="Campo">Email:</label>
                         <input type="text" onChange={e => setEmail(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
@@ -74,7 +85,7 @@ export default function FormularioLogin() {
                         <label htmlFor="senha">Senha:</label>
                         <input type="password" onChange={e => setSenha(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
 
-                        <button type="submit" onClick={loginUsuario} className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
+                        <button className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
                             Login
                         </button>
 
