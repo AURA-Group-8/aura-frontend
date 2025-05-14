@@ -7,6 +7,10 @@ import ConfigCli from "../pages/client-pages/Config";
 import Contato from "../pages/client-pages/Contact";
 import HomeClient from "../pages/client-pages/Home";
 import HomePage from "../pages/landing-page-sections/HomePage";
+import Dashboard from "../pages/professional-pages/Dashboard";
+import Agendar from "../pages/professional-pages/Agendar";
+import DataHora from "../pages/professional-pages/DataHora";
+import Confirmar from "../pages/professional-pages/Confirmar";
 
 
 export const routes = createBrowserRouter([
@@ -51,5 +55,30 @@ export const routes = createBrowserRouter([
         path: "/pages/client-pages/Config",
         element: <ConfigCli/>,
         errorElement: <h1>Page not found</h1>
-    }
+    },
+
+    {
+        path: "/pages/professional-pages/Dashboard",
+        element: <Dashboard/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Agendar",
+        element: <Agendar/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/DataHora",
+        element: <DataHora/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Confirmar",
+        element: <Confirmar/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
 ])

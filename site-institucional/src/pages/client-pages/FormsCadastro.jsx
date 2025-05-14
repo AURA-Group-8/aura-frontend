@@ -167,7 +167,7 @@ export default function FormularioCadastro() {
                         </button>
                     </form>
 
-                    <p className="text-xs mt-4">Já possui conta? <a href="/components/client-screens/Login" className="underline">Login</a></p>
+                    <p className="text-xs mt-4">Já possui conta? <a href="/pages/client-pages/Login" className="underline">Login</a></p>
                 </div>
             </div>
         </>

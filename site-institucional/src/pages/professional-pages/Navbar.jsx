@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 
-export default function NavbarCli({caminho}) {
+export default function NavbarPro({caminho}) {
 
     const navigate = useNavigate("");
 
@@ -15,8 +15,7 @@ export default function NavbarCli({caminho}) {
                 </div>
 
                 <div className="flex flex-row  ">
-                    <img src="/assets/user.png" alt="" className="h-8 cursor-pointer " onClick={() => navigate("/components/client-screens/Config")} />
-                    <img src="/assets/Doorbell.png" alt="" className="h- cursor-pointer" />
+                    <img src="/assets/Doorbell.png" alt="" className="h-8 cursor-pointer" />
                 </div>
             </div>
         </>
