@@ -18,7 +18,6 @@ export default function Confirmar() {
                             <p className="font-bold text-[#982546]">Serviços</p>
                             <ul>
                                 <li>aaaaaaaaaaaa</li>
-                                <li>bbbbbbbbb</li>
                             </ul>
                         </div>
 
