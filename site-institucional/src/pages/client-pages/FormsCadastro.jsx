@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Login from "./Login";
 
 export default function FormularioCadastro() {
     const [nomeCompleto, setNomeCompleto] = useState("");
@@ -12,6 +13,7 @@ export default function FormularioCadastro() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
 
     const navigate = useNavigate();
     const UserUrl = "http://localhost:8080/usuarios";
@@ -20,10 +22,12 @@ export default function FormularioCadastro() {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
-    }
+    };
 
     const cadastrar = (e) => {
         e.preventDefault(); // evita recarregar a página
+
+        if (isSubmitting) return; // Evita múltiplos cliques
 
         const temMaiuscula = /[A-Z]/.test(senha);
         const temNumero = /[0-9]/.test(senha);
@@ -40,20 +44,17 @@ export default function FormularioCadastro() {
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
-
         }
-        if (telefone.trim().length != 15) {
+        if (telefone.trim().length !== 15) {
             setMensagem("Telefone deve ter 15 dígitos (com DDD)");
             setCaminho("/assets/Alert.png");
             limparAlert();
-
             return;
         }
         if (senha.trim().length < 6) {
             setMensagem("Senha deve ter mais de 6 caracteres");
             setCaminho("/assets/Alert.png");
             limparAlert();
-
             return;
         }
         if (!(temNumero && temMaiuscula && temEspecial)) {
@@ -62,7 +63,7 @@ export default function FormularioCadastro() {
             limparAlert();
             return;
         }
-        if(senhaConfirmada !== senha) {
+        if (senhaConfirmada !== senha) {
             setMensagem("❌ As senhas não coincidem.");
             setCaminho("/assets/Alert.png");
             limparAlert();
@@ -79,31 +80,29 @@ export default function FormularioCadastro() {
             password: senha,
             roleId: 2
         };
-        console.log("Dados Enviados: ", usuario)
+
+        setIsSubmitting(true); // Desabilita o botão
+
         axios.post(UserUrl, usuario)
             .then((response) => {
                 console.log("Usuário cadastrado com sucesso:", response.data);
                 setMensagem("✅ Cadastro realizado com sucesso!");
-                setCaminho("/assets/Check-pop.png")
+                setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
-                    navigate(<Login />);
+                    navigate("/pages/client-pages/Login");
                 }, 2000);
             })
             .catch((error) => {
                 console.error("Erro ao cadastrar usuário:", error);
                 setMensagem("❌ Erro ao cadastrar usuário. Tente novamente mais tarde.");
-                setCaminho("/assets/Alert.png")
+                setCaminho("/assets/Alert.png");
                 limparAlert();
-                console.error(error.response.data.message)
+            })
+            .finally(() => {
+                setIsSubmitting(false); // Reabilita o botão
             });
+    };
 
-
-
-
-
-
-
-    }
     const mascararTelefone = (valor) => {
         return valor
             .replace(/\D/g, "")
@@ -113,7 +112,6 @@ export default function FormularioCadastro() {
     };
 
     return (
-
         <>
             {mensagem && (
                 <Alerta
@@ -162,8 +160,12 @@ export default function FormularioCadastro() {
                             </div>
                         </div>
 
-                        <button type="submit" onClick={cadastrar} className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
-                            Cadastrar
+                        <button
+                            type="submit"
+                            disabled={isSubmitting} // Desabilita o botão
+                            className={`mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                        >
+                            {isSubmitting ? "Enviando..." : "Cadastrar"}
                         </button>
                     </form>
 
