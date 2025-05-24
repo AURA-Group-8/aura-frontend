@@ -23,6 +23,7 @@ export default function FormularioLogin() {
             email,
             password: senha
         };
+        console.log(usuario);
 
         axios.post("http://localhost:8080/usuarios/login", usuario)
             .then((response) => {
@@ -32,6 +33,8 @@ export default function FormularioLogin() {
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userName', response.data.username);
                 sessionStorage.setItem('userEmail', response.data.email);
+
+                console.log("User ID:", response.data.id);
                 
                 setMensagem("✅ Login realizado com sucesso!");
                 setCaminho("/assets/Check-pop.png")
@@ -40,7 +43,7 @@ export default function FormularioLogin() {
                 }, 2000);
             })
             .catch((error) => {
-                if (error.status === 401) {
+                if (error.response && error.response.status === 401) {
                     console.log("entrei aqui")
                     console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Email ou senha incorretos.");
