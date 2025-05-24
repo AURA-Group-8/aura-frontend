@@ -25,7 +25,7 @@ export default function FormularioLogin() {
         };
         console.log(usuario);
 
-        axios.post("http://localhost:8080/usuarios/login", usuario)
+        axios.post("https://backend-f9bkhkdqfkcqhwe6.westus3-01.azurewebsites.net//usuarios/login", usuario)
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);
 

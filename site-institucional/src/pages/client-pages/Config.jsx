@@ -54,7 +54,7 @@ export default function ConfigCli() {
             try {
                 const authToken = sessionStorage.getItem("authToken");
                 await axios.patch(
-                    `http://localhost:8080/usuarios/${userId}`,
+                    `https://backend-f9bkhkdqfkcqhwe6.westus3-01.azurewebsites.net//usuarios/${userId}`,
                     usuarioParaAtualizar,
                     {
                         headers: {

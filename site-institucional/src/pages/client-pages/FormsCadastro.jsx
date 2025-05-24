@@ -16,7 +16,7 @@ export default function FormularioCadastro() {
     const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
 
     const navigate = useNavigate();
-    const UserUrl = "http://localhost:8080/usuarios";
+    const UserUrl = "https://backend-f9bkhkdqfkcqhwe6.westus3-01.azurewebsites.net//usuarios";
 
     const limparAlert = () => {
         setTimeout(() => {
