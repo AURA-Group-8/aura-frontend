@@ -13,6 +13,7 @@ import DataHora from "../pages/professional-pages/DataHora";
 import Confirmar from "../pages/professional-pages/Confirmar";
 import CadastroCli from "../pages/professional-pages/CadastroCli";
 import Alerta from "../pages/Pop-up";
+import Notificacao from "../pages/client-pages/Notificacao";
 
 
 export const routes = createBrowserRouter([
@@ -92,6 +93,12 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/Pop-up",
         element: <Alerta/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/Notificacao",
+        element: <Notificacao/>,
         errorElement: <h1>Page not found</h1>
     },
 
