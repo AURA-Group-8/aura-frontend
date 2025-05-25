@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "route": "/pages/client-pages/Cadastro",
+      "methods": [
+        "get"
+      ]
+    }
+  ]
+}
