@@ -14,6 +14,8 @@ import Confirmar from "../pages/professional-pages/Confirmar";
 import CadastroCli from "../pages/professional-pages/CadastroCli";
 import Alerta from "../pages/Pop-up";
 import Notificacao from "../pages/client-pages/Notificacao";
+import MeusServicos from "../pages/professional-pages/MeusServiços";
+import Financeiro from "../pages/professional-pages/Financeiro";
 
 
 export const routes = createBrowserRouter([
@@ -99,6 +101,18 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/client-pages/Notificacao",
         element: <Notificacao/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/MeusServicos",
+        element: <MeusServicos/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Financeiro",
+        element: <Financeiro/>,
         errorElement: <h1>Page not found</h1>
     },
 

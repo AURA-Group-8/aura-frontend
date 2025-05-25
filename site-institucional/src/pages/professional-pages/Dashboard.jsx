@@ -1,14 +1,26 @@
+import { m } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MenuLateral from "./MenuLateral";
+import CardAgendamento from "./CardAgendamento";
 
 export default function Dashboard() {
 
     const navigate = useNavigate();
-    const [selectedItem, setSelectedItem] = useState(null);
 
-    const handleSelect = (item, event) => {
-        event.preventDefault();
-        setSelectedItem(item);
+
+    const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
+    const [pagamentoSelecionado, setPagamentoSelecionado] = useState(null);
+
+    const [menuAberto, setMenuAberto] = useState(false);
+
+
+    const handleSelectRadio = (grupo, valor) => {
+        if (grupo === 'periodo') {
+            setPeriodoSelecionado(periodoSelecionado === valor ? null : valor);
+        } else if (grupo === 'pagamento') {
+            setPagamentoSelecionado(pagamentoSelecionado === valor ? null : valor);
+        }
     };
 
     return (
@@ -16,72 +28,7 @@ export default function Dashboard() {
             <div className="w-full h-screen bg-[#FFF3DC] ">
                 <div className="h-full flex flex-row">
 
-                    <div className="bg-[#341C1C] h-full flex flex-col gap-10 w-44 fixed">
-                        <img src="/assets/logo-aura-claro.png " alt="" className="max-h-30 w-30 m-5" />
-                        <div className="flex flex-col justify-center gap-15 items-center">
-                            <ul className="flex flex-col gap-2 text-[#FFF3DC] ">
-                                <li
-                                    className={`p-2 flex flex-row justify-between gap-2 cursor-pointer ${selectedItem === "agendamentos" ? "bg-[#982546] rounded-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("agendamentos", e)}
-                                >
-                                    <a href="#">Agendamentos</a>
-                                    <img src="/assets/Task.png" alt="" className="h-6 " />
-                                </li>
-                                <li
-                                    className={` p-2 flex flex-row justify-between cursor-pointer ${selectedItem === "meus-servicos" ? "bg-[#982546] rounded-md shadow-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("meus-servicos", e)}
-                                >
-                                    <a href="#">Meus Serviços</a>
-                                    <img src="/assets/Eyebrow.png" alt="" className="h-6 " />
-                                </li>
-                                <li
-                                    className={` p-2 flex flex-row justify-between cursor-pointer ${selectedItem === "financas" ? "bg-[#982546] rounded-md shadow-lg" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("financas", e)}
-                                >
-                                    <a href="#">Finanças</a>
-                                    <img src="/assets/Coins.png" alt="" className="h-6 " />
-                                </li>
-                                <li
-                                    className={`p-2 flex flex-row justify-between cursor-pointer ${selectedItem === "clientes" ? "bg-[#982546] rounded-md shadow-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("clientes", e)}
-                                >
-                                    <a href="#">Clientes</a>
-                                    <img src="/assets/User-claro.png" alt="" className="h-6 " />
-                                </li>
-                            </ul>
-
-                            <ul className="text-[#DD859E] flex flex-col">
-                                <li
-                                    className={`p-2 flex flex-row justify-between cursor-pointer ${selectedItem === "contato" ? "bg-[#982546] rounded-md shadow-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("contato", e)}
-                                >
-                                    <a href="#">Contato</a>
-                                    <img src="/assets/Help2.png" alt="" className="h-6 " />
-                                </li>
-                                <li
-                                    className={`p-2 flex flex-row justify-between gap-2 cursor-pointer ${selectedItem === "configuracoes" ? "bg-[#982546] rounded-md shadow-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("configuracoes", e)}
-                                >
-                                    <a href="#">Configurações</a>
-                                    <img src="/assets/Services.png" alt="" className="h-6 " />
-                                </li>
-                                <li
-                                    className={`p-2 flex flex-row justify-between cursor-pointer ${selectedItem === "logout" ? "bg-[#982546] rounded-md shadow-md" : ""
-                                        }`}
-                                    onClick={(e) => handleSelect("logout", e)}
-                                >
-                                    <a href="#">Logout</a>
-                                    <img src="/assets/Logout.png" alt="" className="h-6 " />
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <MenuLateral/>
 
                     <div className="flex flex-col w-full h-full  items-center ">
                         <div className="w-full flex flex-row justify-end">
@@ -92,19 +39,56 @@ export default function Dashboard() {
 
                             <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
-                            <div className="w-full flex flex-row justify-between items-center mt-5">
+                            <div className="w-full flex flex-row justify-between items-start mt-5 ">
 
 
-                                <div className="flex flex-row-reverse justify-center items-center ">
-                                    <div className="bg-amber-300 w-40 h-40 z-100">
+                                <div className="flex flex-row-reverse justify-between w-110 items-start relative" >
+                                    <div className="w-full transition-all duration-300 ml-2 relative">
+                                        {menuAberto && (
+                                            <>
+                                                <div className="max-w-2xl flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546]">
+                                                    <div className="flex flex-col ">
+                                                        <p className="font-bold text-[#982546]">Período</p>
+                                                        <div className="flex flex-row gap-2 mt-2 border-b-1 border-[#982546]">
+                                                            <input type="radio" name="all" id="" checked={periodoSelecionado === "todos"} onChange={() => handleSelectRadio("periodo", "todos")} /><span>Todos</span>
+                                                            <input type="radio" name="today" id="" checked={periodoSelecionado === "hoje"} onChange={() => handleSelectRadio("periodo", "hoje")} /><span>Hoje</span>
+                                                            <input type="radio" name="week" id="" checked={periodoSelecionado === "semana"} onChange={() => handleSelectRadio("periodo", "semana")} /><span>Essa semana</span>
+                                                            <input type="radio" name="month" id="" checked={periodoSelecionado === "mes"} onChange={() => handleSelectRadio("periodo", "mes")} /><span>Esse mês</span>
+                                                        </div>
+                                                    </div>
 
+                                                    <div className="flex flex-col mt-5">
+                                                        <p className="font-bold text-[#982546]">Pagamento</p>
+                                                        <div className="flex flex-row gap-2 mt-2 border-b-1 border-[#982546]">
+                                                            <input type="radio" name="all" id="" checked={pagamentoSelecionado === "pago"} onChange={() => handleSelectRadio("pagamento", "pago")} /><span>Pago</span>
+                                                            <input type="radio" name="today" id="" checked={pagamentoSelecionado === "pendente"} onChange={() => handleSelectRadio("pagamento", "pendente")} /><span>Pendente</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex flex-col mt-5">
+                                                        <p className="font-bold text-[#982546]">Serviço</p>
+                                                        <div className="flex flex-row gap-2 mt-2">
+                                                            <select name="service" id="" className="border-1 border-[#982546] bg-white rounded-2xl p-2 w-full">
+                                                                <option value="1">Serviço</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </>
+                                        )}
                                     </div>
-                                    <button className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078] "><img src="/assets/Slider.png" alt="" className="h-6" /></button>
+                                    <button className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]" onClick={() => setMenuAberto(!menuAberto)}><img src="/assets/Slider.png" alt="" className="h-6" /></button>
+
                                 </div>
 
                                 <button className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]" onClick={() => navigate("/pages/professional-pages/Agendar")}>Adicionar agendamento</button>
 
                             </div>
+                        </div>
+
+                        <div className="flex w-210 h-90 ml-20 mt-5 overflow-y-scroll flex-wrap">
+                            <CardAgendamento/>
                         </div>
                     </div>
                 </div>
