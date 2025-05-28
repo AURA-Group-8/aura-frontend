@@ -70,6 +70,7 @@ export default function FormularioLogin() {
                     imagem={caminho}
                 />
             )}
+            
             <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative ">
                 <div className="absolute inset-0 bg-[url('/assets/wave-background.png')] bg-cover bg-center opacity-65 z-0"></div>
 

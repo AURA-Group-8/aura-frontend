@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import MenuLateral from "./MenuLateral";
-import { useState } from "react";
+import { use, useState } from "react";
 
 export default function MeusServicos() {
 
     const [menuAberto, setMenuAberto] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -21,7 +23,7 @@ export default function MeusServicos() {
 
 
                         <div className="flex flex-row w-210  justify-between ml-20 mt-10">
-                            <button className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC]">Adicionar serviço</button>
+                            <button className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer" onClick={() => navigate("/pages/professional-pages/AddServico")}>Adicionar serviço</button>
                             <input type="text" placeholder="Buscar serviço" className="p-2 bg-white rounded-2xl border border-[#982546]" />
 
                         </div>

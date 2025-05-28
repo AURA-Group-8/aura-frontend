@@ -16,6 +16,13 @@ import Alerta from "../pages/Pop-up";
 import Notificacao from "../pages/client-pages/Notificacao";
 import MeusServicos from "../pages/professional-pages/MeusServiços";
 import Financeiro from "../pages/professional-pages/Financeiro";
+import AddServico from "../pages/professional-pages/AddServico";
+import HistoricoFinanceiro from "../pages/professional-pages/HistoricoFinanceiro";
+import MeusClientes from "../pages/professional-pages/MeusClientes";
+import Mensagem from "../pages/professional-pages/Mensagem";
+import LoginPro from "../pages/professional-pages/Login";
+import ContatoPro from "../pages/professional-pages/Contato";
+import Configuracoes from "../pages/professional-pages/configuracoes";
 
 
 export const routes = createBrowserRouter([
@@ -113,6 +120,47 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/professional-pages/Financeiro",
         element: <Financeiro/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/AddServico",
+        element: <AddServico/>,
+        errorElement: <h1>Page not found</h1>
+    },
+    {
+        path: "/pages/professional-pages/HistoricoFinanceiro",
+        element: <HistoricoFinanceiro/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/MeusClientes",
+        element: <MeusClientes/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Mensagem",
+        element: <Mensagem/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Login",
+        element: <LoginPro/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Contato",
+        element: <ContatoPro/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Configuracoes",
+        element: <Configuracoes/>,
         errorElement: <h1>Page not found</h1>
     },
 

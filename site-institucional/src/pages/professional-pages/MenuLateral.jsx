@@ -23,8 +23,8 @@ export default function MenuLateral() {
                         <Link to="/pages/professional-pages/Financeiro">Finanças</Link>
                         <img src="/assets/Coins.png" alt="Finanças" className="h-6" />
                     </li>
-                    <li className={`p-2 flex flex-row justify-between cursor-pointer ${isSelected("/Clientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                        <Link to="/pages/professional-pages/Clientes">Clientes</Link>
+                    <li className={`p-2 flex flex-row justify-between cursor-pointer ${isSelected("/MeusClientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <Link to="/pages/professional-pages/MeusClientes">Clientes</Link>
                         <img src="/assets/User-claro.png" alt="Clientes" className="h-6" />
                     </li>
                 </ul>

@@ -1,0 +1,82 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Header from "../Header-login";
+import Alerta from "../Pop-up";
+
+export default function LoginPro() {
+
+    const [email, setEmail] = useState("");
+    const [mensagem, setMensagem] = useState("");
+    const [caminho, setCaminho] = useState('');
+    const [senha, setSenha] = useState("");
+
+    const navigate = useNavigate();
+
+    const limparAlert = () => {
+        setTimeout(() => {
+            setMensagem("");
+        }, 2000);
+    }
+
+    const logar = (e) => {
+        e.preventDefault();
+
+        if (email === "" || senha === "" ) {
+            setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        setMensagem("Login feito com sucesso!");
+        setCaminho("/assets/Check-pop.png");
+        limparAlert();
+
+        navigate("/pages/professional-pages/Dashboard");
+        return;
+
+    }
+
+    return (
+    
+            <>
+                {mensagem && (
+                    <Alerta
+                        mensagem={mensagem}
+                        imagem={caminho}
+                    />
+                )}
+
+                 <Header />
+                <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative ">
+                    <div className="absolute inset-0 bg-[url('/assets/wave-background.png')] bg-cover bg-center opacity-65 z-0"></div>
+    
+                    <div className="bg-[#351818] w-[40vw] rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
+                        <img className="h-20 ml-8 self-center" src="/assets/LOGO.png" alt="" />
+    
+                        <div className="w-[40vw]  text-[#FFF2DC] font-bold flex justify-center items-center mb-8 gap-x-16 hover:border-[#341C1C]">
+                            <h1 className="text-2xl mt-5"> Acesse sua conta</h1>
+                        </div>
+    
+                        <form onSubmit={logar} className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]">
+    
+                            <label htmlFor="Campo">Email:</label>
+                            <input type="text" onChange={e => setEmail(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
+    
+                            <label htmlFor="senha">Senha:</label>
+                            <input type="password" onChange={e => setSenha(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
+    
+                            <button className="mt-4 w-52 text-[#FFF3DC] bg-[#281111] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
+                                Entrar
+                            </button>
+    
+                        </form>
+    
+                        
+                    </div>
+                </div>
+    
+            </>
+        )
+
+}
