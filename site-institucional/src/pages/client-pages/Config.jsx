@@ -125,7 +125,7 @@ export default function ConfigCli() {
                 />
             )}
             <div className="h-full w-full bg-[#FFF3DC] justify-center ">
-                <NavbarCli caminho={"/components/client-screens/Home-client"} />
+                <NavbarCli caminho={"/pages/client-pages/Home"} />
 
                 {mensagem && (
                     <Alerta
