@@ -28,7 +28,7 @@ export default function AlterarSenha() {
                             <input type="password" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
 
                             <div className="flex flex-row justify-between gap-4 pt-5">
-                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer" onClick={() => navigate("/components/client-screens/Config")}>Cancelar</button>
+                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer" onClick={() => navigate("/pages/client-pages/Login")}>Cancelar</button>
                                 <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer" >Alterar</button>
                             </div>
                         </form>

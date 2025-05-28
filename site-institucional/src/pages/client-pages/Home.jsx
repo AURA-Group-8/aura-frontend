@@ -23,7 +23,7 @@ export default function HomeClient() {
 
                     <div className="flex flex-col jutify-center items-end pt-10">
                         <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] py-8 px-4 rounded-2xl font-bold">Consultar Agendamentos</button>
-                        <button onClick={() => navigate("/components/Contato")} className="cursor-pointer bg-[#FFF3DC] border border-[#982546] text-[#982546] flex flex-row mt-30 py-0.5 px-4 rounded-2xl font-bold ">Contato <img src="/assets/Help.png" alt=""  className="h-8"/></button>
+                        <button onClick={() => navigate("/pages/client-pages/Contact")} className="cursor-pointer bg-[#FFF3DC] border border-[#982546] text-[#982546] flex flex-row mt-30 py-0.5 px-4 rounded-2xl font-bold ">Contato <img src="/assets/Help.png" alt=""  className="h-8"/></button>
                     </div>
                    
                 </div>
