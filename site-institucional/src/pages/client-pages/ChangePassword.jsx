@@ -11,7 +11,7 @@ export default function AlterarSenha() {
         <>
             <div className="h-full w-full bg-[#FFF3DC] flex justify-center ">
 
-                <NavbarCli />
+                <NavbarCli  caminho={"/pages/client-pages/Home"}/>
 
                 <div className="h-full flex justify-center items-center">
 

@@ -20,7 +20,7 @@ const Notificacao = () => {
 
   return (
     <>
-      <NavbarCli />
+      <NavbarCli caminho={"/pages/client-pages/Home"} />
       <div className="min-h-screen bg-[#fef3e2] p-6">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6">Notificações</h1>
 

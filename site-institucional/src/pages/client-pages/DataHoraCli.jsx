@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import NavbarCli from "./Navbar";
 import { useState, useEffect } from "react";
 import {
   format,
@@ -83,7 +83,7 @@ export default function CalendarioCarrossel() {
 
   return (
     <>
-      <Navbar caminho={"/pages/client-pages/AgendarCli"} />
+      <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">
