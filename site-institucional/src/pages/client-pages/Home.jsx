@@ -51,7 +51,7 @@ export default function HomeClient() {
                         
                     </div>
 
-                    <button className="bg-[#341C1C] text-[#FFF3DC] w-70 h-15 rounded-2xl self-center">Agendar atendimento</button>
+                    <button onClick={() => navigate("/pages/client-pages/AgendarCli")} className="cursor-pointer bg-[#341C1C] text-[#FFF3DC] w-70 h-15 rounded-2xl self-center">Agendar atendimento</button>
 
                 </div>
             </div>

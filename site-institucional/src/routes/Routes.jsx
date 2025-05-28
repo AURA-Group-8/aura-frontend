@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Cadastro from "../pages/client-pages/Cadastro";
 import Login from "../pages/client-pages/Login";
 import App from "../App";
-import AlterarSenha from "../pages/client-pages/ChangePassword";
+import ChangePassword from "../pages/client-pages/ChangePassword";
 import ConfigCli from "../pages/client-pages/Config";
 import Contato from "../pages/client-pages/Contact";
 import HomeClient from "../pages/client-pages/Home";
@@ -23,7 +23,8 @@ import Mensagem from "../pages/professional-pages/Mensagem";
 import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
 import Configuracoes from "../pages/professional-pages/configuracoes";
-
+import AgendarCli from "../pages/client-pages/AgendarCli";
+import DataHoraCli from "../pages/client-pages/DataHoraCli";
 
 export const routes = createBrowserRouter([
     {
@@ -47,7 +48,7 @@ export const routes = createBrowserRouter([
 
     {
         path: "/pages/client-pages/ChangePassword",
-        element: <AlterarSenha/>,
+        element: <ChangePassword/>,
         errorElement: <h1>Page not found</h1>
     },
 
@@ -161,6 +162,18 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/professional-pages/Configuracoes",
         element: <Configuracoes/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/AgendarCli",    
+        element: <AgendarCli/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/DataHoraCli",
+        element: <DataHoraCli/>,
         errorElement: <h1>Page not found</h1>
     },
 
