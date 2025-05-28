@@ -22,7 +22,7 @@ import MeusClientes from "../pages/professional-pages/MeusClientes";
 import Mensagem from "../pages/professional-pages/Mensagem";
 import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
-import Configuracoes from "../pages/professional-pages/configuracoes";
+import Configuracoes from "../pages/professional-pages/Configuracoes";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
 
