@@ -1,20 +1,48 @@
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./MenuLateral";
+import MenuLateral from "./components/MenuLateral";
 import { use, useState } from "react";
 import Alerta from "../Pop-up";
+
+
 
 export default function ContatoPro() {
 
     const [mensagem, setMensagem] = useState("");
+    const [textMensagem, setTextMensagem] = useState("");
+    
+    const [caminho, setCaminho] = useState('');
 
-    const envio = () => {
 
-        setMensagem("Mensagem enviada!")
-
+    const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
     }
+
+    const envio = (e) => {
+
+        e.preventDefault();
+
+        if (textMensagem === "" || textMensagem === "" || textMensagem.trim().length < 2 || textMensagem.trim().length < 10) {
+            setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        setMensagem("Mensagem enviada!");
+        setCaminho("/assets/Check-pop.png");
+        limparAlert();
+        return;
+
+    }
+
+
+    setTimeout(() => {
+        setMensagem("");
+    }, 2000);
+
+
 
     return (
         <>
@@ -22,7 +50,7 @@ export default function ContatoPro() {
             {mensagem && (
                 <Alerta
                     mensagem={mensagem}
-                    imagem="/assets/Check-pop.png"
+                    imagem={caminho}
                 />
             )}
 
@@ -45,7 +73,7 @@ export default function ContatoPro() {
 
                                 <span>Mensagem:</span>
 
-                                <textarea className="border border-[#982546] bg-[#fff] h-100 w-full rounded-2xl p-2 mt-4" placeholder="Envie suas dúvidas"></textarea>
+                                <textarea className="border border-[#982546] bg-[#fff] h-100 w-full rounded-2xl p-2 mt-4" placeholder="Envie suas dúvidas" onChange={e => setTextMensagem(e.target.value)}></textarea>
 
                                 <button className="bg-[#982546] text-[#FFF3DC] p-1 mt-5 rounded-2xl w-50 self-end" onClick={envio}>Enviar</button>
                             </div>
@@ -63,4 +91,6 @@ export default function ContatoPro() {
 
         </>
     )
+
 }
+

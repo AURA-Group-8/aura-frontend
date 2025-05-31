@@ -1,4 +1,4 @@
-import MenuLateral from "./MenuLateral";
+import MenuLateral from "./components/MenuLateral";
 import { useNavigate } from "react-router-dom";
 
 export default function Financeiro() {

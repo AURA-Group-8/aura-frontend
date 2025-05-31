@@ -1,4 +1,5 @@
-import NavbarPro from "./Navbar";
+import NavbarPro from "./components/Navbar";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   format,
@@ -13,6 +14,8 @@ export default function CalendarioCarrossel() {
   for (let h = 1; h <= 23; h++) {
     horarios.push(`${String(h).padStart(2, "0")}:00`);
   }
+
+  const navigate = useNavigate();
 
   const diasVisiveis = 7;
   const horariosVisiveis = 7;
@@ -80,6 +83,15 @@ export default function CalendarioCarrossel() {
       setHorarioSelecionado(horario); 
     }
   };
+
+  const confirmar = () => {
+    navigate("/pages/professional-pages/Confirmar");
+    if (!dataSelecionada || !horarioSelecionado) {
+      alert("Por favor, selecione uma data e um horário.");
+      return;
+    }
+  }
+
 
   return (
     <>
@@ -175,7 +187,7 @@ export default function CalendarioCarrossel() {
           </span>
 
         </div>
-           <button className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer">Continuar</button>
+           <button className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer" onClick={confirmar}>Continuar</button>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 
-import NavbarCli from "./Navbar";
+import NavbarCli from "./components/Navbar";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 

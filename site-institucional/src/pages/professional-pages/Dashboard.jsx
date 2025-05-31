@@ -1,8 +1,8 @@
 import { m } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./MenuLateral";
-import CardAgendamento from "./CardAgendamento";
+import MenuLateral from "./components/MenuLateral";
+import CardAgendamento from "./components/CardAgendamento";
 
 export default function Dashboard() {
 

@@ -1,12 +1,12 @@
-import NavbarPro from "./Navbar"
+import NavbarPro from "./components/Navbar"
 
 export default function HistoricoFinanceiro() {
 
     return (
         <>
-            <NavbarPro caminho={"/pages/professional-pages/MeusServicos"} />
+            <NavbarPro caminho={"/pages/professional-pages/Financeiro"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center justify-center">
-                <h1 className="text-[#982546] font-bold text-2xl ">Adicionar serviço</h1>
+                <h1 className="text-[#982546] font-bold text-2xl ">Histórico financeiro</h1>
 
                 <div className="w-200 h-90 flex flex-col mt-10 overflow-y-auto">
                     <div className="flex flex-row justify-around">

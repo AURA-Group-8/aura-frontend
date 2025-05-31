@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "./Navbar";
+import NavbarCli from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../../pages/Pop-up";
 

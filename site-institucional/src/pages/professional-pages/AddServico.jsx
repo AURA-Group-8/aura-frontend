@@ -1,7 +1,8 @@
-import NavbarPro from "./Navbar";
+
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
+import NavbarPro from "./components/Navbar";
 
 export default function AddServico() {
 
@@ -22,8 +23,16 @@ export default function AddServico() {
     const adicionar = (e) => {
         e.preventDefault();
 
-        if (nome === "" || descricao === "" || duracao === "" || preco === "") {
+        if (nome === "" || descricao === "" || duracao === "" || preco === "" || isNaN(duracao) || isNaN(preco)) {
             setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+
+         if (nome.trim().length < 2 || descricao.trim().length < 10 || duracao <= 0 || preco <= 0) {
+            setMensagem("Preencha com dados válidos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
@@ -47,7 +56,7 @@ export default function AddServico() {
             )}
 
 
-            <NavbarPro caminho={"/pages/professional-pages/MeusServicos"} />
+            <NavbarPro caminho={"/pages/professional-pages/MeusServicos"}/>
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Adicionar serviço</h1>
 
@@ -61,13 +70,13 @@ export default function AddServico() {
 
                         <div className="flex flex-row w-full justify-between">
                             <div className="flex flex-col">
-                                <p className="mt-4">Duração</p>
-                                <input type="text" name="duracao" placeholder="Ex: 1" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setDuracao(e.target.value)} />
+                                <p className="mt-4">Duração(Horas)</p>
+                                <input type="number" name="duracao" placeholder="Ex: 1" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setDuracao(e.target.value)} />
                             </div>
 
                             <div className="flex flex-col">
                                 <p className="mt-4">Preço</p>
-                                <input type="text" name="preco" placeholder="Ex: R$ 0,00" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setPreco(e.target.value)} />
+                                <input type="number" name="preco" placeholder="Ex: R$ 0,00" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setPreco(e.target.value)} />
                             </div>
 
                         </div>
@@ -77,6 +86,7 @@ export default function AddServico() {
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
+                                onClick={() => navigate("/pages/professional-pages/MeusServicos")}
                             >
                                 Cancelar
                             </button>
