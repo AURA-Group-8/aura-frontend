@@ -51,7 +51,7 @@ export default function AgendarCli() {
     const agendar = (e) => {
         e.preventDefault();
 
-        if (servico === "") {
+        if (servicosSelecionados === "") {
             setMensagem("Preencha todos os campos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
@@ -59,7 +59,7 @@ export default function AgendarCli() {
         } else {
             navigate("/pages/client-pages/DataHoraCli", {
                 state: {
-                    servico: servico,
+                    servico: servicosSelecionados,
                 },
             });
         }
