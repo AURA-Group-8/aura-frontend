@@ -44,9 +44,16 @@ export default function ConfigCli() {
     };
 
     const editar = async () => {
+        const { nome, telefone, senha } = formData;
+    
         if (!desabilitado) {
-
-            
+            if (nome.trim() === "" || telefone.trim() === "" || senha.trim() === "") {
+                setMensagem("Não pode haver campo obrigatório vazio"); 
+                setCaminho("/assets/Alert.png");
+                limparAlert();
+                return;
+            }
+    
             try {
                 const authToken = sessionStorage.getItem("authToken");
                 await axios.patch(
@@ -67,8 +74,10 @@ export default function ConfigCli() {
                 setCaminho("/assets/Alert.png");
                 limparAlert();
             }
+            setDesabilitado(!desabilitado);
+        } else {
+            setDesabilitado(false);
         }
-        setDesabilitado(!desabilitado);
     };
 
     const deletar = async (e) => {
@@ -83,7 +92,7 @@ export default function ConfigCli() {
                     },
                 }
             );
-            console.log("Resposta do backend:", response);
+            console.log("Resposta do backend:", e);
             setMensagem("Conta deletada com sucesso!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();

@@ -29,10 +29,6 @@ export default function FormularioCadastro() {
 
         if (isSubmitting) return; // Evita múltiplos cliques
 
-        const temMaiuscula = /[A-Z]/.test(senha);
-        const temNumero = /[0-9]/.test(senha);
-        const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
-
         if (nomeCompleto.trim() === "" || telefone.trim() === "" || email.trim() === "" || senha.trim() === "") {
             setMensagem("Não pode haver campo obrigatório vazio");
             setCaminho("/assets/Alert.png");
@@ -53,12 +49,6 @@ export default function FormularioCadastro() {
         }
         if (senha.trim().length < 6) {
             setMensagem("Senha deve ter mais de 6 caracteres");
-            setCaminho("/assets/Alert.png");
-            limparAlert();
-            return;
-        }
-        if (!(temNumero && temMaiuscula && temEspecial)) {
-            setMensagem("❌ A senha deve conter ao menos: uma letra maiúscula, um número e um caractere especial.");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
