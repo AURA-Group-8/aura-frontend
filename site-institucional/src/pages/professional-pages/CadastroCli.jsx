@@ -1,4 +1,4 @@
-import NavbarPro from "./Navbar";
+import NavbarPro from "./components/Navbar";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ export default function CadastroCli() {
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
     const [mensagem, setMensagem] = useState("");
+    const [email, setEmail] = useState("");
+
     const [caminho, setCaminho] = useState("");
 
     const limparAlert = () => {
@@ -16,6 +18,14 @@ export default function CadastroCli() {
             setMensagem("");
         }, 2000);
     }
+
+    const mascararTelefone = (valor) => {
+        return valor
+            .replace(/\D/g, "")
+            .replace(/(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{5})(\d)/, "$1-$2")
+            .replace(/(-\d{4})\d+?$/, "$1");
+    };
 
     const agendar = (e) => {
         e.preventDefault();
@@ -42,22 +52,26 @@ export default function CadastroCli() {
             )}
 
 
-            <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
-            <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
+            <NavbarPro caminho={"/pages/professional-pages/"} />
+            <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center ">
                 <h1 className="text-[#982546] font-bold text-2xl">Cadastrar cliente</h1>
 
-                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-80 rounded-2xl flex flex-row justify-center items-center mt-5">
+                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-80 rounded-2xl flex flex-row justify-center items-center mt-5 ">
                     <div className="flex flex-col w-120 ">
                         <p className=" mt-2">Nome</p>
                         <input type="text" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setNome(e.target.value)} />
 
                         <p className="mt-4">Telefone</p>
-                        <input type="text" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setTelefone(e.target.value)} />
+                        <input type="phone" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setTelefone(mascararTelefone(e.target.value))} />
 
-                        <div className="flex flex-row w-full justify-between mt-10">
+                        <p className="mt-4">E-mail</p>
+                        <input type="email" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setEmail(e.target.value)} />
+
+                        <div className="flex flex-row w-full justify-between mt-5">
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
+                                onClick={() => navigate("/pages/professional-pages/Agendar")}
                             >
                                 Cancelar
                             </button>

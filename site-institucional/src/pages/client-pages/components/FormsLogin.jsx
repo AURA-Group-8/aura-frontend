@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import Alerta from "../Pop-up";
+import Alerta from "../../Pop-up";
 
 export default function FormularioLogin() {
     const [email, setEmail] = useState("");

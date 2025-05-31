@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Alerta from "../Pop-up";
+import Alerta from "../../Pop-up";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Login from "./Login";
+import Login from "../Login";
 
 export default function FormularioCadastro() {
     const [nomeCompleto, setNomeCompleto] = useState("");

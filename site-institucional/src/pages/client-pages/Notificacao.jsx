@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarCli from "./Navbar";
+import NavbarCli from "./components/Navbar";
 
 
 const Notificacao = () => {

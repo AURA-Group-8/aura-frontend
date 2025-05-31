@@ -1,5 +1,5 @@
 import { BrowserRouter, useNavigate } from "react-router-dom";
-import NavbarCli from "./Navbar";
+import NavbarCli from "./components/Navbar";
 
 
 export default function HomeClient() {

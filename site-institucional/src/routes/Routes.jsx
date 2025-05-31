@@ -1,3 +1,5 @@
+import React from "react";
+
 import { createBrowserRouter } from "react-router-dom";
 import Cadastro from "../pages/client-pages/Cadastro";
 import Login from "../pages/client-pages/Login";
@@ -14,7 +16,7 @@ import Confirmar from "../pages/professional-pages/Confirmar";
 import CadastroCli from "../pages/professional-pages/CadastroCli";
 import Alerta from "../pages/Pop-up";
 import Notificacao from "../pages/client-pages/Notificacao";
-import MeusServicos from "../pages/professional-pages/MeusServiços";
+import MeusServicos from "../pages/professional-pages/MeusServicos";
 import Financeiro from "../pages/professional-pages/Financeiro";
 import AddServico from "../pages/professional-pages/AddServico";
 import HistoricoFinanceiro from "../pages/professional-pages/HistoricoFinanceiro";
@@ -22,7 +24,9 @@ import MeusClientes from "../pages/professional-pages/MeusClientes";
 import Mensagem from "../pages/professional-pages/Mensagem";
 import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
-import Configuracoes from "../pages/professional-pages/configuracoes";
+import Configuracoes from "../pages/professional-pages/ConfigPro";
+import CardServico from "../pages/professional-pages/components/CardServico";
+
 
 
 export const routes = createBrowserRouter([
@@ -163,5 +167,6 @@ export const routes = createBrowserRouter([
         element: <Configuracoes/>,
         errorElement: <h1>Page not found</h1>
     },
+
 
 ])

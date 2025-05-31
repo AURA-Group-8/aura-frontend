@@ -38,10 +38,13 @@ export default function MenuLateral() {
                         <Link to="/pages/professional-pages/Configuracoes">Configurações</Link>
                         <img src="/assets/Services.png" alt="Configurações" className="h-6" />
                     </li>
+
                     <li className={`p-2 flex flex-row justify-between cursor-pointer ${isSelected("/Logout") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                         <Link to="/logout">Logout</Link>
                         <img src="/assets/Logout.png" alt="Logout" className="h-6" />
                     </li>
+
+
                 </ul>
             </div>
         </div>

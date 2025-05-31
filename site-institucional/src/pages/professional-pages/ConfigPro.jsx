@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./MenuLateral";
+import MenuLateral from "./components/MenuLateral";
 import { use, useState } from "react";
 import Alerta from "../Pop-up";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import NavbarPro from "./Navbar";
+import NavbarPro from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
-import Alerta from "../../pages/Pop-up";
+import Alerta from "../Pop-up";
 
 
 

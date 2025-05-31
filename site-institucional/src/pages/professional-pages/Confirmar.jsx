@@ -1,4 +1,4 @@
-import NavbarPro from "./Navbar"
+import NavbarPro from "./components/Navbar"
 import { useLocation } from "react-router-dom";
 
 export default function Confirmar() {
@@ -34,7 +34,7 @@ export default function Confirmar() {
 
                     </div>
 
-                    <button className="bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl">Confirmar agendamento</button>
+                    <button className="bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl" onClick={() => Navigate()}>Confirmar agendamento</button>
 
                 </div>
 

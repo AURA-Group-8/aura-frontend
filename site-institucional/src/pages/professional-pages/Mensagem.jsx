@@ -1,4 +1,4 @@
-import NavbarPro from "./Navbar";
+import NavbarPro from "./components/Navbar";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function Mensagem() {
     const enviar = (e) => {
         e.preventDefault();
 
-        if (assunto === "" || textMensagem === "" ) {
+        if (assunto === "" || textMensagem === "" || assunto.trim().length < 2 || textMensagem.trim().length < 10) {
             setMensagem("Preencha todos os campos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
