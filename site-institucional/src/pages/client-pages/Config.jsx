@@ -22,6 +22,7 @@ export default function ConfigCli() {
         telefone: "",
         senha: ""
     });
+    
     const userId = sessionStorage.getItem("userId");
     console.log(userId);
 
