@@ -6,7 +6,8 @@ import axios from "axios";
 import React from "react";
 
 export default function AgendarCli() {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
+    const [servicosSelecionados, setServicosSelecionados] = useState([]);
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
@@ -48,6 +49,7 @@ export default function AgendarCli() {
         servicos();
     }, []);
 
+
     const agendar = (e) => {
         e.preventDefault();
 
@@ -59,13 +61,13 @@ export default function AgendarCli() {
         } else {
             navigate("/pages/client-pages/DataHoraCli", {
                 state: {
-                    servico: servicosSelecionados,
+                    servicos: servicosSelecionados,
                 },
             });
         }
     };
 
-    const [servicosSelecionados, setServicosSelecionados] = useState([]);
+   
 
     const adicionarServico = (id) => {
         const servicoExistente = servicosSelecionados.find((item) => item.id === id);
