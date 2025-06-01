@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Alerta from "../../Pop-up";
+import axios from "axios";
 
 
 export default function CardAgendamento(props) {
@@ -10,6 +11,8 @@ export default function CardAgendamento(props) {
     const [motivoCancelamento, setMotivoCancelamento] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
+
+    const UserUrl = "http://localhost:8080/agendamentos";
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -60,6 +63,14 @@ export default function CardAgendamento(props) {
         setMostrarMotivo(false);
         setMotivoCancelamento("");
     };
+
+    axios.get("http://localhost:8080/agendamentos")
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.error("Erro ao buscar agendamentos:", error);
+        });
 
     return (
 

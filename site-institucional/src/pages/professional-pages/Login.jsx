@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../Header-login";
 import Alerta from "../Pop-up";
+import axios from "axios";
 
 export default function LoginPro() {
 
@@ -20,6 +21,42 @@ export default function LoginPro() {
 
     const logar = (e) => {
         e.preventDefault();
+
+        const usuario = {
+            email,
+            password: senha
+        };
+        console.log(usuario);
+
+        axios.post("http://localhost:8080/usuarios/login", usuario)
+         .then((response) => {
+                console.log("Usuário logado com sucesso:", response.data);
+
+                sessionStorage.setItem('authToken', response.data.token);
+                sessionStorage.setItem('userId', response.data.id);
+                sessionStorage.setItem('userEmail', response.data.email);
+
+                console.log("User ID:", response.data.id);
+                
+                setMensagem("✅ Login realizado com sucesso!");
+                setCaminho("/assets/Check-pop.png")
+                setTimeout(() => {
+                    navigate("/pages/professional-pages/Dashboard");
+                }, 2000);
+
+            }).catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    console.error("Erro ao logar:", error.data);
+                    setMensagem("❌ Email ou senha incorretos.");
+                    setCaminho("/assets/Alert.png")
+                    limparAlert();
+                }else{
+                    console.error("Erro ao logar:", error.data);
+                    setMensagem("❌ Erro ao logar");
+                    setCaminho("/assets/Alert.png")
+                    limparAlert();
+                }
+            })
 
         if (email === "" || senha === "" ) {
             setMensagem("Preencha todos os campos!");
