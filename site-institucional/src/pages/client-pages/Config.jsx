@@ -38,20 +38,23 @@ export default function ConfigCli() {
         }
     };
 
-    const usuarioAtual = {
-        nome: sessionStorage.getItem("username"),
-        email: sessionStorage.getItem("userEmail"),
-    }
-
     const usuarioParaAtualizar = {
         username: formData.nome,
-        email: formData.email,
         phone: formData.telefone,
         password: formData.senha
     };
 
     const editar = async () => {
+        const { nome, telefone, senha } = formData;
+    
         if (!desabilitado) {
+            if (nome.trim() === "" || telefone.trim() === "" || senha.trim() === "") {
+                setMensagem("Não pode haver campo obrigatório vazio"); 
+                setCaminho("/assets/Alert.png");
+                limparAlert();
+                return;
+            }
+    
             try {
                 const authToken = sessionStorage.getItem("authToken");
                 await axios.patch(
@@ -67,13 +70,15 @@ export default function ConfigCli() {
                 setCaminho("/assets/Check-pop.png");
                 limparAlert();
             } catch (error) {
-                console.error("Erro ao salvar os dados:", error);
-                setMensagem("❌ Erro ao salvar os dados");
+                console.error("Erro ao atualizar o usuário:", error);
+                setMensagem("❌ Erro ao salvar as alterações");
                 setCaminho("/assets/Alert.png");
                 limparAlert();
             }
+            setDesabilitado(!desabilitado);
+        } else {
+            setDesabilitado(false);
         }
-        setDesabilitado(!desabilitado);
     };
 
     const deletar = async (e) => {
@@ -88,7 +93,7 @@ export default function ConfigCli() {
                     },
                 }
             );
-            console.log("Resposta do backend:", response);
+            console.log("Resposta do backend:", e);
             setMensagem("Conta deletada com sucesso!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();
@@ -156,9 +161,10 @@ export default function ConfigCli() {
                             id="email"
                             name="email"
                             className="bg-[#ffffff] p-2 rounded-xl"
-                            disabled={desabilitado}
+                            disabled={true}
                             value={formData.email}
                             onChange={handleInputChange}
+                            placeholder="Campo E-mail não pode ser editado"
                         />
 
                         <label htmlFor="telefone">Telefone:</label>
