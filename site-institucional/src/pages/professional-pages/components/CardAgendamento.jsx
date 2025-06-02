@@ -12,8 +12,6 @@ export default function CardAgendamento(props) {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
-    const UserUrl = "http://localhost:8080/agendamentos";
-
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
@@ -52,10 +50,8 @@ export default function CardAgendamento(props) {
             setText("Cancelado");
             setBotaoAtivo(false);
             setMostrarMotivo(false);
-
             
         }
-
 
     };
 
@@ -64,13 +60,6 @@ export default function CardAgendamento(props) {
         setMotivoCancelamento("");
     };
 
-    axios.get("http://localhost:8080/agendamentos")
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error("Erro ao buscar agendamentos:", error);
-        });
 
     return (
 
@@ -82,9 +71,10 @@ export default function CardAgendamento(props) {
                 />
             )}
 
-            <div className="flex flex-row mt-5 gap-10 w-full relative">
+            <div className="flex flex-row  w-full relative mt-15">
                 <div className="flex flex-col justify-center w-full h-40">
-                    <div className={`w-96 h-20 rounded-t-2xl flex items-center p-2 z-10`} style={{
+                    <div className={`w-96 h-20 rounded-t-2xl flex items-center p-2 z-10`} 
+                    style={{
                         backgroundColor: cor,
                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)"
                     }}>
@@ -92,8 +82,8 @@ export default function CardAgendamento(props) {
                     </div>
 
                     <div className={`w-96 rounded-b-2xl transition-all`} style={{ backgroundColor: cor }}>
-                        <div className="flex flex-col p-2 w-full text-white text-lg">
-                            <p>{props.service}</p>
+                        <div className="flex flex-col p-2 w-full text-white text-lg h-20 overflow-y-auto">
+                            <p >{props.service}</p>
                             <div className="flex flex-row justify-between w-full">
                                 <p>{props.date} - {props.time}</p>
                                 <p className="font-bold text-3xl text-[#F0A8BC]">{props.value}</p>

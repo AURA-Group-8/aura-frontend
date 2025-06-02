@@ -75,13 +75,17 @@ export default function MenuLateral() {
                         <Link to="/logout"
                             className="gap-4 flex flex-row justify-between items-center w-full"
                         >
+
+                             <div className="bg-white w-40 h-40">aaaaa</div>
+
                             <span>Logout</span>
                             <img src="/assets/Logout.png" alt="Logout" className="h-6" />
+                            
 
                         </Link>
+                        
                     </li>
-
-
+                   
                 </ul>
             </div>
         </div >

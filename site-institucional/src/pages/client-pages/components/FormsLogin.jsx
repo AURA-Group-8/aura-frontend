@@ -40,7 +40,7 @@ export default function FormularioLogin() {
                 setCaminho("/assets/Check-pop.png")
                 setTimeout(() => {
                     navigate("/pages/client-pages/Home");
-                }, 2000);
+                }, 1500);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {

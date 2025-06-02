@@ -1,14 +1,15 @@
 import { m } from "framer-motion";
-import { useState } from "react";
+import { use, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
 import CardAgendamento from "./components/CardAgendamento";
+import axios from "axios";
 
 export default function Dashboard() {
 
     const navigate = useNavigate();
 
-
+    const [agendamentos, setAgendamentos] = useState([]);
     const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
     const [pagamentoSelecionado, setPagamentoSelecionado] = useState(null);
 
@@ -23,12 +24,28 @@ export default function Dashboard() {
         }
     };
 
+    useEffect(() => {
+        const token = sessionStorage.getItem("authToken");
+
+        axios.get("http://localhost:8080/agendamentos/card", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+                setAgendamentos(response.data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar agendamentos:", error);
+            });
+    }, []);
+
     return (
         <>
             <div className="w-full h-screen bg-[#FFF3DC] ">
                 <div className="h-full flex flex-row">
 
-                    <MenuLateral/>
+                    <MenuLateral />
 
                     <div className="flex flex-col w-full h-full  items-center ">
                         <div className="w-full flex flex-row justify-end">
@@ -87,8 +104,23 @@ export default function Dashboard() {
                             </div>
                         </div>
 
-                        <div className="flex w-210 h-90 ml-20 mt-5 overflow-y-scroll flex-wrap">
-                            <CardAgendamento/>
+                        <div className="grid grid-cols-2 gap-6 w-210 h-100 ml-20 mt-5 overflow-y-auto">
+                            {agendamentos.length > 0 ? (
+                                agendamentos.map((agendamento, index) => (
+                                    <CardAgendamento
+                                        key={index}
+                                        name={agendamento.userName}
+                                        service={agendamento.jobsNames.join(", ")}
+                                        date={new Date(agendamento.startDatetime).toLocaleDateString()}
+                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
+                                    />
+                                ))
+                            ) : (
+                                <p className="text-[#982546] font-semibold text-lg m-auto">
+                                    Nenhum agendamento encontrado.
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
