@@ -29,6 +29,7 @@ import Configuracoes from "../pages/professional-pages/ConfigPro";
 import CardServico from "../pages/professional-pages/components/CardServico";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
+import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
 
 
 
@@ -183,6 +184,12 @@ export const routes = createBrowserRouter([
         element: <DataHoraCli/>,
         errorElement: <h1>Page not found</h1>
     },
+
+    {
+        path: "/pages/client-pages/MeusAgendamentosCli",
+        element: <MeusAgendamentosCli/>,
+        errorElement: <h1>Page not found</h1>
+    }
 
 
 ])
