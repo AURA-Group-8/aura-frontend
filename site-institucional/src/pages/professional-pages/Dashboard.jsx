@@ -104,7 +104,7 @@ export default function Dashboard() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6 w-210 h-100 ml-20 mt-5 overflow-y-auto">
+                        <div className="flex flex-col p-2 gap-8 w-210 h-100 ml-20 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento

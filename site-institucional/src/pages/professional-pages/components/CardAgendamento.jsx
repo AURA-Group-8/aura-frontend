@@ -73,7 +73,7 @@ export default function CardAgendamento(props) {
 
             <div className="flex flex-row  w-full relative mt-15">
                 <div className="flex flex-col justify-center w-full h-40">
-                    <div className={`w-96 h-20 rounded-t-2xl flex items-center p-2 z-10`} 
+                    <div className={` h-20 rounded-t-2xl flex items-center p-2 z-10`} 
                     style={{
                         backgroundColor: cor,
                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)"
@@ -81,17 +81,21 @@ export default function CardAgendamento(props) {
                         <p className="font-bold text-white text-lg">{props.name}</p>
                     </div>
 
-                    <div className={`w-96 rounded-b-2xl transition-all`} style={{ backgroundColor: cor }}>
-                        <div className="flex flex-col p-2 w-full text-white text-lg h-20 overflow-y-auto">
-                            <p >{props.service}</p>
+                    <div className="rounded-b-2xl transition-all" style={{ backgroundColor: cor }}>
+                        <div className="flex flex-col p-2 w-full text-white text-lg ">
+                            <p className="mb-2 w-150 font-bold">{props.service}</p>
                             <div className="flex flex-row justify-between w-full">
-                                <p>{props.date} - {props.time}</p>
-                                <p className="font-bold text-3xl text-[#F0A8BC]">{props.value}</p>
+                                <div className="flex flex-row justify-around gap-2">
+                                    <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
+                                    <span> - </span>
+                                    <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
+                                </div>
+                                <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
                             </div>
                         </div>
 
                         <div className="w-full p-2 text-white text-lg">
-                            <span>Pagamento: </span>
+                            <span className="text-[#ffa8d8] font-bold">Pagamento: </span>
                             <select className="outline-none  rounded p-1">
                                 <option className="text-emerald-600">Pago</option>
                                 <option className="text-amber-600">Pendente</option>
