@@ -96,7 +96,7 @@ export default function CardAgendamento(props) {
 
                         <div className="w-full p-2 text-white text-lg">
                             <span className="text-[#ffa8d8] font-bold">Pagamento: </span>
-                            <select className="outline-none  rounded p-1">
+                            <select className="outline-none cursor-pointer rounded p-1">
                                 <option className="text-emerald-600">Pago</option>
                                 <option className="text-amber-600">Pendente</option>
                             </select>
