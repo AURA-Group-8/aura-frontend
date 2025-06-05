@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarPro from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../Pop-up";
-
+import axios from "axios";
 
 
 export default function Agendar() {
@@ -11,8 +11,30 @@ export default function Agendar() {
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
-    const [servico, setServico] = useState("");
-    const [cliente, setCliente] = useState("");
+    const [servicos, setServicos] = useState([]);
+    const [servicoSelecionado, setServicoSelecionado] = useState("");
+    const [clientes, setClientes] = useState([]);
+    const [clienteSelecionado, setClienteSelecionado] = useState("");
+
+    useEffect(() => {
+        async function pegarDados() {
+            try {
+                const token = sessionStorage.getItem("authToken");
+                const headers = { Authorization: `Bearer ${token}` };
+
+                const servicosResponse = await axios.get("http://localhost:8080/servicos", { headers });
+                setServicos(servicosResponse.data.content);
+
+
+                const clientesResponse = await axios.get("http://localhost:8080/usuarios", { headers });
+                setClientes(clientesResponse.data);
+
+            } catch (error) {
+                console.error("Erro ao buscar dados da API:", error);
+            }
+        }
+        pegarDados();
+    }, []);
 
 
     const limparAlert = () => {
@@ -28,14 +50,14 @@ export default function Agendar() {
     const agendar = (e) => {
         e.preventDefault();
 
-        if (servico === "" || cliente === "") {
+        if (servicoSelecionado === "" || clienteSelecionado === "") {
             setMensagem("Preencha todos os campos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
         }
 
-        if (cliente === "cadastroCli") {
+        if (clienteSelecionado === "cadastroCli") {
             navigate("/pages/professional-pages/CadastroCli");
 
         } else {
@@ -43,8 +65,8 @@ export default function Agendar() {
             navigate("/pages/professional-pages/DataHora",
                 {
                     state: {
-                        servico: servico,
-                        cliente: cliente
+                        servicos: servicoSelecionado,
+                        cliente: clienteSelecionado
                     }
                 }
 
@@ -69,14 +91,17 @@ export default function Agendar() {
                     <div className="flex flex-col w-120">
                         <p className="text-xl mt-2">Serviços</p>
                         <select
-                            onChange={e => setServico(e.target.value)}
+                            onChange={e => setServicoSelecionado(e.target.value)}
                             name="servico"
                             className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546] w-full h-10 mt-2"
-
+                            value={servicoSelecionado}
                         >
-                            <option value=""></option>
-                            <option value="servico1">Serviço 1</option>
-                            <option value="servico2">Serviço 2</option>
+                            <option value="">Selecione um serviço</option>
+                            {servicos.map(servico => (
+                                <option key={servico.id} value={servico.id}>
+                                    {servico.name}
+                                </option>
+                            ))}
                         </select>
 
                         <div className="border-1 border-[#982546] bg-[#FFF3DC] w-full h-30 mt-5 rounded-2xl overflow-y-auto">
@@ -85,14 +110,18 @@ export default function Agendar() {
 
                         <p className="text-xl mt-2">Clientes</p>
                         <select
-                            onChange={e => setCliente(e.target.value)}
+                            onChange={e => setClienteSelecionado(e.target.value)}
                             name="cliente"
                             className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546] w-full h-10 mt-2"
-
+                            value={clienteSelecionado}
                         >
-                            <option value=""></option>
+                            <option value="">Selecione um cliente</option>
                             <option value="cadastroCli" className="font-bold text-[#982546]">Cadastrar novo cliente</option>
-                            <option value="cliente2">Cliente 2</option>
+                            {Array.isArray(clientes) && clientes.map(cli => (
+                                <option key={cli.id} value={cli.id}>
+                                    {cli.username}
+                                </option>
+                            ))}
                         </select>
 
                         <div className="flex flex-row w-full justify-between mt-4">
