@@ -98,7 +98,7 @@ export default function AgendarCli() {
             <NavbarCli caminho={"/pages/client-pages/Home"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
-                <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row justify-center mt-5">
+                <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row items-center justify-center mt-5">
                     <div className="flex flex-col w-120">
                         <p className="text-xl mt-2">Serviços</p>
                         <select

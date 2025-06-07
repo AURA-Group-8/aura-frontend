@@ -28,6 +28,7 @@ export default function MeusAgendamentosCli() {
         }
     };
 
+
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
 
@@ -37,7 +38,16 @@ export default function MeusAgendamentosCli() {
             }
         })
             .then((response) => {
-                setAgendamentos(response.data);
+                console.log("Response data from API:", response.data); // Log dos dados retornados pela API
+    
+                // Filtra os agendamentos pelo userName no frontend
+                const agendamentosFiltrados = response.data.filter(
+                    (agendamento) => agendamento.userName === userName
+                );
+    
+                console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados
+    
+                setAgendamentos(agendamentosFiltrados);
             })
             .catch((error) => {
                 console.error("Erro ao buscar agendamentos:", error);
@@ -47,14 +57,14 @@ export default function MeusAgendamentosCli() {
     return (
         <>
 
-        <NavbarCli caminho={"/pages/client-pages/Home"} />
-        
-                        {mensagem && (
-                            <Alerta
-                                mensagem={mensagem}
-                                imagem="/assets/Check-pop.png"
-                            />
-                        )}
+            <NavbarCli caminho={"/pages/client-pages/Home"} />
+
+            {mensagem && (
+                <Alerta
+                    mensagem={mensagem}
+                    imagem="/assets/Check-pop.png"
+                />
+            )}
 
             <div className="w-full h-screen bg-[#FFF3DC] ">
                 <div className="h-full flex flex-row">
@@ -68,10 +78,10 @@ export default function MeusAgendamentosCli() {
 
                             <h1 className="text-[#982546] mt-3 font-bold text-2xl">Meus Agendamentos</h1>
 
-                            
+
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 ml-20 mt-5 overflow-y-auto">
+                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 ml-20 mt-25 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
@@ -97,8 +107,8 @@ export default function MeusAgendamentosCli() {
                             >
                                 Visualizar Agendamentos
                             </button>
-                        </div>    
-                        
+                        </div>
+
 
                     </div>
                 </div>
