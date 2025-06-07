@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarPro from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Alerta from "../Pop-up";
-
+import axios from "axios";
 
 
 export default function Agendar() {
@@ -11,8 +11,35 @@ export default function Agendar() {
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
-    const [servico, setServico] = useState("");
-    const [cliente, setCliente] = useState("");
+    const [servicos, setServicos] = useState([]);
+    const [servicoSelecionado, setServicoSelecionado] = useState("");
+    const [clientes, setClientes] = useState([]);
+    const [clienteSelecionado, setClienteSelecionado] = useState("");
+    const [servicosSelecionados, setServicosSelecionados] = useState([]);
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+
+
+    useEffect(() => {
+        async function pegarDados() {
+            try {
+                const token = sessionStorage.getItem("authToken");
+                const headers = { Authorization: `Bearer ${token}` };
+
+                const servicosResponse = await axios.get(`${apiUrl}/servicos`, { headers });
+                setServicos(servicosResponse.data.content);
+
+
+                const clientesResponse = await axios.get(`${apiUrl}/usuarios`, { headers });
+                setClientes(clientesResponse.data);
+
+            } catch (error) {
+                console.error("Erro ao buscar dados da API:", error);
+            }
+        }
+        pegarDados();
+    }, []);
 
 
     const limparAlert = () => {
@@ -25,17 +52,21 @@ export default function Agendar() {
         navigate("/pages/professional-pages/Dashboard");
     }
 
+
     const agendar = (e) => {
+
+        const clienteObj = clientes.find(cli => cli.id == clienteSelecionado);
+        
         e.preventDefault();
 
-        if (servico === "" || cliente === "") {
-            setMensagem("Preencha todos os campos!");
+        if (servicoSelecionado === "" || clienteSelecionado === "") {
+            setMensagem("Selecione cliente e serviço!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
         }
 
-        if (cliente === "cadastroCli") {
+        if (clienteSelecionado === "cadastroCli") {
             navigate("/pages/professional-pages/CadastroCli");
 
         } else {
@@ -43,15 +74,30 @@ export default function Agendar() {
             navigate("/pages/professional-pages/DataHora",
                 {
                     state: {
-                        servico: servico,
-                        cliente: cliente
+                        servicos: servicosSelecionados,
+                        cliente: clienteObj
                     }
                 }
 
             );
         }
 
-    }
+    };
+
+    const adicionarServico = (id) => {
+        const servicoExistente = servicosSelecionados.find((item) => item.id === id);
+        if (!servicoExistente) {
+            const servico = servicos.find((item) => item.id === id);
+            if (servico) {
+                setServicosSelecionados([...servicosSelecionados, servico]);
+            }
+        }
+    };
+
+    const removerServico = (id) => {
+        setServicosSelecionados(servicosSelecionados.filter((item) => item.id !== id));
+    };
+
     return (
         <>
             {mensagem && (
@@ -69,30 +115,55 @@ export default function Agendar() {
                     <div className="flex flex-col w-120">
                         <p className="text-xl mt-2">Serviços</p>
                         <select
-                            onChange={e => setServico(e.target.value)}
+                            onChange={(e) => {
+                                const id = parseInt(e.target.value);
+                                setServicoSelecionado(id); 
+                                adicionarServico(id);
+                            }}
                             name="servico"
                             className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546] w-full h-10 mt-2"
-
+                            value={servicoSelecionado}
                         >
-                            <option value=""></option>
-                            <option value="servico1">Serviço 1</option>
-                            <option value="servico2">Serviço 2</option>
+                            <option value="">Selecione um serviço</option>
+                            {servicos.map(servico => (
+                                <option key={servico.id} value={servico.id}>
+                                    {servico.name}
+                                </option>
+                            ))}
                         </select>
 
                         <div className="border-1 border-[#982546] bg-[#FFF3DC] w-full h-30 mt-5 rounded-2xl overflow-y-auto">
-
+                            {servicosSelecionados.length > 0 ? (
+                                servicosSelecionados.map((item) => (
+                                    <div key={item.id} className="flex justify-between items-center p-2 border-b border-[#982546]">
+                                        <p className="text-[#982546] text-lg">{item.name}</p>
+                                        <button
+                                            className="text-[#982546] text-lg cursor-pointer font-extrabold"
+                                            onClick={() => removerServico(item.id)}
+                                        >
+                                            x
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-[#982546] text-lg p-2">Nenhum serviço selecionado</p>
+                            )}
                         </div>
 
                         <p className="text-xl mt-2">Clientes</p>
                         <select
-                            onChange={e => setCliente(e.target.value)}
+                            onChange={e => setClienteSelecionado(e.target.value)}
                             name="cliente"
                             className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546] w-full h-10 mt-2"
-
+                            value={clienteSelecionado}
                         >
-                            <option value=""></option>
+                            <option value="">Selecione um cliente</option>
                             <option value="cadastroCli" className="font-bold text-[#982546]">Cadastrar novo cliente</option>
-                            <option value="cliente2">Cliente 2</option>
+                            {Array.isArray(clientes) && clientes.map(cli => (
+                                <option key={cli.id} value={cli.id}>
+                                    {cli.username}
+                                </option>
+                            ))}
                         </select>
 
                         <div className="flex flex-row w-full justify-between mt-4">

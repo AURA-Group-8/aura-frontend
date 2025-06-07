@@ -4,12 +4,15 @@ import NavbarCli from "./components/Navbar";
 import axios from "axios";
 
 const Notificacao = () => {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [notificacoes, setNotificacoes] = useState([]);
 
   useEffect(() => {
     const fetchNotificacoes = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/usuarios/${userId}");
+        const response = await axios.get(`${apiUrl}/usuarios/${userId}`);
         setNotificacoes(response.data);
       } catch (error) {
         console.error("Erro ao buscar notificações:", error);

@@ -6,6 +6,8 @@ import axios from "axios";
 
 
 export default function ConfigCli() {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [desabilitado, setDesabilitado] = useState(true);
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
@@ -58,7 +60,7 @@ export default function ConfigCli() {
             try {
                 const authToken = sessionStorage.getItem("authToken");
                 await axios.patch(
-                    `http://localhost:8080/usuarios/${userId}`,
+                    `${apiUrl}/usuarios/${userId}`,
                     usuarioParaAtualizar,
                     {
                         headers: {
@@ -86,7 +88,7 @@ export default function ConfigCli() {
             e.preventDefault();
             const authToken = sessionStorage.getItem("authToken"); 
             await axios.delete(
-                `http://localhost:8080/usuarios/${userId}`,
+                `${apiUrl}/usuarios/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${authToken}`,

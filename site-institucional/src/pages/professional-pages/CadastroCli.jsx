@@ -2,32 +2,31 @@ import NavbarPro from "./components/Navbar";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function CadastroCli() {
-
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [email, setEmail] = useState("");
-
     const [caminho, setCaminho] = useState("");
 
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
-    }
+    };
 
     const mascararTelefone = (valor) => {
         return valor
-            .replace(/\D/g, "")
-            .replace(/(\d{2})(\d)/, "($1) $2")
-            .replace(/(\d{5})(\d)/, "$1-$2")
-            .replace(/(-\d{4})\d+?$/, "$1");
+            .replace(/\D/g, "")                    // Remove tudo que não é dígito
+            .replace(/(\d{2})(\d)/, "($1) $2")    // Coloca parênteses nos dois primeiros dígitos
+            .replace(/(\d{5})(\d)/, "$1-$2")      // Coloca hífen depois dos 5 dígitos
+            .replace(/(-\d{4})\d+?$/, "$1");      // Limita o tamanho máximo
     };
 
-    const agendar = (e) => {
+    const agendar = async (e) => {
         e.preventDefault();
 
         if (nome === "" || telefone === "") {
@@ -37,13 +36,49 @@ export default function CadastroCli() {
             return;
         }
 
-        navigate("/pages/professional-pages/DataHora");
+        try {
+            const token = sessionStorage.getItem("authToken");
+            const telefoneSemMascara = telefone.replace(/\D/g, "");
 
-    }
+            const clienteData = {
+                username: nome,
+                email: email,
+                phone: telefoneSemMascara,
+                password: "default123",          // Valor mockado
+                dateOfBirth: "2000-01-01T00:00:00" // Valor mockado
+            };
+
+            await axios.post(`${apiUrl}/usuarios`, clienteData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            setMensagem("Cliente cadastrado com sucesso!");
+            setCaminho("/assets/Check-pop.png");
+            limparAlert();
+
+            setNome("");
+            setTelefone("");
+            setEmail("");
+
+            setTimeout(() => {
+                navigate("/pages/professional-pages/Agendar");
+            }, 2000);
+
+        } catch (error) {
+            console.error("Erro ao cadastrar cliente:", error.response?.data || error.message);
+            setMensagem("Erro ao cadastrar cliente. Tente novamente.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        }
+    };
+
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     return (
         <>
-
             {mensagem && (
                 <Alerta
                     mensagem={mensagem}
@@ -51,21 +86,39 @@ export default function CadastroCli() {
                 />
             )}
 
-
-            <NavbarPro caminho={"/pages/professional-pages/"} />
+            <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center ">
                 <h1 className="text-[#982546] font-bold text-2xl">Cadastrar cliente</h1>
 
                 <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-80 rounded-2xl flex flex-row justify-center items-center mt-5 ">
                     <div className="flex flex-col w-120 ">
                         <p className=" mt-2">Nome</p>
-                        <input type="text" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setNome(e.target.value)} />
+                        <input
+                            type="text"
+                            name="nome"
+                            className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+                            onChange={e => setNome(e.target.value)}
+                            value={nome}
+                        />
 
                         <p className="mt-4">Telefone</p>
-                        <input type="phone" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setTelefone(mascararTelefone(e.target.value))} />
+                        <input
+                            type="tel"
+                            name="telefone"
+                            className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+                            onChange={e => setTelefone(mascararTelefone(e.target.value))}
+                            value={telefone}
+                            maxLength={15}
+                        />
 
                         <p className="mt-4">E-mail</p>
-                        <input type="email" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setEmail(e.target.value)} />
+                        <input
+                            type="email"
+                            name="email"
+                            className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                        />
 
                         <div className="flex flex-row w-full justify-between mt-5">
                             <button
@@ -76,14 +129,16 @@ export default function CadastroCli() {
                                 Cancelar
                             </button>
 
-                            <button className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer" onClick={agendar}>Cadastrar</button>
+                            <button
+                                className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer"
+                                onClick={agendar}
+                            >
+                                Cadastrar
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
         </>
-    )
-
+    );
 }
-
-

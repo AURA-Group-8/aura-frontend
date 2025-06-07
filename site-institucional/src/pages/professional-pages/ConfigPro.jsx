@@ -1,29 +1,54 @@
 import { useNavigate } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
 import { use, useState } from "react";
+import axios from "axios";
 import Alerta from "../Pop-up";
 
 export default function Configuracoes() {
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [mensagem, setMensagem] = useState("");
+    const [caminho, setCaminho] = useState('');
 
-    const [formAberto, setFormAberto] = useState(true);
+    const token = sessionStorage.getItem('authToken');
 
-    const [borda, setBorda] = useState("#982546");
+    const [formContaAberto, setFormContaAberto] = useState(true);
+    const [formHoraAberto, setFormHoraAberto] = useState(false);
 
-    const trocarConfig = () => {
-        setFormAberto(!formAberto);
+    const [horarios] = useState([
+        "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00",
+        "20:00", "21:00", "22:00"
+    ]);
+
+    const diasSemana = [
+        "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira",
+        "Sexta-feira", "Sábado", "Domingo"
+    ];
+
+    const [diasSelecionados, setDiasSelecionados] = useState([]);
+
+    const [horarioComercialInicio, setHorarioComercialInicio] = useState("");
+    const [horarioComercialFim, setHorarioComercialFim] = useState("");
+    const [horarioPausaInicio, setHorarioPausaInicio] = useState("");
+    const [horarioPausaFim, setHorarioPausaFim] = useState("");
+
+    const toggleDia = (dia) => {
+        setDiasSelecionados((prev) => prev.includes(dia)
+            ? prev.filter((d) => d !== dia)
+            : [...prev, dia]
+        );
+    };
 
 
-    }
+    const alertAlteracoesSalvas = () => {
 
-    const envio = () => {
-
-        setMensagem("Mensagem enviada!")
+        setMensagem("Alterações salvas!")
 
         setTimeout(() => {
             setMensagem("");
-        }, 2000);
+        }, 1500);
     }
 
     return (
@@ -45,24 +70,37 @@ export default function Configuracoes() {
                             <img className="h-8 m-2" src="/assets/Doorbell.png " alt="" />
                         </div>
 
-                        {mensagem && (
-                            <Alerta
-                                mensagem={mensagem}
-                                imagem={caminho}
-                            />
-                        )}
-
-
                         <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
-                            <h1 className="font-bold text-2xl ">Contato</h1>
+                            <h1 className="font-bold text-2xl ">Configurações</h1>
 
                             <div className="flex flex-col mt-5 ">
                                 <div className="flex flex-row mb-5 gap-5">
-                                    <button className="border-b-2 border-[#982546] cursor-pointer transition-all" onClick={trocarConfig}>Conta</button>
-                                    <button className="border-b-2 border-[#982546] cursor-pointer transition-all">Agenda</button>
+                                    <button className="border-b-2 border-[#982546] cursor-pointer transition-all"
+
+                                        style={{
+                                            borderBottomColor: formContaAberto ? "#982546" : "#FFF3DC"
+                                        }}
+                                        onClick={() => {
+                                            setFormContaAberto(true);
+                                            setFormHoraAberto(false);
+                                        }}
+                                    >
+                                        Conta
+                                    </button>
+                                    <button
+                                        className="border-b-2 cursor-pointer transition-all"
+                                        style={{
+                                            borderBottomColor: formHoraAberto ? "#982546" : "#FFF3DC"
+                                        }}
+                                        onClick={() => {
+                                            setFormContaAberto(false);
+                                            setFormHoraAberto(true);
+                                        }}
+                                    >
+                                        Agenda</button>
                                 </div>
 
-                                {formAberto && (
+                                {formContaAberto && (
                                     <>
                                         <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-10 w-160 rounded-2xl gap-2 ">
                                             <label htmlFor="nome">CNPJ:</label>
@@ -104,116 +142,155 @@ export default function Configuracoes() {
 
                                             </div>
 
-
                                         </form>
 
+                                    </>
 
-                                        <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-10 w-160 rounded-2xl gap-2 justify-center items-center">
-                                            <h1 className="text-[#982546] font-bold">Dias da semana</h1>
+                                )}
+
+
+                                {formHoraAberto && (
+                                    <>
+
+                                        <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-10 rounded-2xl gap-2 justify-center items-center">
+                                            <h1 className="text-[#982546] font-bold mb-5">Dias da semana</h1>
 
                                             <div className=" gap-4 grid grid-cols-4 font-bold text-[#756363]">
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Segunda-feira
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Terça-feira
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Quarta-feira
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Quinta-feira
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Sexta-feira
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Sábado
-                                                </label>
-                                                <label className="flex items-center gap-2">
-                                                    <input type="checkbox" className="cursor-pointer" />
-                                                    Domingo
-                                                </label>
+
+                                                {diasSemana.map((dia) => (
+                                                    <label key={dia} className="flex items-center gap-2">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="cursor-pointer"
+                                                            checked={diasSelecionados.includes(dia)}
+                                                            onChange={() => toggleDia(dia)}
+                                                        />
+                                                        {dia}
+                                                    </label>
+                                                ))}
                                             </div>
 
-                                            <div className="flex flex-col justify-center items-center mt-5">
-                                                <div className="flex flex-row gap-5">
+                                            <div className="flex flex-col justify-center items-center mt-10">
+                                                <div className="flex flex-row justify-between items-center gap-20">
+
                                                     <div className="flex flex-col justify-center items-center">
-                                                        <h1>Horário comercial</h1>
+                                                        <h1 className="font-bold text-[#982546] mb-5">Horário comercial</h1>
                                                         <div className="flex flex-row gap-5">
                                                             <div>
-                                                                <select name="" id="">
-                                                                    <option value="">06:00</option>
-                                                                    <option value="">07:00</option>
-                                                                    <option value="">08:00</option>
-                                                                    <option value="">09:00</option>
-                                                                    <option value="">10:00</option>
-                                                                    <option value="">11:00</option>
-                                                                    <option value="">12:00</option>
+                                                                <select
+                                                                    name="horarioComercialInicio"
+                                                                    id="horarioComercialInicio"
+                                                                    className="w-32 bg-white p-2 rounded-2xl border border-[#982546]"
+                                                                    value={horarioComercialInicio}
+                                                                    onChange={(e) => setHorarioComercialInicio(e.target.value)}
+                                                                >
+                                                                    <option value="">Início</option>
+                                                                    {horarios.map((hora) => (
+                                                                        <option key={hora} value={hora}>{hora}</option>
+                                                                    ))}
                                                                 </select>
                                                             </div>
-
-                                                            <span> Até </span>
-
+                                                            <span>Até</span>
                                                             <div>
-                                                                <select name="" id="">
-                                                                    <option value="">13:00</option>
-                                                                    <option value="">14:00</option>
-                                                                    <option value="">15:00</option>
-                                                                    <option value="">16:00</option>
-                                                                    <option value="">17:00</option>
-                                                                    <option value="">18:00</option>
-                                                                    <option value="">19:00</option>
-                                                                    <option value="">20:00</option>
-                                                                    <option value="">21:00</option>
-                                                                    <option value="">22:00</option>
+                                                                <select
+                                                                    name="horarioComercialFim"
+                                                                    id="horarioComercialFim"
+                                                                    className="w-32 bg-white p-2 rounded-2xl border border-[#982546]"
+                                                                    value={horarioComercialFim}
+                                                                    onChange={(e) => setHorarioComercialFim(e.target.value)}
+                                                                >
+                                                                    <option value="">Fim</option>
+                                                                    {horarios.map((hora) => (
+                                                                        <option key={hora} value={hora}>{hora}</option>
+                                                                    ))}
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div className="flex flex-col justify-center items-center">
-                                                        <h1>Horário comercial</h1>
+                                                        <h1 className="font-bold text-[#982546] mb-5">Horário de pausa</h1>
                                                         <div className="flex flex-row gap-5">
                                                             <div>
-                                                                <select name="" id="">
-                                                                    <option value="">06:00</option>
-                                                                    <option value="">07:00</option>
-                                                                    <option value="">08:00</option>
-                                                                    <option value="">09:00</option>
-                                                                    <option value="">10:00</option>
-                                                                    <option value="">11:00</option>
-                                                                    <option value="">12:00</option>
+                                                                <select
+                                                                    name="horarioPausaInicio"
+                                                                    id="horarioPausaInicio"
+                                                                    className="w-32 bg-white p-2 rounded-2xl border border-[#982546]"
+                                                                    value={horarioPausaInicio}
+                                                                    onChange={(e) => setHorarioPausaInicio(e.target.value)}
+                                                                >
+                                                                    <option value="">Início</option>
+                                                                    {horarios.map((hora) => (
+                                                                        <option key={hora} value={hora}>{hora}</option>
+                                                                    ))}
                                                                 </select>
                                                             </div>
-
-                                                            <span> Até </span>
-
+                                                            <span>Até</span>
                                                             <div>
-                                                                <select name="" id="">
-                                                                    <option value="">13:00</option>
-                                                                    <option value="">14:00</option>
-                                                                    <option value="">15:00</option>
-                                                                    <option value="">16:00</option>
-                                                                    <option value="">17:00</option>
-                                                                    <option value="">18:00</option>
-                                                                    <option value="">19:00</option>
-                                                                    <option value="">20:00</option>
-                                                                    <option value="">21:00</option>
-                                                                    <option value="">22:00</option>
+                                                                <select
+                                                                    name="horarioPausaFim"
+                                                                    id="horarioPausaFim"
+                                                                    className="w-32 bg-white p-2 rounded-2xl border border-[#982546]"
+                                                                    value={horarioPausaFim}
+                                                                    onChange={(e) => setHorarioPausaFim(e.target.value)}
+                                                                >
+                                                                    <option value="">Fim</option>
+                                                                    {horarios.map((hora) => (
+                                                                        <option key={hora} value={hora}>{hora}</option>
+                                                                    ))}
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
 
+                                            <button
+                                                type="button"
+                                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-10 cursor-pointer mt-8 self-end"
+                                                onClick={async () => {
+                                                    const diasFormatados = diasSelecionados.map(dia => {
+                                                        const diaSemAcento = dia.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                                        return diaSemAcento.split("-")[0].toUpperCase();
+                                                    });
+
+                                                    const dadosParaEnviar = {
+                                                        id: Number(sessionStorage.getItem('userId')),
+                                                        workStart: `${horarioComercialInicio}:00`,
+                                                        workEnd: `${horarioComercialFim}:00`,
+                                                        breakStart: `${horarioPausaInicio}:00`,
+                                                        breakEnd: `${horarioPausaFim}:00`,
+                                                        daysOfWeek: diasFormatados
+
+                                                    };
+
+                                                    console.log("Dados a serem enviados:", dadosParaEnviar);
+
+                                                    try {
+                                                        await axios.patch(
+                                                            `${apiUrl}/configuracao-agendamento`,
+                                                            dadosParaEnviar,
+                                                            {
+                                                                headers: {
+                                                                    Authorization: `Bearer ${token}`,
+                                                                },
+                                                            }
+                                                        );
+
+                                                        alertAlteracoesSalvas();
+                                                    } catch (erro) {
+                                                        setMensagem("❌ Erro ao salvar as configurações.");
+
+                                                        setTimeout(() => {
+                                                            setMensagem("");
+                                                        }, 1500)
+                                                    }
+                                                }}
+
+                                            >
+                                                Salvar
+                                            </button>
 
                                         </form>
                                     </>
@@ -229,7 +306,7 @@ export default function Configuracoes() {
                 </div>
 
 
-            </div>
+            </div >
 
         </>
     )

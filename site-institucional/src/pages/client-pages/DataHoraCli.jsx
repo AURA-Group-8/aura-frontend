@@ -12,6 +12,9 @@ import Alerta from "../Pop-up";
 import axios from "axios";
 
 export default function CalendarioCarrossel() {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const location = useLocation();
   const servicosSelecionados = location.state?.servicos || [];
@@ -82,7 +85,7 @@ export default function CalendarioCarrossel() {
 
     try {
       const authToken = sessionStorage.getItem("authToken");
-      axios.post("http://localhost:8080/agendamentos", dadosAgendamento, {
+      axios.post(`${apiUrl}/agendamentos`, dadosAgendamento, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
