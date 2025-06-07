@@ -1,111 +1,206 @@
 import NavbarCli from "./components/Navbar";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   format,
+  parse,
   addDays,
   startOfDay,
   eachDayOfInterval,
+  isAfter,
+  isBefore,
+  isEqual,
+  addMinutes,
 } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { useLocation, useNavigate } from "react-router-dom";
-import Alerta from "../Pop-up";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+import Alerta from "../../pages/Pop-up";
+
+
 
 export default function CalendarioCarrossel() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const navigate = useNavigate();
   const location = useLocation();
-  const servicosSelecionados = location.state?.servicos || [];
-  useEffect(() => {
-  }, [servicosSelecionados]);
+  const { cliente, servicos } = location.state || {};
 
-  const horarios = [];
-  for (let h = 1; h <= 23; h++) {
-    horarios.push(`${String(h).padStart(2, "0")}:00`);
-  }
+  const navigate = useNavigate();
+
+  const [mensagem, setMensagem] = useState("");
+  const [caminho, setCaminho] = useState("");
 
   const diasVisiveis = 7;
   const horariosVisiveis = 7;
 
-  const userId = sessionStorage.getItem("userId");
-
   const [inicioDias, setInicioDias] = useState(0);
   const [dataSelecionada, setDataSelecionada] = useState(null);
-  const [dataAtual, setDataAtual] = useState(new Date());
 
   const [inicioHorarios, setInicioHorarios] = useState(0);
   const [horarioSelecionado, setHorarioSelecionado] = useState(null);
-  const [mensagem, setMensagem] = useState("");
-  const [caminho, setCaminho] = useState("");
+
+  const [diasSemanaAPI, setDiasSemanaAPI] = useState([]);
+  const [workStart, setWorkStart] = useState(null);
+  const [workEnd, setWorkEnd] = useState(null);
+  const [breakStart, setBreakStart] = useState(null);
+  const [breakEnd, setBreakEnd] = useState(null);
+
+  const userId = sessionStorage.getItem("userId");
 
   const limparAlert = () => {
     setTimeout(() => {
-      setMensagem("");
+        setMensagem("");
     }, 2000);
+};
+
+  const diaNomeParaNumero = (dia) => {
+    switch (dia) {
+      case "DOMINGO": return 0;
+      case "SEGUNDA": return 1;
+      case "TERCA": return 2;
+      case "QUARTA": return 3;
+      case "QUINTA": return 4;
+      case "SEXTA": return 5;
+      case "SABADO": return 6;
+      default: return -1;
+    }
   };
 
-  const dias = eachDayOfInterval({
-    start: startOfDay(new Date()),
-    end: addDays(new Date(), 365),
-  });
+  const datasDiasSemana = () => {
+    const hoje = startOfDay(new Date());
+    const fim = addDays(hoje, 365);
+    const datas = [];
 
-  const diasParaMostrar = dias.slice(inicioDias, inicioDias + diasVisiveis);
-  const horariosParaMostrar = horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis);
+    for (let d = hoje; d <= fim; d = addDays(d, 1)) {
+      const diaNum = d.getDay();
+      const diasAPIEmNum = diasSemanaAPI.map(diaNomeParaNumero);
+      if (diasAPIEmNum.includes(diaNum)) {
+        datas.push(d);
+      }
+    }
+    return datas;
+  };
 
+  const confirmar = () => {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    
+
+    const dataFormatada = format(parse(format(dataSelecionada, "dd/MM/yyyy"), 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');
+
+    const agendamento = {
+        userId,
+        jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
+        startDatetime: `${dataFormatada}T${horarioSelecionado}:00`
+
+    };
+
+    console.log("Agendamento:", agendamento);
+
+    axios.post(`${apiUrl}/agendamentos`, agendamento, {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
+        }
+    })
+        .then(() => {
+            setMensagem("Agendamento confirmado com sucesso!");
+            setCaminho("/assets/Check.png");
+            limparAlert();
+            navigate("/pages/client-pages/MeusAgendamentosCli");
+        })
+        .catch((error) => {
+            console.error("Erro ao confirmar agendamento:", error);
+            setMensagem("Erro ao confirmar agendamento. Tente novamente.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        })
+
+
+}
+
+  const gerarHorarios = () => {
+    if (!workStart || !workEnd) return [];
+
+    const formatoHora = "HH:mm:ss";
+
+    const inicioTrabalho = parse(workStart, formatoHora, new Date());
+    const fimTrabalho = parse(workEnd, formatoHora, new Date());
+
+    const inicioPausa = breakStart ? parse(breakStart, formatoHora, new Date()) : null;
+    const fimPausa = breakEnd ? parse(breakEnd, formatoHora, new Date()) : null;
+
+    let atual = inicioTrabalho;
+    const horarios = [];
+
+    while (isBefore(atual, fimTrabalho) || isEqual(atual, fimTrabalho)) {
+
+      if (
+        inicioPausa &&
+        fimPausa &&
+        ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
+          (isBefore(atual, fimPausa)))
+      ) {
+      } else {
+        horarios.push(format(atual, "HH:mm"));
+      }
+      atual = addMinutes(atual, 60);
+    }
+
+
+
+    return horarios;
+  };
+
+  const [diasParaMostrar, setDiasParaMostrar] = useState([]);
+  const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
+
+  useEffect(() => {
+    const datas = datasDiasSemana();
+    setDiasParaMostrar(datas.slice(inicioDias, inicioDias + diasVisiveis));
+  }, [diasSemanaAPI, inicioDias]);
+
+  useEffect(() => {
+    const horarios = gerarHorarios();
+    setHorariosParaMostrar(horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis));
+  }, [workStart, workEnd, breakStart, breakEnd, inicioHorarios]);
+
+  const [dataAtual, setDataAtual] = useState(null);
   useEffect(() => {
     if (diasParaMostrar.length > 0) {
       setDataAtual(diasParaMostrar[0]);
     }
-  }, [inicioDias]);
+  }, [diasParaMostrar]);
 
-  const formatarLocalDateTime = (data, horario) => {
-    const dataFormatada = format(data, "yyyy-MM-dd");
-    return `${dataFormatada}T${horario}:00`; // Formato LocalDateTime
-  };
+  useEffect(() => {
+    async function pegarDados() {
+      try {
 
-  const enviarAgendamento = async () => {
-    if (!dataSelecionada || !horarioSelecionado || servicosSelecionados.length === 0) {
-      setMensagem("Preencha todos os campos!");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-      return;
+        const token = sessionStorage.getItem("authToken");
+
+        const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+
+        const dados = response.data;
+
+        setDiasSemanaAPI(dados.daysOfWeek || []);
+        setWorkStart(dados.workStart);
+        setWorkEnd(dados.workEnd);
+        setBreakStart(dados.breakStart);
+        setBreakEnd(dados.breakEnd);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
     }
-
-    const localDateTime = formatarLocalDateTime(dataSelecionada, horarioSelecionado);
-
-    const dadosAgendamento = {
-      userId: userId,
-      jobsIds: servicosSelecionados.map((servico) => servico.id),
-      startDatetime: localDateTime,
-    };
-
-    console.log("Dados do agendamento:", dadosAgendamento);
-
-    try {
-      const authToken = sessionStorage.getItem("authToken");
-      axios.post(`${apiUrl}/agendamentos`, dadosAgendamento, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      setMensagem("Agendamento realizado com sucesso!");
-      setCaminho("/assets/Check-pop.png");
-      setTimeout(() => {
-        navigate("/pages/client-pages/Home");
-    }, 2000);
-      
-    } catch (error) {
-      console.error("Erro ao realizar agendamento:", error);
-      setMensagem("Erro ao realizar agendamento!");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-    }
-  };
+    pegarDados();
+  }, []);
 
   const handleProximoDias = () => {
-    if (inicioDias + diasVisiveis < dias.length) {
+    if (inicioDias + diasVisiveis < datasDiasSemana().length) {
       setInicioDias(inicioDias + diasVisiveis);
     }
   };
@@ -117,7 +212,7 @@ export default function CalendarioCarrossel() {
   };
 
   const handleProximoHorarios = () => {
-    if (inicioHorarios + horariosVisiveis < horarios.length) {
+    if (inicioHorarios + horariosVisiveis < gerarHorarios().length) {
       setInicioHorarios(inicioHorarios + horariosVisiveis);
     }
   };
@@ -147,28 +242,34 @@ export default function CalendarioCarrossel() {
     }
   };
 
+
+
   return (
     <>
+
       {mensagem && (
         <Alerta
           mensagem={mensagem}
           imagem={caminho}
         />
       )}
-
-      <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
+      <NavbarCli caminho={"/pages/client-pages/Agendar"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">
-          {format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR })
-            .toUpperCase()
-            .slice(0, 1) +
-            format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)}
+          {dataAtual
+            ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR })
+              .toUpperCase()
+              .slice(0, 1) +
+              format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1))
+            : ""}
         </h1>
 
-        {/* Carrossel de dias */}
         <div className="flex items-center gap-6 border-b-1 border-[#982546] pb-4">
-          <button onClick={handleAnteriorDias} className="text-[#982546] text-2xl cursor-pointer">
+          <button
+            onClick={handleAnteriorDias}
+            className="text-[#982546] text-2xl cursor-pointer"
+          >
             ❮
           </button>
 
@@ -194,12 +295,14 @@ export default function CalendarioCarrossel() {
             );
           })}
 
-          <button onClick={handleProximoDias} className="text-[#982546] text-2xl cursor-pointer">
+          <button
+            onClick={handleProximoDias}
+            className="text-[#982546] text-2xl cursor-pointer"
+          >
             ❯
           </button>
         </div>
 
-        {/* Carrossel de horários */}
         <div className="flex items-center gap-4 mt-10">
           <button
             onClick={handleAnteriorHorarios}
@@ -233,21 +336,21 @@ export default function CalendarioCarrossel() {
 
         <div className="flex flex-col items-start mt-8 w-170 bg-[#E5D8C0] rounded-2xl">
           <p className="text-[#362323] p-4 font-bold ">
-            {dataSelecionada
-              ? ` ${format(dataSelecionada, "dd/MM/yyyy")}`
-              : ""}
+            {dataSelecionada ? ` ${format(dataSelecionada, "dd/MM/yyyy")}` : ""}
             {" - "}
-            {horarioSelecionado
-              ? ` ${horarioSelecionado}`
-              : ""}
+            {horarioSelecionado ? ` ${horarioSelecionado}` : ""}
           </p>
 
           <span className="flex flex-row gap-2 p-4 border-t-1 w-full border-[#9c9a9a] text-[#5e5e5e] ">
             Funcionário: <img src="/assets/user.png" alt="" className="h-8" /> Kathelyn
           </span>
-
         </div>
-        <button onClick={enviarAgendamento} className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer">Continuar</button>
+        <button
+          className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer"
+          onClick={confirmar}
+        >
+          Continuar
+        </button>
       </div>
     </>
   );

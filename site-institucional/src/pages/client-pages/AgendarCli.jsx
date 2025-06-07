@@ -144,7 +144,7 @@ export default function AgendarCli() {
                             </button>
 
                             <button
-                                type="submit"
+                            onClick={agendar}
                                 className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center cursor-pointer hover:bg-[#b36078]"
                             >
                                 Selecionar data e hora

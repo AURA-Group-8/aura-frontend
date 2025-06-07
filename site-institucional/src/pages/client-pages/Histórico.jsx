@@ -6,7 +6,7 @@ import axios from "axios";
 import NavbarCli from "./components/Navbar";
 import Alerta from "../Pop-up";
 
-export default function MeusAgendamentosCli() {
+export default function Historico() {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
@@ -20,19 +20,11 @@ export default function MeusAgendamentosCli() {
     const [caminho, setCaminho] = useState("");
 
 
-    const handleSelectRadio = (grupo, valor) => {
-        if (grupo === 'periodo') {
-            setPeriodoSelecionado(periodoSelecionado === valor ? null : valor);
-        } else if (grupo === 'pagamento') {
-            setPagamentoSelecionado(pagamentoSelecionado === valor ? null : valor);
-        }
-    };
-
 
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
         const userName = sessionStorage.getItem("userName");
-
+    
         axios.get(`${apiUrl}/agendamentos/card`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -48,7 +40,14 @@ export default function MeusAgendamentosCli() {
     
                 console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados
     
-                setAgendamentos(agendamentosFiltrados);
+                // Filtra os agendamentos realizados anteriormente à data atual
+                const agendamentosPassados = agendamentosFiltrados.filter(
+                    (agendamento) => new Date(agendamento.startDatetime) < new Date()
+                );
+    
+                console.log("Past agendamentos:", agendamentosPassados); // Log dos agendamentos passados
+    
+                setAgendamentos(agendamentosPassados);
             })
             .catch((error) => {
                 console.error("Erro ao buscar agendamentos:", error);
@@ -77,7 +76,7 @@ export default function MeusAgendamentosCli() {
 
                         <div className=" flex flex-col justify-center items-center ml-20 w-200">
 
-                            <h1 className="text-[#982546] mt-3 font-bold text-2xl">Meus Agendamentos</h1>
+                            <h1 className="text-[#982546] mt-3 font-bold text-2xl">Histórico de Agendamentos</h1>
 
 
                         </div>
@@ -91,22 +90,22 @@ export default function MeusAgendamentosCli() {
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}
                                         time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
+                                        style={{ backgroundColor: "#d3d3d3" }} // background cinza
                                     />
                                 ))
                             ) : (
                                 <p className="text-[#982546] font-semibold text-lg m-auto">
-                                    Nenhum agendamento encontrado.
+                                    Você ainda não participou de um procedimento.
                                 </p>
                             )}
                         </div>
 
-                        <div className="w-full flex justify-center mt-5">
+                        <div className="w-full flex justify-center it mt-5">
                             <button
-                                onClick={() => navigate("/pages/client-pages/Historico")}
+                                onClick={() => navigate("/pages/client-pages/MeusAgendamentosCli")}
                                 className="bg-[#982546] text-white py-2 px-4 rounded-lg hover:bg-[#b36078] transition-colors"
                             >
-                                Visualizar Histórico
+                                Visualizar Agendamentos
                             </button>
                         </div>
 
