@@ -30,7 +30,8 @@ import CardServico from "../pages/professional-pages/components/CardServico";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
 import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
-import Historico from "../pages/client-pages/Histórico";
+import EditarServico from "../pages/professional-pages/EditarServico";
+
 
 
 
@@ -193,10 +194,10 @@ export const routes = createBrowserRouter([
     },
 
     {
-        path: "/pages/client-pages/Historico",
-        element: <Historico/>,
+        path: "/pages/professional-pages/EditarServico",
+        element: <EditarServico/>,
         errorElement: <h1>Page not found</h1>
-    },
+    }
 
     
 ])

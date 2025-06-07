@@ -3,11 +3,25 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MenuLateral from "./components/MenuLateral";
 import CardServico from "./components/CardServico";
+import Alerta from "../Pop-up";
 
 export default function MeusServicos() {
     const navigate = useNavigate();
     const [servicos, setServicos] = useState([]);
     const [busca, setBusca] = useState("");
+
+    // Estado para controlar modal de exclusão
+    const [modalAberto, setModalAberto] = useState(false);
+    const [servicoParaExcluir, setServicoParaExcluir] = useState(null);
+
+    const [mensagem, setMensagem] = useState("");
+    const [caminho, setCaminho] = useState("");
+
+    const limparAlert = () => {
+        setTimeout(() => {
+            setMensagem("");
+        }, 2000);
+    };
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -31,7 +45,6 @@ export default function MeusServicos() {
         listarServicos();
     }, []);
 
-   
     const filtrarServicos = () => {
         if (!busca) return servicos;
         return servicos.filter(servico =>
@@ -42,52 +55,124 @@ export default function MeusServicos() {
 
     const servicosFiltrados = filtrarServicos();
 
+    const editarServico = (id) => {
+        navigate(`/pages/professional-pages/EditServico`);
+    };
+
+    const abrirModalExcluir = (servico) => {
+        setServicoParaExcluir(servico);
+        setModalAberto(true);
+    };
+
+    const excluirServico = async () => {
+        if (!servicoParaExcluir) return;
+
+        try {
+            const token = sessionStorage.getItem("authToken");
+            await axios.delete(`${apiUrl}/servicos/${servicoParaExcluir.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setServicos(prev => prev.filter(servico => servico.id !== servicoParaExcluir.id));
+            setMensagem("Serviço excluído com sucesso!");
+            setCaminho("/assets/Check-pop.png");
+            limparAlert();
+        } catch (error) {
+            console.error("Erro ao excluir serviço:", error);
+            setMensagem("Erro ao excluir serviço.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        } finally {
+            setModalAberto(false);
+            setServicoParaExcluir(null);
+        }
+    };
+
+    const formatarDuracao = (minutos) => {
+        const horas = Math.floor(minutos / 60);
+        const mins = minutos % 60;
+        return horas > 0 ? `${horas}h ${mins}min` : `${mins}min`;
+    };
+
     return (
-        <div className="w-full h-screen bg-[#FFF3DC] ">
-            <div className="h-full flex flex-row">
-                <MenuLateral />
+        <>
+            {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-                <div className="flex flex-col w-full h-full items-center ">
-                    <div className="w-full flex flex-row justify-end">
-                        <img className="h-8 m-2" src="/assets/Doorbell.png" alt="Campainha" />
-                    </div>
+            <div className="w-full h-screen bg-[#FFF3DC] ">
+                <div className="h-full flex flex-row">
+                    <MenuLateral />
 
-                    <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
+                    <div className="flex flex-col w-full h-full items-center ">
+                        <div className="w-full flex flex-row justify-end">
+                            <img className="h-8 m-2" src="/assets/Doorbell.png" alt="Campainha" />
+                        </div>
 
-                    <div className="flex flex-row w-210 justify-between ml-20 mt-10">
-                        <button
-                            className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer"
-                            onClick={() => navigate("/pages/professional-pages/AddServico")}
-                        >
-                            Adicionar serviço
-                        </button>
+                        <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
 
-                        <input
-                            type="text"
-                            placeholder="Buscar serviço"
-                            className="p-2 bg-white rounded-2xl border border-[#982546]"
-                            value={busca}
-                            onChange={(e) => setBusca(e.target.value)}
-                        />
-                    </div>
+                        <div className="flex flex-row w-210 justify-between ml-20 mt-10">
+                            <button
+                                className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer"
+                                onClick={() => navigate("/pages/professional-pages/AddServico")}
+                            >
+                                Adicionar serviço
+                            </button>
 
-                    <div className="flex flex-col h-90 mt-6 overflow-y-auto">
-                        {servicosFiltrados.length > 0 ? (
-                            servicosFiltrados.map((servico) => (
-                                <CardServico
-                                    key={servico.id}
-                                    name={servico.name}
-                                    description={servico.description}
-                                    averageTime={`${servico.expectedDurationMinutes} min`}
-                                    value={servico.price.toFixed(2)}
-                                />
-                            ))
-                        ) : (
-                            <p className="text-[#982546] mt-10">Nenhum serviço encontrado.</p>
-                        )}
+                            <input
+                                type="text"
+                                placeholder="Buscar serviço"
+                                className="p-2 bg-white rounded-2xl border border-[#982546]"
+                                value={busca}
+                                onChange={(e) => setBusca(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="flex flex-col h-90 p-2 overflow-y-auto">
+                            {servicosFiltrados.length > 0 ? (
+                                servicosFiltrados.map((servico) => (
+                                    <CardServico
+                                        key={servico.id}
+                                        id={servico.id}
+                                        name={servico.name}
+                                        description={servico.description}
+                                        averageTime={formatarDuracao(servico.expectedDurationMinutes)}
+                                        value={servico.price.toFixed(2)}
+                                        onEditar={editarServico}
+                                        onExcluir={() => abrirModalExcluir(servico)}
+                                    />
+                                ))
+                            ) : (
+                                <p className="text-[#982546] mt-10">Nenhum serviço encontrado.</p>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {modalAberto && (
+                <div className="fixed inset-0 flex justify-center items-center z-50 ">
+                    <div className="bg-white rounded-2xl p-8 w-96 text-center shadow-lg border border-[#982546]">
+                        <h2 className="text-xl font-bold mb-4 text-[#982546]">Confirmar exclusão</h2>
+                        <p>Tem certeza que deseja excluir o serviço <strong>{servicoParaExcluir?.name}</strong>?</p>
+
+                        <div className="mt-6 flex justify-around">
+                            <button
+                                className="cursor-pointer px-6 py-2 rounded-2xl border border-[#982546] text-[#982546] hover:bg-[#f9eaea]"
+                                onClick={() => setModalAberto(false)}
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                className="cursor-pointer px-6 py-2 rounded-2xl bg-[#982546] text-white hover:bg-[#7a1e3a]"
+                                onClick={excluirServico}
+                            >
+                                Excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
