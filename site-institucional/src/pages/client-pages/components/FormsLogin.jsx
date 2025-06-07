@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import Alerta from "../../Pop-up";
 
 export default function FormularioLogin() {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senha, setSenha] = useState("");
+
 
     const navigate = useNavigate();
 
@@ -25,7 +29,7 @@ export default function FormularioLogin() {
         };
         console.log(usuario);
 
-        axios.post("http://localhost:8080/usuarios/login", usuario)
+        axios.post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);
 

@@ -6,6 +6,7 @@ import CardAgendamento from "./components/CardAgendamento";
 import axios from "axios";
 
 export default function Dashboard() {
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ export default function Dashboard() {
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
 
-        axios.get("http://localhost:8080/agendamentos/card", {
+        axios.get(`http://localhost:8080/agendamentos/card`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -109,6 +110,7 @@ export default function Dashboard() {
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
                                         key={index}
+                                        id={agendamento.id}
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}

@@ -6,6 +6,9 @@ import axios from "axios";
 import React from "react";
 
 export default function AgendarCli() {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const navigate = useNavigate(); 
     const [servicosSelecionados, setServicosSelecionados] = useState([]);
 
@@ -28,7 +31,7 @@ export default function AgendarCli() {
         try {
             const authToken = sessionStorage.getItem("authToken");
 
-            const response = await axios.get("http://localhost:8080/servicos",
+            const response = await axios.get(`${apiUrl}/servicos`,
                 {
                     headers: {
                         Authorization: `Bearer ${authToken}`,

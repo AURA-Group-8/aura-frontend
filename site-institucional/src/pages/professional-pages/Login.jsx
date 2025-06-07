@@ -5,6 +5,7 @@ import Alerta from "../Pop-up";
 import axios from "axios";
 
 export default function LoginPro() {
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -28,7 +29,7 @@ export default function LoginPro() {
         };
         console.log(usuario);
 
-        axios.post("http://localhost:8080/usuarios/login", usuario)
+        axios.post(`${apiUrl}/usuarios/login`, usuario)
 
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);

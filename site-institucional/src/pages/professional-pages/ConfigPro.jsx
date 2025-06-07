@@ -6,6 +6,8 @@ import Alerta from "../Pop-up";
 
 export default function Configuracoes() {
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
 
@@ -267,7 +269,7 @@ export default function Configuracoes() {
 
                                                     try {
                                                         await axios.patch(
-                                                            "http://localhost:8080/configuracao-agendamento",
+                                                            `${apiUrl}/configuracao-agendamento`,
                                                             dadosParaEnviar,
                                                             {
                                                                 headers: {

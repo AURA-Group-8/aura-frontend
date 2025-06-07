@@ -13,14 +13,22 @@ import {
   addMinutes,
 } from "date-fns";
 import { ptBR } from "date-fns/locale";
-
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 
 
 export default function CalendarioCarrossel() {
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const location = useLocation();
+  const { cliente, servicos } = location.state || {};
+
   const navigate = useNavigate();
+
+  const [mensagem, setMensagem] = useState("");
+  const [caminho, setCaminho] = useState("");
 
   const diasVisiveis = 7;
   const horariosVisiveis = 7;
@@ -93,6 +101,8 @@ export default function CalendarioCarrossel() {
       atual = addMinutes(atual, 60);
     }
 
+
+
     return horarios;
   };
 
@@ -122,7 +132,7 @@ export default function CalendarioCarrossel() {
 
         const token = sessionStorage.getItem("authToken");
 
-        const response = await axios.get("http://localhost:8080/configuracao-agendamento", {
+        const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -187,15 +197,32 @@ export default function CalendarioCarrossel() {
 
   const confirmar = () => {
     if (!dataSelecionada || !horarioSelecionado) {
-      alert("Por favor, selecione uma data e um horário.");
+      setMensagem("Selecione uma data e horário!");
+      setCaminho("/assets/Alert.png");
       return;
     }
-    navigate("/pages/professional-pages/Confirmar");
+    navigate("/pages/professional-pages/Confirmar",
+       {
+        state: {
+          data: format(dataSelecionada, "dd/MM/yyyy"),
+          hora: horarioSelecionado,
+          cliente: cliente,
+          servicos: servicos,
+        },
+      }
+    );
   };
 
 
   return (
     <>
+
+      {mensagem && (
+        <Alerta
+          mensagem={mensagem}
+          imagem={caminho}
+        />
+      )}
       <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">

@@ -7,6 +7,7 @@ import NavbarCli from "./components/Navbar";
 import Alerta from "../Pop-up";
 
 export default function MeusAgendamentosCli() {
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ export default function MeusAgendamentosCli() {
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
 
-        axios.get("http://localhost:8080/agendamentos/card", {
+        axios.get(`${apiUrl}/agendamentos/card`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

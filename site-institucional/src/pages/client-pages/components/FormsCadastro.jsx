@@ -13,10 +13,12 @@ export default function FormularioCadastro() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
+    const [isSubmitting, setIsSubmitting] = useState(false); 
+
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
-    const UserUrl = "http://localhost:8080/usuarios";
+    const UserUrl = `${apiUrl}/usuarios`;
 
     const limparAlert = () => {
         setTimeout(() => {
