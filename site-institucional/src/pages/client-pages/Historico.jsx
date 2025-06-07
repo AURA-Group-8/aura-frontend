@@ -74,14 +74,14 @@ export default function Historico() {
                             <img className="h-8 m-2" src="/assets/Doorbell.png " alt="" />
                         </div>
 
-                        <div className=" flex flex-col justify-center items-center ml-20 w-200">
+                        <div className=" flex flex-col justify-center items-center w-200">
 
                             <h1 className="text-[#982546] mt-3 font-bold text-2xl">Histórico de Agendamentos</h1>
 
 
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 ml-20 mt-25 overflow-y-auto">
+                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 mt-25 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento

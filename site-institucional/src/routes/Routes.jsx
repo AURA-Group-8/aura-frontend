@@ -32,6 +32,8 @@ import DataHoraCli from "../pages/client-pages/DataHoraCli";
 import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
 import EditarServico from "../pages/professional-pages/EditarServico";
 
+import Historico from "../pages/client-pages/Historico";
+
 
 
 
@@ -197,7 +199,14 @@ export const routes = createBrowserRouter([
         path: "/pages/professional-pages/EditarServico",
         element: <EditarServico/>,
         errorElement: <h1>Page not found</h1>
-    }
+    },
+
+    {
+        path: "/pages/client-pages/Historico",
+        element: <Historico/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
 
     
 ])

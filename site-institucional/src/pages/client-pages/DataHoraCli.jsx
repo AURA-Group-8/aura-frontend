@@ -106,9 +106,11 @@ export default function CalendarioCarrossel() {
     })
         .then(() => {
             setMensagem("Agendamento confirmado com sucesso!");
-            setCaminho("/assets/Check.png");
+            setCaminho("/assets/Check-pop.png");
             limparAlert();
-            navigate("/pages/client-pages/MeusAgendamentosCli");
+            setTimeout(() => {
+              navigate("/pages/client-pages/MeusAgendamentosCli");
+          }, 2000);
         })
         .catch((error) => {
             console.error("Erro ao confirmar agendamento:", error);
