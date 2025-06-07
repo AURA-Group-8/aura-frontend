@@ -30,6 +30,7 @@ import CardServico from "../pages/professional-pages/components/CardServico";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
 import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
+import EditarServico from "../pages/professional-pages/EditarServico";
 
 
 
@@ -188,6 +189,12 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/client-pages/MeusAgendamentosCli",
         element: <MeusAgendamentosCli/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/EditarServico",
+        element: <EditarServico/>,
         errorElement: <h1>Page not found</h1>
     }
 
