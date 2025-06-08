@@ -35,6 +35,9 @@ import EditarServico from "../pages/professional-pages/EditarServico";
 import Historico from "../pages/client-pages/Historico";
 import AlterarSenha from "../pages/professional-pages/AlterarSenha";
 
+import EsqueceuSenha from "../pages/client-pages/ForgotPassword";
+import ValidarToken from "../pages/client-pages/ValidarToken";
+
 
 
 
@@ -220,5 +223,16 @@ export const routes = createBrowserRouter([
         errorElement: <h1>Page not found</h1>
     },
 
+    {
+        path: "/pages/client-pages/ForgotPassword",
+        element: <EsqueceuSenha/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/ValidarToken",
+        element: <ValidarToken/>,
+        errorElement: <h1>Page not found</h1>
+    },
     
 ])
