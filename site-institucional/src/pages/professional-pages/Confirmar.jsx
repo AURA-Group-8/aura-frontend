@@ -30,7 +30,7 @@ export default function Confirmar() {
         const dataFormatada = format(parse(data, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');
 
         const agendamento = {
-            userId: cliente?.id, // verifique se isso existe!
+            userId: cliente?.id,
             jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
             startDatetime: `${dataFormatada}T${hora}:00`
 
@@ -45,9 +45,12 @@ export default function Confirmar() {
         })
             .then(() => {
                 setMensagem("Agendamento confirmado com sucesso!");
-                setCaminho("/assets/Check.png");
-                limparAlert();
-                navigate("/pages/professional-pages/Dashboard");
+                setCaminho("/assets/Check-pop.png");
+                setTimeout(() => {
+                    setMensagem("");
+                    navigate("/pages/professional-pages/Dashboard");
+                }, 2000);
+                
             })
             .catch((error) => {
                 console.error("Erro ao confirmar agendamento:", error);

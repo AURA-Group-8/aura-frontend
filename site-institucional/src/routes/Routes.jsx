@@ -33,6 +33,7 @@ import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
 import EditarServico from "../pages/professional-pages/EditarServico";
 
 import Historico from "../pages/client-pages/Historico";
+import AlterarSenha from "../pages/professional-pages/AlterarSenha";
 
 
 
@@ -207,6 +208,17 @@ export const routes = createBrowserRouter([
         errorElement: <h1>Page not found</h1>
     },
 
+    {
+        path: "/pages/professional-pages/AlterarSenha",
+        element: <AlterarSenha/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Notificacao",
+        element: <Notificacao/>,
+        errorElement: <h1>Page not found</h1>
+    },
 
     
 ])

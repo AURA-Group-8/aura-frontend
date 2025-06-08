@@ -3,10 +3,13 @@ import MenuLateral from "./components/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
 import Alerta from "../Pop-up";
+import { se } from "date-fns/locale";
 
 export default function Configuracoes() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
+
+    const navigate = useNavigate();
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
@@ -109,6 +112,7 @@ export default function Configuracoes() {
                                                 id="nome"
                                                 name="nome"
                                                 className="bg-[#ffffff] p-2 rounded-xl"
+                                                value={"00.538.887/0001-76"}
                                                 disabled
                                             />
 
@@ -118,6 +122,7 @@ export default function Configuracoes() {
                                                 id="email"
                                                 name="email"
                                                 className="bg-[#ffffff] p-2 rounded-xl"
+                                                value={sessionStorage.getItem('userEmail')}
                                                 disabled
                                             />
 
@@ -128,19 +133,19 @@ export default function Configuracoes() {
                                                     id="senha"
                                                     name="senha"
                                                     className="bg-[#ffffff] p-2 w-50 rounded-xl"
+                                                    value={"********"}
                                                     disabled
                                                 />
                                                 <button
                                                     type="button"
                                                     className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer"
-
+                                                    onClick={() => {
+                                                        navigate("/pages/professional-pages/AlterarSenha");
+                                                    }}
                                                 >Alterar senha
                                                 </button>
                                             </div>
 
-                                            <div>
-
-                                            </div>
 
                                         </form>
 

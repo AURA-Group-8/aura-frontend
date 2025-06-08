@@ -1,80 +1,117 @@
+import axios from "axios";
 import NavbarPro from "./components/Navbar";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
 
 export default function Mensagem() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+  const [assunto, setAssunto] = useState("");
+  const [textMensagem, setTextMensagem] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [caminho, setCaminho] = useState("");
 
-    const navigate = useNavigate();
-    const [assunto, setAssunto] = useState("");
-    const [textMensagem, setTextMensagem] = useState("");
-    const [mensagem, setMensagem] = useState("");
-    const [caminho, setCaminho] = useState("");
+  const limparAlert = () => {
+    setTimeout(() => {
+      setMensagem("");
+    }, 2000);
+  };
 
-    const limparAlert = () => {
-        setTimeout(() => {
-            setMensagem("");
-        }, 2000);
+  const enviar = async (e) => {
+    e.preventDefault();
+
+    if (
+      assunto === "" ||
+      textMensagem === "" ||
+      assunto.trim().length < 2 ||
+      textMensagem.trim().length < 10
+    ) {
+      setMensagem("Preencha todos os campos!");
+      setCaminho("/assets/Alert.png");
+      limparAlert();
+      return;
     }
 
-    const enviar = (e) => {
-        e.preventDefault();
+    try {
+      const token = sessionStorage.getItem("authToken");
 
-        if (assunto === "" || textMensagem === "" || assunto.trim().length < 2 || textMensagem.trim().length < 10) {
-            setMensagem("Preencha todos os campos!");
-            setCaminho("/assets/Alert.png");
-            limparAlert();
-            return;
-        }
+      const data = {
+        assunto: assunto,
+        mensagem: textMensagem,
+      };
 
-        setMensagem("Mensagem enviada!");
-        setCaminho("/assets/Check-pop.png");
-        limparAlert();
-        return;
+      await axios.post(`${apiUrl}/mensagens/all/whatsapp`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      setMensagem("Mensagem enviada!");
+      setCaminho("/assets/Check-pop.png");
+      limparAlert();
+
+    } catch (error) {
+      console.error("Erro ao enviar mensagem:", error);
+      setMensagem("Erro ao enviar mensagem.");
+      setCaminho("/assets/Alert.png");
+      limparAlert();
     }
+  };
 
-    return (
-        <>
+  return (
+    <>
+      {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-            {mensagem && (
-                <Alerta
-                    mensagem={mensagem}
-                    imagem={caminho}
-                />
-            )}
+      <NavbarPro caminho={"/pages/professional-pages/MeusClientes"} />
+      <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
+        <h1 className="text-[#982546] font-bold text-2xl">Enviar mensagem</h1>
 
+        <form
+          className="border-1 border-[#982546] bg-[#FFF3DC] w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5"
+          onSubmit={enviar}
+        >
+          <div className="flex flex-col w-120 ">
+            <p className=" mt-2">Assunto</p>
+            <input
+              type="text"
+              name="nome"
+              className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+              onChange={(e) => setAssunto(e.target.value)}
+              value={assunto}
+            />
 
-            <NavbarPro caminho={"/pages/professional-pages/MeusClientes"} />
-            <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
-                <h1 className="text-[#982546] font-bold text-2xl">Enviar mensagem</h1>
+            <p className="mt-4">Mensagem</p>
+            <textarea
+              type="text"
+              name="nome"
+              className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+              onChange={(e) => setTextMensagem(e.target.value)}
+              value={textMensagem}
+            />
 
-                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5">
-                    <div className="flex flex-col w-120 ">
-                        <p className=" mt-2">Assunto</p>
-                        <input type="text" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setAssunto(e.target.value)} />
+            <div className="flex flex-row w-full justify-between mt-10">
+              <button
+                type="reset"
+                className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
+                onClick={() => {
+                  setAssunto("");
+                  setTextMensagem("");
+                }}
+              >
+                Cancelar
+              </button>
 
-                        <p className="mt-4">Mensagem</p>
-                        <textarea type="text" name="nome" className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]" onChange={e => setTextMensagem(e.target.value)} />
-
-
-
-                        <div className="flex flex-row w-full justify-between mt-10">
-                            <button
-                                type="reset"
-                                className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
-                            >
-                                Cancelar
-                            </button>
-
-                            <button className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer" onClick={enviar}>Enviar</button>
-                        </div>
-                    </div>
-                </form>
+              <button
+                type="submit"
+                className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer"
+              >
+                Enviar
+              </button>
             </div>
-        </>
-    )
-
+          </div>
+        </form>
+      </div>
+    </>
+  );
 }
-
-

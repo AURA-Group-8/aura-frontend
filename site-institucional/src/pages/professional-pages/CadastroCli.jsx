@@ -20,11 +20,12 @@ export default function CadastroCli() {
 
     const mascararTelefone = (valor) => {
         return valor
-            .replace(/\D/g, "")                    // Remove tudo que não é dígito
-            .replace(/(\d{2})(\d)/, "($1) $2")    // Coloca parênteses nos dois primeiros dígitos
-            .replace(/(\d{5})(\d)/, "$1-$2")      // Coloca hífen depois dos 5 dígitos
-            .replace(/(-\d{4})\d+?$/, "$1");      // Limita o tamanho máximo
-    };
+            .replace(/\D/g, "")
+            .replace(/(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{5})(\d)/, "$1-$2")
+            .replace(/(-\d{4})\d+?$/, "$1");
+
+    }
 
     const agendar = async (e) => {
         e.preventDefault();
@@ -40,15 +41,16 @@ export default function CadastroCli() {
             const token = sessionStorage.getItem("authToken");
             const telefoneSemMascara = telefone.replace(/\D/g, "");
 
-            const clienteData = {
+            const novoCliente = {
                 username: nome,
                 email: email,
-                phone: telefoneSemMascara,
-                password: "default123",          // Valor mockado
-                dateOfBirth: "2000-01-01T00:00:00" // Valor mockado
+                password: "123456",
+                phone: telefoneSemMascara ,
+                dateOfBirth: "2000-01-01T00:00:00", 
+                roleId: 1
             };
 
-            await axios.post(`${apiUrl}/usuarios`, clienteData, {
+            await axios.post(`${apiUrl}/usuarios`, novoCliente, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",

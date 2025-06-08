@@ -23,14 +23,28 @@ export default function LoginPro() {
     const logar = (e) => {
         e.preventDefault();
 
+        // Validação antes da requisição
+        if (email.trim() === "" || senha.trim() === "") {
+            setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (email.trim() !== "aura@gmail.com") {
+            setMensagem("E-mail inválido!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
         const usuario = {
-            email,
-            password: senha
+            email: email.trim(),
+            password: senha.trim()
         };
         console.log(usuario);
 
         axios.post(`${apiUrl}/usuarios/login`, usuario)
-
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);
 
@@ -38,23 +52,12 @@ export default function LoginPro() {
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userEmail', response.data.email);
 
-                console.log("User ID:", response.data.id);
-
-                if (email === "" || senha === "") {
-                    setMensagem("Preencha todos os campos!");
-                    setCaminho("/assets/Alert.png");
-                    limparAlert();
-                    return;
-                } else {
-                    setMensagem("✅ Login realizado com sucesso!");
-                    setCaminho("/assets/Check-pop.png")
-                    limparAlert();
-                    setTimeout(() => {
-                        navigate("/pages/professional-pages/Dashboard");
-                    }, 2000);
-                }
-
-
+                setMensagem("✅ Login realizado com sucesso!");
+                setCaminho("/assets/Check-pop.png")
+                limparAlert();
+                setTimeout(() => {
+                    navigate("/pages/professional-pages/Dashboard");
+                }, 1000);
             }).catch((error) => {
                 if (error.response && error.response.status === 401) {
                     console.error("Erro ao logar:", error.data);
@@ -67,8 +70,7 @@ export default function LoginPro() {
                     setCaminho("/assets/Alert.png")
                     limparAlert();
                 }
-            })
-
+            });
     }
 
 
