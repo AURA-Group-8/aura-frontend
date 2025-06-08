@@ -23,9 +23,17 @@ export default function LoginPro() {
     const logar = (e) => {
         e.preventDefault();
 
-        // Validação antes da requisição
+        const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
+
         if (email.trim() === "" || senha.trim() === "") {
             setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (emojiRegex.test(email) || emojiRegex.test(senha)) {
+            setMensagem("🚫 Emojis não são permitidos no email ou senha.");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
@@ -53,7 +61,7 @@ export default function LoginPro() {
                 sessionStorage.setItem('userEmail', response.data.email);
 
                 setMensagem("✅ Login realizado com sucesso!");
-                setCaminho("/assets/Check-pop.png")
+                setCaminho("/assets/Check-pop.png");
                 limparAlert();
                 setTimeout(() => {
                     navigate("/pages/professional-pages/Dashboard");
@@ -62,12 +70,12 @@ export default function LoginPro() {
                 if (error.response && error.response.status === 401) {
                     console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Email ou senha incorretos.");
-                    setCaminho("/assets/Alert.png")
+                    setCaminho("/assets/Alert.png");
                     limparAlert();
                 } else {
                     console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Erro ao logar");
-                    setCaminho("/assets/Alert.png")
+                    setCaminho("/assets/Alert.png");
                     limparAlert();
                 }
             });

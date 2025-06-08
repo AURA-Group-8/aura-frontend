@@ -49,7 +49,34 @@ export default function AlterarSenha() {
     const alterarSenha = async (e) => {
         e.preventDefault();
 
-        if (novaSenha !== confirmarSenha) {
+        const senhaTrim = novaSenha.trim();
+        const confirmarTrim = confirmarSenha.trim();
+
+        // Regex para detectar emojis
+        const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
+
+        if (senhaTrim.length === 0 || confirmarTrim.length === 0) {
+            setMensagem("Preencha ambos os campos de senha.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (emojiRegex.test(senhaTrim) || emojiRegex.test(confirmarTrim)) {
+            setMensagem("Emojis não são permitidos na senha.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (senhaTrim.length < 6) {
+            setMensagem("A senha deve ter no mínimo 6 caracteres.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (senhaTrim !== confirmarTrim) {
             setMensagem("As senhas não coincidem.");
             setCaminho("/assets/Alert.png");
             limparAlert();
@@ -63,10 +90,9 @@ export default function AlterarSenha() {
             return;
         }
 
-
         try {
             const corpoAtualizado = {
-                password: novaSenha
+                password: senhaTrim
             };
 
             await axios.patch(`${apiUrl}/usuarios/${usuario.id}`, corpoAtualizado, {
@@ -78,6 +104,9 @@ export default function AlterarSenha() {
             setMensagem("Senha alterada com sucesso!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();
+
+            setNovaSenha("");
+            setConfirmarSenha("");
 
             setTimeout(() => {
                 navigate("/pages/professional-pages/Login");
@@ -128,7 +157,7 @@ export default function AlterarSenha() {
                                 <button
                                     type="button"
                                     className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer"
-                                    onClick={() => navigate("/pages/client-pages/Login")}
+                                    onClick={() => navigate("/pages/professional-pages/Configuracoes")}
                                 >
                                     Cancelar
                                 </button>

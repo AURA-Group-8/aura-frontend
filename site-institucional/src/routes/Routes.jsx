@@ -34,6 +34,7 @@ import EditarServico from "../pages/professional-pages/EditarServico";
 
 import Historico from "../pages/client-pages/Historico";
 import AlterarSenha from "../pages/professional-pages/AlterarSenha";
+import SinoNotificacao from "../pages/professional-pages/components/SinoNotificacao";
 
 
 
@@ -219,6 +220,14 @@ export const routes = createBrowserRouter([
         element: <Notificacao/>,
         errorElement: <h1>Page not found</h1>
     },
+
+    {
+        path: "/pages/professional-pages/SinoNotificacao",
+        element: <SinoNotificacao/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+
 
     
 ])

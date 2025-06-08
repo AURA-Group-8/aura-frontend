@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
 import CardAgendamento from "./components/CardAgendamento";
 import axios from "axios";
+import SinoNotificacao from "./components/SinoNotificacao";
 
 export default function Dashboard() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -87,31 +88,40 @@ export default function Dashboard() {
                 setAgendamentos(response.data);
                 setAgendamentosFiltrados(response.data);
 
-                const servicos = new Set();
+                const servicosDeAgendamentos = new Set();
                 response.data.forEach((ag) => {
-                    ag.jobsNames.forEach(servico => servicos.add(servico));
+                    ag.jobsNames.forEach(servico => servicosDeAgendamentos.add(servico));
                 });
-                setServicosDisponiveis(Array.from(servicos));
+
+                axios.get(`${apiUrl}/servicos`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then((res) => {
+                        const servicosBackend = (res.data.content || []).map(s => s.name);
+                        const todosServicosSet = new Set([...servicosDeAgendamentos, ...servicosBackend]);
+
+                        setServicosDisponiveis(Array.from(todosServicosSet));
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao buscar serviços:", error);
+                        setServicosDisponiveis(Array.from(servicosDeAgendamentos));
+                    });
+
             })
             .catch((error) => {
                 console.error("Erro ao buscar agendamentos:", error);
             });
 
-        axios.get(`${apiUrl}/servicos`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then((response) => {
-                const data = response.data;
-                const lista = Array.isArray(data) ? data : (data.servicos ?? []);
-                setServicosDisponiveis(lista);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar serviços:", error);
-            });
-
     }, []);
+
+    const formatDateDDMMYYYY = (date) => {
+            const d = date.getDate().toString().padStart(2, '0');
+            const m = (date.getMonth() + 1).toString().padStart(2, '0');
+            const y = date.getFullYear();
+            return `${d}/${m}/${y}`;
+        };
 
     return (
         <div className="w-full h-screen bg-[#FFF3DC]">
@@ -120,9 +130,7 @@ export default function Dashboard() {
                 <MenuLateral />
 
                 <div className="flex flex-col w-full h-full items-center">
-                    <div className="w-full flex flex-row justify-end">
-                        <img className="h-8 m-2" src="/assets/Doorbell.png" alt="" />
-                    </div>
+                    <SinoNotificacao />
 
                     <div className="flex flex-col justify-center items-center ml-20 w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
@@ -224,7 +232,7 @@ export default function Dashboard() {
                                         userId={agendamento.userId}
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
-                                        date={new Date(agendamento.startDatetime).toLocaleDateString()}
+                                        date={formatDateDDMMYYYY(new Date(agendamento.startDatetime))}
                                         time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
                                         paymentStatus={agendamento.paymentStatus}

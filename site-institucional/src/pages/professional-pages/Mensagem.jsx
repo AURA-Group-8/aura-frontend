@@ -19,45 +19,57 @@ export default function Mensagem() {
   };
 
   const enviar = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (
-      assunto === "" ||
-      textMensagem === "" ||
-      assunto.trim().length < 2 ||
-      textMensagem.trim().length < 10
-    ) {
-      setMensagem("Preencha todos os campos!");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-      return;
-    }
+  const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
 
-    try {
-      const token = sessionStorage.getItem("authToken");
+  if (
+    assunto === "" ||
+    textMensagem === "" ||
+    assunto.trim().length < 2 ||
+    textMensagem.trim().length < 10
+  ) {
+    setMensagem("Preencha todos os campos corretamente!");
+    setCaminho("/assets/Alert.png");
+    limparAlert();
+    return;
+  }
 
-      const data = {
-        assunto: assunto,
-        mensagem: textMensagem,
-      };
+  if (emojiRegex.test(assunto) || emojiRegex.test(textMensagem)) {
+    setMensagem("Emojis não são permitidos no assunto ou mensagem.");
+    setCaminho("/assets/Alert.png");
+    limparAlert();
+    return;
+  }
 
-      await axios.post(`${apiUrl}/mensagens/all/whatsapp`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  try {
+    const token = sessionStorage.getItem("authToken");
 
-      setMensagem("Mensagem enviada!");
-      setCaminho("/assets/Check-pop.png");
-      limparAlert();
+    const data = {
+      assunto: assunto.trim(),
+      mensagem: textMensagem.trim(),
+    };
 
-    } catch (error) {
-      console.error("Erro ao enviar mensagem:", error);
-      setMensagem("Erro ao enviar mensagem.");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-    }
-  };
+    await axios.post(`${apiUrl}/mensagens/all/whatsapp`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setMensagem("Mensagem enviada!");
+    setCaminho("/assets/Check-pop.png");
+    limparAlert();
+
+    setAssunto("");
+    setTextMensagem("");
+
+  } catch (error) {
+    console.error("Erro ao enviar mensagem:", error);
+    setMensagem("Erro ao enviar mensagem.");
+    setCaminho("/assets/Alert.png");
+    limparAlert();
+  }
+};
 
   return (
     <>

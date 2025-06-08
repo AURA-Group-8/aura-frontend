@@ -25,15 +25,35 @@ export default function AddServico() {
     const adicionar = async (e) => {
         e.preventDefault();
 
-        // Validações básicas
-        if (nome === "" || descricao === "" || duracao === "" || preco === "" || isNaN(duracao) || isNaN(preco)) {
-            setMensagem("Preencha todos os campos!");
+        const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/;
+
+        if (
+            nome.trim() === "" ||
+            descricao.trim() === "" ||
+            duracao === "" ||
+            preco === "" ||
+            isNaN(duracao) ||
+            isNaN(preco)
+        ) {
+            setMensagem("Preencha todos os campos corretamente!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
         }
 
-        if (nome.trim().length < 2 || descricao.trim().length < 10 || Number(duracao) <= 0 || Number(preco) <= 0) {
+        if (emojiRegex.test(nome) || emojiRegex.test(descricao)) {
+            setMensagem("Emojis não são permitidos nos campos Nome e Descrição.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (
+            nome.trim().length < 2 ||
+            descricao.trim().length < 10 ||
+            Number(duracao) <= 0 ||
+            Number(preco) <= 0
+        ) {
             setMensagem("Preencha com dados válidos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
@@ -43,25 +63,28 @@ export default function AddServico() {
         try {
             const token = sessionStorage.getItem("authToken");
 
-          
             const body = {
-                name: nome,
-                description: descricao,
+                name: nome.trim(),
+                description: descricao.trim(),
                 expectedDurationMinutes: Number(duracao) * 60,
-                price: Number(preco)
+                price: Number(preco),
             };
 
             await axios.post(`${apiUrl}/servicos`, body, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             setMensagem("Serviço cadastrado com sucesso!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();
 
-            
+            setNome("");
+            setDescricao("");
+            setDuracao("");
+            setPreco("");
+
             setTimeout(() => {
                 navigate("/pages/professional-pages/MeusServicos");
             }, 2000);
@@ -72,7 +95,7 @@ export default function AddServico() {
             setCaminho("/assets/Alert.png");
             limparAlert();
         }
-    }
+    };
 
     return (
         <>
@@ -107,13 +130,19 @@ export default function AddServico() {
                         <div className="flex flex-row w-full justify-between">
                             <div className="flex flex-col">
                                 <p className="mt-4">Duração (Horas)</p>
-                                <input
-                                    type="number"
+                                <select
                                     name="duracao"
-                                    placeholder="Ex: 1"
                                     className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
+                                    value={duracao}
                                     onChange={e => setDuracao(e.target.value)}
-                                />
+                                >
+                                    <option value="">Selecione...</option>
+                                    {Array.from({ length: 16 }, (_, i) => (i + 1) * 30).map((min) => (
+                                        <option key={min} value={min}>
+                                            {Math.floor(min / 60)}h {min % 60 !== 0 ? `${min % 60}min` : ""}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className="flex flex-col">

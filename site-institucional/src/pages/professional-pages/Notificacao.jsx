@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import NavbarCli from "./components/Navbar";
+import NavbarPro from "./components/Navbar";
 import axios from "axios";
 
 const Notificacao = () => {
@@ -24,7 +24,7 @@ const Notificacao = () => {
 
   return (
     <>
-      <NavbarCli caminho={"/pages/client-pages/Home"} />
+      <NavbarPro caminho={"/pages/professional-pages/Dashboard"} />
       <div className="min-h-screen bg-[#fef3e2] p-6">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6">Notificações</h1>
 

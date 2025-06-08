@@ -30,8 +30,18 @@ export default function CadastroCli() {
     const agendar = async (e) => {
         e.preventDefault();
 
-        if (nome === "" || telefone === "") {
-            setMensagem("Preencha todos os campos!");
+        const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/;
+
+        if (
+            nome.trim() === "" ||
+            telefone.trim() === "" ||
+            emojiRegex.test(nome)
+        ) {
+            setMensagem(
+                nome.trim() === "" || telefone.trim() === ""
+                    ? "Preencha todos os campos!"
+                    : "Nome contém caracteres inválidos (emojis não são permitidos)!"
+            );
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
@@ -42,12 +52,12 @@ export default function CadastroCli() {
             const telefoneSemMascara = telefone.replace(/\D/g, "");
 
             const novoCliente = {
-                username: nome,
-                email: email,
+                username: nome.trim(),
+                email: email.trim(),
                 password: "123456",
-                phone: telefoneSemMascara ,
-                dateOfBirth: "2000-01-01T00:00:00", 
-                roleId: 1
+                phone: telefoneSemMascara,
+                dateOfBirth: "2000-01-01T00:00:00",
+                roleId: 1,
             };
 
             await axios.post(`${apiUrl}/usuarios`, novoCliente, {
