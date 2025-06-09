@@ -87,6 +87,7 @@ export default function MeusAgendamentosCli() {
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
                                         key={index}
+                                        id={agendamento.idScheduling}
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}

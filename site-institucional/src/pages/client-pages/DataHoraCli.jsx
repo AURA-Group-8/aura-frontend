@@ -93,7 +93,8 @@ export default function CalendarioCarrossel() {
     const agendamento = {
         userId,
         jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
-        startDatetime: `${dataFormatada}T${horarioSelecionado}:00`
+        startDatetime: `${dataFormatada}T${horarioSelecionado}:00`,
+
 
     };
 

@@ -17,6 +17,7 @@ const Notificacao = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log("Notificações recebidas:", response.data);
         setNotificacoes(response.data);
       } catch (error) {
         console.error("Erro ao buscar notificações:", error);
