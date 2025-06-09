@@ -1,6 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import Alerta from "../Pop-up";
+
 
 import Header from '../Header-login';
 
@@ -11,7 +13,7 @@ export default function AlterarSenha() {
     const navigate = useNavigate();
     const location = useLocation();
     const { userId, email } = location.state || {};
-    
+
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -20,14 +22,11 @@ export default function AlterarSenha() {
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
-        }, 2000);}
-    
+        }, 2000);
+    }
 
-    const dadosUsuario = {
-        userId: userId,
-        email: email,
-        password: senha
-    };
+
+
 
     const alterar = (e) => {
         e.preventDefault();
@@ -39,7 +38,8 @@ export default function AlterarSenha() {
             limparAlert();
             setIsSubmitting(false);
             return;
-        } axios.patch(`${apiUrl}/usuarios/${userId}`, dadosUsuario)
+        }
+        axios.patch(`${apiUrl}/usuarios/alterar-senha/${userId}?password=${senha}`)
             .then((response) => {
                 console.log("Senha alterada com sucesso:", response.data);
                 setMensagem("✅ Senha alterada com sucesso!");
@@ -54,14 +54,23 @@ export default function AlterarSenha() {
                 setCaminho("/assets/Alert.png");
             })
             .finally(() => {
-                setIsSubmitting(false); // Libera o botão após a requisição
-            });}
+                setIsSubmitting(false);
+            });
+    };
 
     return (
-        <> <Header  caminho={"/pages/client-pages/ForgotPassword"}/>
+
+        <>
+            {mensagem && (
+                <Alerta
+                    mensagem={mensagem}
+                    imagem={caminho}
+                />
+            )}
+            <Header caminho={"/pages/client-pages/ForgotPassword"} />
             <div className="h-full w-full bg-[#FFF3DC] flex justify-center ">
 
-               
+
 
                 <div className="h-full flex justify-center items-center">
 
@@ -72,14 +81,14 @@ export default function AlterarSenha() {
                         <form action="#" method="get" className="w-120 flex flex-col text-[#362323]  border border-[#982546] py-5 px-8 rounded-2xl gap-2 ">
 
                             <label>Nova Senha:</label>
-                            <input type="password" 
-                            onChange={(e) => setSenha(e.target.value)}
-                             id="telefone" name="senha" className="bg-[#ffffff] p-2 rounded-xl" />
+                            <input type="password"
+                                onChange={(e) => setSenha(e.target.value)}
+                                id="telefone" name="senha" className="bg-[#ffffff] p-2 rounded-xl" />
 
                             <label >Confirmar Senha:</label>
                             <input type="password"
-                            onChange={(e) => setConfirmarSenha(e.target.value)}
-                             id="nome" name="confirmarSenha" className="bg-[#ffffff] p-2 rounded-xl" />
+                                onChange={(e) => setConfirmarSenha(e.target.value)}
+                                id="nome" name="confirmarSenha" className="bg-[#ffffff] p-2 rounded-xl" />
 
                             <div className="flex flex-row justify-between gap-4 pt-5">
                                 <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer" onClick={() => navigate("/pages/client-pages/ForgotPassword")}>Cancelar</button>
@@ -93,4 +102,4 @@ export default function AlterarSenha() {
         </>
     );
 
-    }
+}

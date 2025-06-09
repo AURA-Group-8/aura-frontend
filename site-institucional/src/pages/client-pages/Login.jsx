@@ -4,7 +4,7 @@ import Header from '../Header-login';
 export default function Login() {
     return (
         <>
-        <Header/>
+        <Header caminho={"/"} />
         <FormularioLogin/>
         </>
     );
