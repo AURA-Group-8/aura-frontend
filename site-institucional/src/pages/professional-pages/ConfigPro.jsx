@@ -4,6 +4,7 @@ import { use, useState } from "react";
 import axios from "axios";
 import Alerta from "../Pop-up";
 import { se } from "date-fns/locale";
+import SinoNotificacao from "./components/SinoNotificacao";
 
 export default function Configuracoes() {
 
@@ -69,9 +70,7 @@ export default function Configuracoes() {
                     <MenuLateral />
 
                     <div className="flex flex-col w-full h-full  items-center ">
-                        <div className="w-full flex flex-row justify-end">
-                            <img className="h-8 m-2" src="/assets/Doorbell.png " alt="" />
-                        </div>
+                        <SinoNotificacao/>
 
                         <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
                             <h1 className="font-bold text-2xl ">Configurações</h1>

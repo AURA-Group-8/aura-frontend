@@ -7,7 +7,7 @@ export default function SinoNotificacao() {
             <img className="h-8 m-2 cursor-pointer" 
             src="/assets/Doorbell.png" 
             alt="" 
-            onClick={() => navigate("/pages/professional-pages/SinoNotificacao")}/>
+            onClick={() => navigate("/pages/professional-pages/Notification")}/>
         </div>
     );
 }

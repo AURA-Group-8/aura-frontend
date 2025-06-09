@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
 import { use, useState } from "react";
 import Alerta from "../Pop-up";
-
+import SinoNotificacao from "./components/SinoNotificacao";
 
 
 export default function ContatoPro() {
@@ -59,9 +59,7 @@ export default function ContatoPro() {
                     <MenuLateral />
 
                     <div className="flex flex-col w-full h-full  items-center ">
-                        <div className="w-full flex flex-row justify-end">
-                            <img className="h-8 m-2" src="/assets/Doorbell.png " alt="" />
-                        </div>
+                        <SinoNotificacao/>
 
                         <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
 

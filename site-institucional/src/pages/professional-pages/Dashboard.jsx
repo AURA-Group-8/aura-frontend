@@ -117,11 +117,11 @@ export default function Dashboard() {
     }, []);
 
     const formatDateDDMMYYYY = (date) => {
-            const d = date.getDate().toString().padStart(2, '0');
-            const m = (date.getMonth() + 1).toString().padStart(2, '0');
-            const y = date.getFullYear();
-            return `${d}/${m}/${y}`;
-        };
+        const d = date.getDate().toString().padStart(2, '0');
+        const m = (date.getMonth() + 1).toString().padStart(2, '0');
+        const y = date.getFullYear();
+        return `${d}/${m}/${y}`;
+    };
 
     return (
         <div className="w-full h-screen bg-[#FFF3DC]">
@@ -220,9 +220,13 @@ export default function Dashboard() {
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {
-                                    if (a.status === 'Pendente' && b.status !== 'Pendente') return -1;
-                                    if (a.status !== 'Pendente' && b.status === 'Pendente') return 1;
-                                    return 0;
+                                    const ordemStatus = {
+                                        "Pendente": 0,
+                                        "Feito": 1,
+                                        "Cancelado": 2
+                                    };
+
+                                    return ordemStatus[a.status] - ordemStatus[b.status];
                                 })
                                 .map((agendamento, index) => (
                                     <CardAgendamento

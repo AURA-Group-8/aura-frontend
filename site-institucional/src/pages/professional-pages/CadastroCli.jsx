@@ -57,7 +57,7 @@ export default function CadastroCli() {
                 password: "123456",
                 phone: telefoneSemMascara,
                 dateOfBirth: "2000-01-01T00:00:00",
-                roleId: 1,
+                roleId: 2,
             };
 
             await axios.post(`${apiUrl}/usuarios`, novoCliente, {

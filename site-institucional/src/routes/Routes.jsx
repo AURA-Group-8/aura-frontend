@@ -26,7 +26,6 @@ import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
 
 import Configuracoes from "../pages/professional-pages/ConfigPro";
-import CardServico from "../pages/professional-pages/components/CardServico";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
 import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
@@ -34,12 +33,10 @@ import EditarServico from "../pages/professional-pages/EditarServico";
 
 import Historico from "../pages/client-pages/Historico";
 import AlterarSenha from "../pages/professional-pages/AlterarSenha";
-import SinoNotificacao from "../pages/professional-pages/components/SinoNotificacao";
 
 import EsqueceuSenha from "../pages/client-pages/ForgotPassword";
 import ValidarToken from "../pages/client-pages/ValidarToken";
-
-
+import ProNotification from "../pages/professional-pages/Notification";
 
 
 
@@ -219,14 +216,8 @@ export const routes = createBrowserRouter([
     },
 
     {
-        path: "/pages/professional-pages/Notificacao",
-        element: <Notificacao/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/SinoNotificacao",
-        element: <SinoNotificacao/>,
+        path: "/pages/professional-pages/Notification",
+        element: <ProNotification/>,
         errorElement: <h1>Page not found</h1>
     },
 

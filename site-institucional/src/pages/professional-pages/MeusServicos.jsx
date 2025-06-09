@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MenuLateral from "./components/MenuLateral";
 import CardServico from "./components/CardServico";
+import SinoNotificacao from "./components/SinoNotificacao";
 import Alerta from "../Pop-up";
 
 export default function MeusServicos() {
@@ -103,9 +104,7 @@ export default function MeusServicos() {
                     <MenuLateral />
 
                     <div className="flex flex-col w-full h-full items-center ">
-                        <div className="w-full flex flex-row justify-end">
-                            <img className="h-8 m-2" src="/assets/Doorbell.png" alt="Campainha" />
-                        </div>
+                        <SinoNotificacao/>
 
                         <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
 

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
+import SinoNotificacao from "./components/SinoNotificacao";
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -36,21 +38,45 @@ export default function Financeiro() {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((response) => {
-                const res = response.data;
+        .then((response) => {
+            const res = response.data;
 
-                setTopServicos(Array.isArray(res.topServicos) ? res.topServicos : []);
-                setTopClientes(Array.isArray(res.topClientes) ? res.topClientes : []);
-                setDadosMensais(res.dadosMensais || {
+            function parseStringArray(str) {
+                if (!str) return [];
+                try {
+                    const jsonStr = str.replace(/'/g, '"');
+                    return JSON.parse(jsonStr);
+                } catch (e) {
+                    console.error("Erro ao converter string para array:", e);
+                    return [];
+                }
+            }
+
+            const dados = (typeof res.dadosMensais === "object" && res.dadosMensais !== null) 
+                ? res.dadosMensais 
+                : {
                     totalFaturadoMes: 0,
                     totalAtendimentosMes: 0,
                     totalAtendimentosCanceladosMes: 0
-                });
-                setAtendimentosSemana(Array.isArray(res.atendimentosDiaDaSemanaNoMes) ? res.atendimentosDiaDaSemanaNoMes : []);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar dados:", error);
-            });
+                };
+
+            setTopServicos(Array.isArray(res.topServicos) 
+                ? res.topServicos 
+                : parseStringArray(res.topServicos));
+
+            setTopClientes(Array.isArray(res.topClientes) 
+                ? res.topClientes 
+                : parseStringArray(res.topClientes));
+
+            setDadosMensais(dados);
+
+            setAtendimentosSemana(Array.isArray(res.atendimentosDiaDaSemanaNoMes) 
+                ? res.atendimentosDiaDaSemanaNoMes 
+                : []);
+        })
+        .catch((error) => {
+            console.error("Erro ao buscar dados:", error);
+        });
     }, []);
 
     const chartData = {
@@ -86,9 +112,7 @@ export default function Financeiro() {
                 <MenuLateral />
 
                 <div className="flex flex-col w-full h-full items-center">
-                    <div className="w-full flex flex-row justify-end">
-                        <img className="h-8 m-2" src="/assets/Doorbell.png" alt="" />
-                    </div>
+                    <SinoNotificacao/>
 
                     <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
 

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
 import CardCliente from "./components/CardCliente";
 import { useState, useEffect } from "react";
+import SinoNotificacao from "./components/SinoNotificacao";
 import axios from "axios";
 
 export default function MeusClientes() {
@@ -51,13 +52,7 @@ export default function MeusClientes() {
         <MenuLateral />
 
         <div className="flex flex-col w-full h-full items-center">
-          <div className="w-full flex flex-row justify-end">
-            <img
-              className="h-8 m-2"
-              src="/assets/Doorbell.png"
-              alt="Sino de notificações"
-            />
-          </div>
+          <SinoNotificacao/>
 
           <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus clientes</h1>
 

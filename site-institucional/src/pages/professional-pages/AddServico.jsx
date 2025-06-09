@@ -25,7 +25,7 @@ export default function AddServico() {
     const adicionar = async (e) => {
         e.preventDefault();
 
-        const emojiRegex = /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD800-\uDBFF][\uDC00-\uDFFF])/;
+        const emojiRegex = /\p{Extended_Pictographic}/u;
 
         if (
             nome.trim() === "" ||
@@ -42,7 +42,7 @@ export default function AddServico() {
         }
 
         if (emojiRegex.test(nome) || emojiRegex.test(descricao)) {
-            setMensagem("Emojis não são permitidos nos campos Nome e Descrição.");
+            setMensagem("Emojis não são permitidos!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;

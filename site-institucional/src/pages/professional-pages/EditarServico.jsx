@@ -25,6 +25,8 @@ export default function EditarServico() {
         }, 2000);
     };
 
+    const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
+
     useEffect(() => {
         if (location.state) {
             setNome(name);
@@ -39,16 +41,40 @@ export default function EditarServico() {
     const editarServico = async (e) => {
         e.preventDefault();
 
+        // Trim dos campos
+        const nomeTrimmed = nome.trim();
+        const descricaoTrimmed = descricao.trim();
+        const duracaoTrimmed = duracao.toString().trim();
+        const precoTrimmed = preco.toString().trim();
+
+        // Validação de campos vazios ou com emojis
+        if (!nomeTrimmed || !descricaoTrimmed || !duracaoTrimmed || !precoTrimmed) {
+            setMensagem("Preencha todos os campos!");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (
+            emojiRegex.test(nomeTrimmed) ||
+            emojiRegex.test(descricaoTrimmed)
+        ) {
+            setMensagem("🚫 Emojis não são permitidos no nome ou descrição.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
         const token = sessionStorage.getItem("authToken");
 
         try {
             await axios.patch(
                 `${apiUrl}/servicos/${id}`,
                 {
-                    name: nome,
-                    description: descricao,
-                    expectedDurationMinutes: Number(duracao),
-                    price: Number(preco)
+                    name: nomeTrimmed,
+                    description: descricaoTrimmed,
+                    expectedDurationMinutes: Number(duracaoTrimmed),
+                    price: Number(precoTrimmed)
                 },
                 {
                     headers: {
@@ -103,14 +129,19 @@ export default function EditarServico() {
                         <div className="flex flex-row w-full justify-between">
                             <div className="flex flex-col">
                                 <p className="mt-4">Duração (Horas)</p>
-                                <input
-                                    type="number"
+                                <select
                                     name="duracao"
-                                    placeholder="Ex: 1"
                                     className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546]"
                                     value={duracao}
                                     onChange={e => setDuracao(e.target.value)}
-                                />
+                                >
+                                    <option value="">Selecione...</option>
+                                    {Array.from({ length: 16 }, (_, i) => (i + 1) * 30).map((min) => (
+                                        <option key={min} value={min}>
+                                            {Math.floor(min / 60)}h {min % 60 !== 0 ? `${min % 60}min` : ""}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className="flex flex-col">
