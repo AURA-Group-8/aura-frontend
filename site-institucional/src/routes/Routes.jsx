@@ -40,6 +40,7 @@ import ProNotification from "../pages/professional-pages/Notification";
 
 
 
+
 export const routes = createBrowserRouter([
     {
         path: "/",
@@ -232,6 +233,8 @@ export const routes = createBrowserRouter([
         element: <ValidarToken/>,
         errorElement: <h1>Page not found</h1>
     },
+
+
 
     
 ])
