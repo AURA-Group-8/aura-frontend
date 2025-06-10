@@ -9,7 +9,7 @@ export default function ContatoPro() {
 
     const [mensagem, setMensagem] = useState("");
     const [textMensagem, setTextMensagem] = useState("");
-    
+
     const [caminho, setCaminho] = useState('');
 
 
@@ -59,13 +59,18 @@ export default function ContatoPro() {
                     <MenuLateral />
 
                     <div className="flex flex-col w-full h-full  items-center ">
-                        <SinoNotificacao/>
+                        <SinoNotificacao />
 
                         <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
 
                             <h1 className="font-bold text-2xl">Contato</h1>
 
-                            <h2 className="mt-20 font-bold">Você receberá as respostas por e-mail em breve</h2>
+                            <div className="flex flex-col items-center ">
+                                <p className="mt-20">Tem alguma dúvida ou sugestão para a equipe da Aura? </p>
+
+                                <p className="mt-5 font-bold"> Envie aqui e receberá as respostas por e-mail em breve</p>
+                            </div>
+
 
                             <div className=" mt-5 border border-[#982546] h-60 w-120 p-5 flex  flex-col justify-center rounded-2xl">
 
