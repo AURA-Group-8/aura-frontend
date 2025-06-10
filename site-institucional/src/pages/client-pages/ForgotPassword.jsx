@@ -11,14 +11,14 @@ export default function EsqueceuSenha() {
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false); // Estado para controlar o envio
+    const [isSubmitting, setIsSubmitting] = useState(false); 
 
     const enviarEmail = (e) => {
         e.preventDefault();
 
-        if (isSubmitting) return; // Evita duplicidade
+        if (isSubmitting) return; 
 
-        setIsSubmitting(true); // Bloqueia o botão
+        setIsSubmitting(true); 
         axios.post(`${apiUrl}/mensagens/esqueci-senha`, { email })
             .then((response) => {
                 console.log("Email enviado com sucesso:", response.data);
@@ -57,9 +57,9 @@ export default function EsqueceuSenha() {
             <div className="h-full w-full bg-[#FFF3DC] flex flex-col items-center justify-center">  
                 <Header caminho={"/pages/client-pages/Login"} />
                 <div className="h-full flex justify-center items-center">
-                    <div className="flex flex-col h-screen justify-center items-center">
+                    <div className="flex flex-col h-screen justify-start items-center">
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>
-                        <p className="w-84 flex justify-center font-semibold text-[#982546] mb-4">Confirme seu E-mail cadastrado para receber o código de redefinição de senha</p>
+                        <p className="w-84 flex justify-center font-semibold text-[#982546] mb-4 mt-10 text-center">Confirme seu E-mail cadastrado para receber o código de redefinição de senha</p>
 
                         <form action="#" method="get" className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 ">
                             <label>Confirmar E-mail:</label>
