@@ -92,7 +92,7 @@ export default function CardAgendamento(props) {
       return;
     }
 
-    const role = 2;
+    const role = 1;
 
     axios.delete(`${apiUrl}/agendamentos/${props.id}`, {
       headers: {

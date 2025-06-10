@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import NavbarCli from "./components/Navbar";
+import Header from '../Header-login';
 import { useState } from "react";
 import axios from "axios";
 import Alerta from "../Pop-up";
@@ -26,7 +26,11 @@ export default function EsqueceuSenha() {
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     navigate("/pages/client-pages/ValidarToken", {
-                        state: { token: response.data }
+                        state: {
+                            token: response.data.token,
+                            userId: response.data.userId,
+                            email: email 
+                        }
                     });
                 }, 2000);
             })
@@ -49,8 +53,8 @@ export default function EsqueceuSenha() {
                 />
             )}
 
-            <NavbarCli caminho={"/pages/client-pages/Login"} />
-            <div className="h-full w-full bg-[#FFF3DC] flex justify-center ">
+            <Header caminho={"/pages/client-pages/Login"} />
+            <div className="h-full w-full bg-[#FFF3DC] flex justify-center"> 
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-center items-center">
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>

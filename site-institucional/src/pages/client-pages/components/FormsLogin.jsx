@@ -37,6 +37,7 @@ export default function FormularioLogin() {
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userName', response.data.username);
                 sessionStorage.setItem('userEmail', response.data.email);
+                console.log("Token:", response.data.token);
 
                 console.log("User ID:", response.data.id);
                 

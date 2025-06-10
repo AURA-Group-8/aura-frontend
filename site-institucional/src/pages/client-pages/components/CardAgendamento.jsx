@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alerta from "../../Pop-up";
 import axios from "axios";
 
-
 export default function CardAgendamento(props) {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [cor, setCor] = useState("#982546");
     const [text, setText] = useState("Marcar como feito");
     const [botaoAtivo, setBotaoAtivo] = useState(true);
@@ -11,42 +12,72 @@ export default function CardAgendamento(props) {
     const [motivoCancelamento, setMotivoCancelamento] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
+    const [paymentStatus, setPaymentStatus] = useState("PENDENTE");
 
-    const limparAlert = () => {
-        setTimeout(() => {
-            setMensagem("");
-        }, 2000);
-    }
+    useEffect(() => {
+        const status = props.status?.toUpperCase();
 
-  
-    const cancelar = () => {
-        setMostrarMotivo(true);
-    };
-
-    const confirmarCancelamento = () => {
-
-
-        if (motivoCancelamento.trim() === "") {
-            
-            fecharModal();
-
-            setMensagem("Por favor, informe o motivo do cancelamento.");
-            setCaminho("/assets/Alert.png");
-            limparAlert();
-
-        } else {
-
-            setMensagem("Agendamento cancelado!");
-            setCaminho("/assets/Check-pop.png");
-            limparAlert();
-           
+        if (status === "FEITO") {
+            setCor("#a34862");
+            setText("Feito");
+            setBotaoAtivo(true);
+            setPaymentStatus("PAGO");
+        } else if (status === "CANCELADO") {
             setCor("#807679");
             setText("Cancelado");
             setBotaoAtivo(false);
-            setMostrarMotivo(false);
-            
+            setPaymentStatus("CANCELADO");
+        } else {
+            setCor("#982546");
+            setText("Marcar como feito");
+            setBotaoAtivo(true);
+            setPaymentStatus("PENDENTE");
+        }
+    }, [props.status]);
+
+    const limparAlert = () => {
+        setTimeout(() => setMensagem(""), 2000);
+    };
+
+    const cancelar = () => setMostrarMotivo(true);
+
+    const confirmarCancelamento = () => {
+        if (motivoCancelamento.trim() === "") {
+            fecharModal();
+            setMensagem("Por favor, informe o motivo do cancelamento.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
         }
 
+        const role = 2;
+        console.log("Cancelando agendamento:", props.id);
+        axios.delete(`${apiUrl}/agendamentos/${props.id}`, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
+            },
+            params: {
+                roleId: role,
+                message: motivoCancelamento
+            }
+
+        }).then(() => {
+            setMensagem("Agendamento cancelado!");
+            setCaminho("/assets/Check-pop.png");
+
+            setCor("#807679");
+            setText("Cancelado");
+            setBotaoAtivo(false);
+            setPaymentStatus("CANCELADO");
+            setMostrarMotivo(false);
+
+            limparAlert();
+        }).catch((error) => {
+            console.error("Erro ao cancelar agendamento:", error.response?.data || error.message);
+            setMensagem("Erro ao cancelar o agendamento.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        });
     };
 
     const fecharModal = () => {
@@ -54,32 +85,26 @@ export default function CardAgendamento(props) {
         setMotivoCancelamento("");
     };
 
-
     return (
-
         <>
-            {mensagem && (
-                <Alerta
-                    mensagem={mensagem}
-                    imagem={caminho}
-                />
-            )}
+            {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-            <div className="flex flex-row  w-full relative mt-15">
+            <div className="flex flex-row w-full relative mt-15">
                 <div className="flex flex-col justify-center w-full h-40">
-                    <div className={` h-20 rounded-t-2xl flex items-center p-2 z-10`} 
-                    style={{
-                        backgroundColor: cor,
-                        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)"
-                    }}>
+
+                    <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
+                        style={{
+                            backgroundColor: cor,
+                            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)"
+                        }}>
                         <p className="font-bold text-white text-lg">{props.name}</p>
                     </div>
 
-                    <div className="rounded-b-2xl transition-all" style={{ backgroundColor: cor }}>
-                        <div className="flex flex-col p-2 w-full text-white text-lg ">
-                            <p className="mb-2 w-150 font-bold">{props.service}</p>
-                            <div className="flex flex-row justify-between w-full">
-                                <div className="flex flex-row justify-around gap-2">
+                    <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
+                        <div className="flex flex-col p-2 text-white text-lg">
+                            <p className="mb-2 font-bold">{props.service}</p>
+                            <div className="flex flex-row justify-between">
+                                <div className="flex gap-2">
                                     <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
                                     <span> - </span>
                                     <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
@@ -88,11 +113,12 @@ export default function CardAgendamento(props) {
                             </div>
                         </div>
 
-                        
-
-                        <div className="flex flex-row justify-between w-full p-2">
-                            {botaoAtivo && (
-                                <button className="p-2 rounded-2xl border border-[#FFF3DC] text-[#FFF3DC] cursor-pointer" onClick={cancelar}>
+                        <div className="flex justify-between p-2">
+                            {botaoAtivo && text !== "Feito" && (
+                                <button
+                                    className="p-2 rounded-2xl border border-[#FFF3DC] text-[#FFF3DC]"
+                                    onClick={cancelar}
+                                >
                                     Cancelar atendimento
                                 </button>
                             )}
@@ -100,8 +126,9 @@ export default function CardAgendamento(props) {
                     </div>
                 </div>
 
+                {/* Modal de cancelamento */}
                 {mostrarMotivo && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="fixed inset-0 flex items-center justify-center z-50 ">
                         <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">
                             <h2 className="text-[#982546] text-xl font-bold mb-4">Motivo do cancelamento</h2>
                             <textarea
@@ -111,10 +138,10 @@ export default function CardAgendamento(props) {
                                 onChange={(e) => setMotivoCancelamento(e.target.value)}
                             />
                             <div className="flex justify-between mt-4">
-                                <button onClick={fecharModal} className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546] cursor-pointer">
+                                <button onClick={fecharModal} className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546]">
                                     Voltar
                                 </button>
-                                <button onClick={confirmarCancelamento} className="px-4 py-2 rounded-xl bg-[#982546] text-white cursor-pointer">
+                                <button onClick={confirmarCancelamento} className="px-4 py-2 rounded-xl bg-[#982546] text-white">
                                     Cancelar atendimento
                                 </button>
                             </div>
@@ -122,7 +149,6 @@ export default function CardAgendamento(props) {
                     </div>
                 )}
             </div>
-
         </>
     );
 }
