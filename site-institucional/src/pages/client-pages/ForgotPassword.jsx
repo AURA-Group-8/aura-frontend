@@ -53,8 +53,9 @@ export default function EsqueceuSenha() {
                 />
             )}
 
-            <Header caminho={"/pages/client-pages/Login"} />
-            <div className="h-full w-full bg-[#FFF3DC] flex justify-center"> 
+           
+            <div className="h-full w-full bg-[#FFF3DC] flex flex-col justify-center">  
+                <Header caminho={"/pages/client-pages/Login"} />
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-center items-center">
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>

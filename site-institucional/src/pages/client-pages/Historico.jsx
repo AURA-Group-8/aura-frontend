@@ -24,7 +24,7 @@ export default function Historico() {
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
         const userName = sessionStorage.getItem("userName");
-    
+
         axios.get(`${apiUrl}/agendamentos/card`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -32,21 +32,21 @@ export default function Historico() {
         })
             .then((response) => {
                 console.log("Response data from API:", response.data); // Log dos dados retornados pela API
-    
+
                 // Filtra os agendamentos pelo userName no frontend
                 const agendamentosFiltrados = response.data.filter(
                     (agendamento) => agendamento.userName === userName
                 );
-    
+
                 console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados
-    
+
                 // Filtra os agendamentos realizados anteriormente à data atual
                 const agendamentosPassados = agendamentosFiltrados.filter(
                     (agendamento) => new Date(agendamento.startDatetime) < new Date()
                 );
-    
+
                 console.log("Past agendamentos:", agendamentosPassados); // Log dos agendamentos passados
-    
+
                 setAgendamentos(agendamentosPassados);
             })
             .catch((error) => {
@@ -81,7 +81,7 @@ export default function Historico() {
 
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 mt-25 overflow-y-auto">
+                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 mt-15 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
@@ -90,7 +90,7 @@ export default function Historico() {
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}
                                         time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        style={{ backgroundColor: "#d3d3d3" }} // background cinza
+                                        isHistorico={true} // Indica que é o histórico
                                     />
                                 ))
                             ) : (

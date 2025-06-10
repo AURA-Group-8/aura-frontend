@@ -20,19 +20,10 @@ export default function MeusAgendamentosCli() {
     const [caminho, setCaminho] = useState("");
 
 
-    const handleSelectRadio = (grupo, valor) => {
-        if (grupo === 'periodo') {
-            setPeriodoSelecionado(periodoSelecionado === valor ? null : valor);
-        } else if (grupo === 'pagamento') {
-            setPagamentoSelecionado(pagamentoSelecionado === valor ? null : valor);
-        }
-    };
-
-
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
         const userName = sessionStorage.getItem("userName");
-
+    
         axios.get(`${apiUrl}/agendamentos/card`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -43,7 +34,9 @@ export default function MeusAgendamentosCli() {
     
                 // Filtra os agendamentos pelo userName no frontend
                 const agendamentosFiltrados = response.data.filter(
-                    (agendamento) => agendamento.userName === userName
+                    (agendamento) => 
+                        agendamento.userName === userName &&
+                        new Date(agendamento.startDatetime) > new Date() // Exclui agendamentos passados
                 );
     
                 console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados

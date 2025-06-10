@@ -88,31 +88,41 @@ export default function CardAgendamento(props) {
     return (
         <>
             {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
-
+    
             <div className="flex flex-row w-full relative mt-15">
                 <div className="flex flex-col justify-center w-full h-40">
-
-                    <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
+                    <div
+                        className="h-20 rounded-t-2xl flex items-center p-2 z-10"
                         style={{
-                            backgroundColor: cor,
-                            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)"
-                        }}>
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, // Fundo cinza no histórico
+                            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)",
+                        }}
+                    >
                         <p className="font-bold text-white text-lg">{props.name}</p>
                     </div>
-
-                    <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
+    
+                    <div
+                        className="rounded-b-2xl"
+                        style={{
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, // Fundo cinza no histórico
+                        }}
+                    >
                         <div className="flex flex-col p-2 text-white text-lg">
                             <p className="mb-2 font-bold">{props.service}</p>
                             <div className="flex flex-row justify-between">
                                 <div className="flex gap-2">
-                                    <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
+                                    <p className="text-[#ffa8d8]">
+                                        Data: <span className="text-white">{props.date}</span>
+                                    </p>
                                     <span> - </span>
-                                    <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
+                                    <p className="text-[#ffa8d8]">
+                                        Horário: <span className="text-white">{props.time}</span>
+                                    </p>
                                 </div>
                                 <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
                             </div>
                         </div>
-
+    
                         <div className="flex justify-between p-2">
                             {botaoAtivo && text !== "Feito" && (
                                 <button
@@ -125,7 +135,7 @@ export default function CardAgendamento(props) {
                         </div>
                     </div>
                 </div>
-
+    
                 {/* Modal de cancelamento */}
                 {mostrarMotivo && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 ">
@@ -138,10 +148,16 @@ export default function CardAgendamento(props) {
                                 onChange={(e) => setMotivoCancelamento(e.target.value)}
                             />
                             <div className="flex justify-between mt-4">
-                                <button onClick={fecharModal} className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546]">
+                                <button
+                                    onClick={fecharModal}
+                                    className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546]"
+                                >
                                     Voltar
                                 </button>
-                                <button onClick={confirmarCancelamento} className="px-4 py-2 rounded-xl bg-[#982546] text-white">
+                                <button
+                                    onClick={confirmarCancelamento}
+                                    className="px-4 py-2 rounded-xl bg-[#982546] text-white"
+                                >
                                     Cancelar atendimento
                                 </button>
                             </div>
