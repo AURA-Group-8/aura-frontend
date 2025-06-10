@@ -6,15 +6,12 @@ import axios from "axios";
 import React from "react";
 
 export default function AgendarCli() {
-
     const apiUrl = import.meta.env.VITE_API_URL;
-
     const navigate = useNavigate(); 
-    const [servicosSelecionados, setServicosSelecionados] = useState([]);
 
+    const [servicosSelecionados, setServicosSelecionados] = useState([]);
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
-    const [servico, setServico] = useState("");
     const [listaServicos, setListaServicos] = useState([]);
 
     const limparAlert = () => {
@@ -30,15 +27,11 @@ export default function AgendarCli() {
     const servicos = async () => {
         try {
             const authToken = sessionStorage.getItem("authToken");
-
-            const response = await axios.get(`${apiUrl}/servicos`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                }
-            );
-            console.log(response.data);
+            const response = await axios.get(`${apiUrl}/servicos`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
+            });
             setListaServicos(response.data.content);
         } catch (error) {
             console.error("Erro ao buscar serviços:", error);
@@ -52,25 +45,22 @@ export default function AgendarCli() {
         servicos();
     }, []);
 
-
     const agendar = (e) => {
         e.preventDefault();
 
-        if (servicosSelecionados === "") {
-            setMensagem("Preencha todos os campos!");
+        if (servicosSelecionados.length === 0) {
+            setMensagem("Selecione pelo menos um serviço!");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
-        } else {
-            navigate("/pages/client-pages/DataHoraCli", {
-                state: {
-                    servicos: servicosSelecionados,
-                },
-            });
         }
-    };
 
-   
+        navigate("/pages/client-pages/DataHoraCli", {
+            state: {
+                servicos: servicosSelecionados,
+            },
+        });
+    };
 
     const adicionarServico = (id) => {
         const servicoExistente = servicosSelecionados.find((item) => item.id === id);
@@ -89,16 +79,16 @@ export default function AgendarCli() {
     return (
         <>
             {mensagem && (
-                <Alerta
-                    mensagem={mensagem}
-                    imagem={caminho}
-                />
+                <Alerta mensagem={mensagem} imagem={caminho} />
             )}
 
             <NavbarCli caminho={"/pages/client-pages/Home"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
-                <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row items-center justify-center mt-5">
+                <form
+                    onSubmit={agendar}
+                    className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row items-center justify-center mt-5"
+                >
                     <div className="flex flex-col w-120">
                         <p className="text-xl mt-2">Serviços</p>
                         <select
@@ -106,7 +96,7 @@ export default function AgendarCli() {
                             name="servico"
                             className="bg-amber-50 p-2 rounded-2xl border-1 border-[#982546] w-full h-10 mt-2"
                         >
-                            <option value="" disabled={true} selected={true}>
+                            <option value="" disabled selected>
                                 Selecione um serviço
                             </option>
                             {listaServicos.map((item, index) => (
@@ -122,6 +112,7 @@ export default function AgendarCli() {
                                     <div key={item.id} className="flex justify-between items-center p-2 border-b border-[#982546]">
                                         <p className="text-[#982546] text-lg">{item.name}</p>
                                         <button
+                                            type="button"
                                             className="text-[#982546] text-lg cursor-pointer font-extrabold"
                                             onClick={() => removerServico(item.id)}
                                         >
@@ -136,7 +127,7 @@ export default function AgendarCli() {
 
                         <div className="flex flex-row w-full justify-between mt-4">
                             <button
-                                type="reset"
+                                type="button"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
                                 onClick={cancelar}
                             >
@@ -144,7 +135,7 @@ export default function AgendarCli() {
                             </button>
 
                             <button
-                            onClick={agendar}
+                                type="submit"
                                 className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center cursor-pointer hover:bg-[#b36078]"
                             >
                                 Selecionar data e hora

@@ -48,7 +48,18 @@ export default function CardAgendamento(props) {
       feedback: 0,
       status: novoStatus,
       paymentStatus: novoPaymentStatus,
-    }, {
+
+      
+    },
+    
+    console.log("Atualizando status do agendamento:", {
+        id: props.id,
+        feedback: 0,
+        status: novoStatus,
+        paymentStatus: novoPaymentStatus
+      }),
+
+    {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
       }
