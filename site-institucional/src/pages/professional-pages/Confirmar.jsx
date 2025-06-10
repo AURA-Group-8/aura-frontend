@@ -33,11 +33,7 @@ export default function Confirmar() {
             userId: cliente?.id,
             jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
             startDatetime: `${dataFormatada}T${hora}:00`,
-<<<<<<< HEAD
-            roleId: cliente?.roleId || 1, // Supondo que roleId seja 1 se não estiver definido
-=======
             roleId: 1,
->>>>>>> dfb9d76d1d476bf04e5dc53562bd495483ec1828
         };
 
         console.log("Agendamento:", agendamento);
