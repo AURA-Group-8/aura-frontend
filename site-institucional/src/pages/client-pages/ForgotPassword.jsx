@@ -54,7 +54,7 @@ export default function EsqueceuSenha() {
             )}
 
            
-            <div className="h-full w-full bg-[#FFF3DC] flex flex-col justify-center">  
+            <div className="h-full w-full bg-[#FFF3DC] flex flex-col items-center justify-center">  
                 <Header caminho={"/pages/client-pages/Login"} />
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-center items-center">
