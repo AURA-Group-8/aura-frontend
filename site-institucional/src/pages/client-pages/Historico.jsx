@@ -103,7 +103,7 @@ export default function Historico() {
                         <div className="w-full flex justify-center it mt-5">
                             <button
                                 onClick={() => navigate("/pages/client-pages/MeusAgendamentosCli")}
-                                className="bg-[#982546] text-white py-2 px-4 rounded-lg hover:bg-[#b36078] transition-colors"
+                                className="bg-[#982546] text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-[#b36078] transition-colors"
                             >
                                 Visualizar Agendamentos
                             </button>

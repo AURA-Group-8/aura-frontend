@@ -164,8 +164,8 @@ export default function ConfigCli() {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-[#FFF3DC] p-6 rounded-lg shadow-lg">
+                <div className="fixed inset-0 flex justify-center items-center">
+                    <div className="bg-[#FFF3DC] p-6 rounded-lg shadow-lg border border-[#982546]">
                         <h2 className="text-lg font-bold text-[#982546]">Confirmar exclusão</h2>
                         <p className="text-[#362323]">Tem certeza de que deseja deletar sua conta? Esta ação não pode ser desfeita.</p>
                         <div className="flex justify-end gap-4 mt-4">

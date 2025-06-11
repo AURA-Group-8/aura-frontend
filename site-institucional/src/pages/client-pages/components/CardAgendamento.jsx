@@ -23,7 +23,7 @@ export default function CardAgendamento(props) {
             setBotaoAtivo(true);
             setPaymentStatus("PAGO");
         } else if (status === "CANCELADO") {
-            setCor("#807679");
+            setCor("#807679"); 
             setText("Cancelado");
             setBotaoAtivo(false);
             setPaymentStatus("CANCELADO");
@@ -126,7 +126,7 @@ export default function CardAgendamento(props) {
                         <div className="flex justify-between p-2">
                             {botaoAtivo && text !== "Feito" && (
                                 <button
-                                    className="p-2 rounded-2xl border border-[#FFF3DC] text-[#FFF3DC]"
+                                    className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC]"
                                     onClick={cancelar}
                                 >
                                     Cancelar atendimento
@@ -150,13 +150,13 @@ export default function CardAgendamento(props) {
                             <div className="flex justify-between mt-4">
                                 <button
                                     onClick={fecharModal}
-                                    className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546]"
+                                    className="px-4 py-2 rounded-xl border cursor-pointer border-[#982546] bg-[#982546] text-white"
                                 >
                                     Voltar
                                 </button>
                                 <button
                                     onClick={confirmarCancelamento}
-                                    className="px-4 py-2 rounded-xl bg-[#982546] text-white"
+                                    className="px-4 py-2 rounded-xl cursor-pointer  text-[#982546]"
                                 >
                                     Cancelar atendimento
                                 </button>

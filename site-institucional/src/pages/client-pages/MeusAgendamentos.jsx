@@ -86,6 +86,7 @@ export default function MeusAgendamentosCli() {
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}
                                         time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                         value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
+                                        status={agendamento.status} // Passa o status do agendamento
                                     />
                                 ))
                             ) : (
@@ -98,7 +99,7 @@ export default function MeusAgendamentosCli() {
                         <div className="w-full flex justify-center mt-5">
                             <button
                                 onClick={() => navigate("/pages/client-pages/Historico")}
-                                className="bg-[#982546] text-white py-2 px-4 rounded-lg hover:bg-[#b36078] transition-colors"
+                                className="bg-[#982546] text-white py-2 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors"
                             >
                                 Visualizar Histórico
                             </button>

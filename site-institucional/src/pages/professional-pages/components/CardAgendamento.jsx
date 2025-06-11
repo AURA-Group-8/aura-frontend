@@ -169,7 +169,7 @@ export default function CardAgendamento(props) {
 
             <div className="flex justify-between p-2">
               <button
-                className="bg-[#FFF3DC] p-2 rounded-2xl text-[#982546]"
+                className="bg-[#FFF3DC] cursor-pointer p-2 rounded-2xl text-[#982546]"
                 onClick={marcarFeito}
                 disabled={!botaoAtivo}
               >
@@ -178,7 +178,7 @@ export default function CardAgendamento(props) {
 
               {botaoAtivo && text !== "Feito" && (
                 <button
-                  className="p-2 rounded-2xl border border-[#FFF3DC] text-[#FFF3DC]"
+                  className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC]"
                   onClick={cancelar}
                 >
                   Cancelar atendimento
@@ -200,10 +200,10 @@ export default function CardAgendamento(props) {
                 onChange={(e) => setMotivoCancelamento(e.target.value)}
               />
               <div className="flex justify-between mt-4">
-                <button onClick={fecharModal} className="px-4 py-2 rounded-xl border border-[#982546] text-[#982546]">
+                <button onClick={fecharModal} className="px-4 py-2 cursor-pointer rounded-xl border border-[#982546] text-[#982546]">
                   Voltar
                 </button>
-                <button onClick={confirmarCancelamento} className="px-4 py-2 rounded-xl bg-[#982546] text-white">
+                <button onClick={confirmarCancelamento} className="px-4 cursor-pointer py-2 rounded-xl bg-[#982546] text-white">
                   Cancelar atendimento
                 </button>
               </div>
