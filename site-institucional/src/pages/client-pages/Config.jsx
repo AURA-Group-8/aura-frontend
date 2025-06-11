@@ -38,6 +38,38 @@ export default function ConfigCli() {
         }
     };
 
+    const usuarioParaAtualizar = {
+        username: formData.nome,
+        phone: formData.telefone,
+        password: formData.senha
+    };
+
+    const editar = async () => {
+        if (!desabilitado) {
+            try {
+                const authToken = sessionStorage.getItem("authToken");
+                await axios.patch(
+                    `${apiUrl}/usuarios/${userId}`,
+                    usuarioParaAtualizar,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    }
+                );
+                setMensagem("Alterações salvas!");
+                setCaminho("/assets/Check-pop.png");
+                limparAlert();
+            } catch (error) {
+                console.error("Erro ao salvar os dados:", error);
+                setMensagem("❌ Erro ao salvar os dados");
+                setCaminho("/assets/Alert.png");
+                limparAlert();
+            }
+        }
+        setDesabilitado(!desabilitado);
+    };
+
     const deletar = async () => {
         try {
             const authToken = sessionStorage.getItem("authToken");
@@ -138,7 +170,13 @@ export default function ConfigCli() {
                             <button
                                 type="button"
                                 className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer"
-                                onClick={() => setDesabilitado(!desabilitado)}
+                                onClick={() => {
+                                    if (!desabilitado) {
+                                        editar();
+                                    }
+                                     setDesabilitado(!desabilitado)}
+                                }
+                                    
                             >
                                 {desabilitado ? "Editar" : "Salvar"}
                             </button>
