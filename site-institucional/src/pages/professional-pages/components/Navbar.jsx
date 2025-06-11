@@ -14,8 +14,8 @@ export default function NavbarPro({caminho}) {
                     <img src="/assets/Back.png" alt="" className="h-10 cursor-pointer" onClick={() => navigate(caminho)} />
                 </div>
 
-                <div className="flex flex-row  ">
-                    <img src="/assets/Doorbell.png" alt="" className="h-8 cursor-pointer" />
+                <div className="flex flex-row ">
+                    <img src="/assets/Doorbell.png" alt="" className="h-8 cursor-pointer" onClick={() => navigate("../pages/professional-pages/Notification")} />
                 </div>
             </div>
         </>

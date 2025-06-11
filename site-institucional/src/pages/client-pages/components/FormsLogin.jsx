@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import Alerta from "../Pop-up";
+import Alerta from "../../Pop-up";
 
 export default function FormularioLogin() {
+
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senha, setSenha] = useState("");
+
 
     const navigate = useNavigate();
 
@@ -25,7 +29,7 @@ export default function FormularioLogin() {
         };
         console.log(usuario);
 
-        axios.post("http://localhost:8080/usuarios/login", usuario)
+        axios.post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
                 console.log("Usuário logado com sucesso:", response.data);
 
@@ -33,6 +37,7 @@ export default function FormularioLogin() {
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userName', response.data.username);
                 sessionStorage.setItem('userEmail', response.data.email);
+                console.log("Token:", response.data.token);
 
                 console.log("User ID:", response.data.id);
                 
@@ -40,7 +45,7 @@ export default function FormularioLogin() {
                 setCaminho("/assets/Check-pop.png")
                 setTimeout(() => {
                     navigate("/pages/client-pages/Home");
-                }, 2000);
+                }, 1500);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -88,7 +93,7 @@ export default function FormularioLogin() {
 
                         <label htmlFor="senha">Senha:</label>
                         <input type="password" onChange={e => setSenha(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
-                        <a href="" onClick={() => navigate("/pages/client-pages/ChangePassword")} className="text-white">Esqueceu a senha?</a>
+                        <a href="" onClick={() => navigate("/pages/client-pages/ForgotPassword")} className="text-white">Esqueceu a senha?</a>
 
                         <button className="mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center">
                             Login

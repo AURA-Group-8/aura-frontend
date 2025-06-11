@@ -1,3 +1,5 @@
+import React from "react";
+
 import { createBrowserRouter } from "react-router-dom";
 import Cadastro from "../pages/client-pages/Cadastro";
 import Login from "../pages/client-pages/Login";
@@ -14,7 +16,7 @@ import Confirmar from "../pages/professional-pages/Confirmar";
 import CadastroCli from "../pages/professional-pages/CadastroCli";
 import Alerta from "../pages/Pop-up";
 import Notificacao from "../pages/client-pages/Notificacao";
-import MeusServicos from "../pages/professional-pages/MeusServiços";
+import MeusServicos from "../pages/professional-pages/MeusServicos";
 import Financeiro from "../pages/professional-pages/Financeiro";
 import AddServico from "../pages/professional-pages/AddServico";
 import HistoricoFinanceiro from "../pages/professional-pages/HistoricoFinanceiro";
@@ -22,9 +24,22 @@ import MeusClientes from "../pages/professional-pages/MeusClientes";
 import Mensagem from "../pages/professional-pages/Mensagem";
 import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
-import Configuracoes from "../pages/professional-pages/configuracoes";
+
+import Configuracoes from "../pages/professional-pages/ConfigPro";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
+import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
+import EditarServico from "../pages/professional-pages/EditarServico";
+
+import Historico from "../pages/client-pages/Historico";
+import AlterarSenha from "../pages/professional-pages/AlterarSenha";
+
+import EsqueceuSenha from "../pages/client-pages/ForgotPassword";
+import ValidarToken from "../pages/client-pages/ValidarToken";
+import ProNotification from "../pages/professional-pages/Notification";
+
+
+
 
 export const routes = createBrowserRouter([
     {
@@ -177,4 +192,49 @@ export const routes = createBrowserRouter([
         errorElement: <h1>Page not found</h1>
     },
 
+    {
+        path: "/pages/client-pages/MeusAgendamentosCli",
+        element: <MeusAgendamentosCli/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/EditarServico",
+        element: <EditarServico/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/Historico",
+        element: <Historico/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/AlterarSenha",
+        element: <AlterarSenha/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/professional-pages/Notification",
+        element: <ProNotification/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/ForgotPassword",
+        element: <EsqueceuSenha/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+    {
+        path: "/pages/client-pages/ValidarToken",
+        element: <ValidarToken/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+
+
+    
 ])

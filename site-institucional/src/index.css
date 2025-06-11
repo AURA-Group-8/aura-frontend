@@ -15,6 +15,7 @@
   /* Handle of the scrollbar */
   ::-webkit-scrollbar-thumb {
   background: #201010;
+  border-radius: 8px;
   
   }
 
