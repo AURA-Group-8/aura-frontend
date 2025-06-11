@@ -45,7 +45,7 @@ const Notificacao = () => {
 
                   {notificacao.hasButtonToRate && !notificacao.wasAnswered && (
                     <button
-                      className="flex items-center bg-white text-black px-4 py-1 rounded-md hover:bg-gray-200"
+                      className="flex items-center bg-white text-black cursor-pointer px-4 py-1 rounded-md hover:bg-gray-200"
                       onClick={() => {
                         alert("Botão de avaliação clicado!");
                       }}
