@@ -1,30 +1,31 @@
-import NavbarCli from "./Navbar";
-import { useState } from "react";
+import React, { useState } from "react";
+import NavbarCli from "./components/Navbar";
 import Alerta from "../Pop-up";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 export default function ConfigCli() {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const [desabilitado, setDesabilitado] = useState(true);
     const [mensagem, setMensagem] = useState("");
-    const [caminho, setCaminho] = useState('');
+    const [caminho, setCaminho] = useState("");
+    const [showModal, setShowModal] = useState(false); // Estado para controlar o modal
 
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
-    }
+    };
 
     const [formData, setFormData] = useState({
         nome: "",
         email: "",
         telefone: "",
-        senha: ""
+        senha: "",
     });
-    const userId = sessionStorage.getItem("userId");
-    console.log(userId);
 
+    const userId = sessionStorage.getItem("userId");
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -37,57 +38,14 @@ export default function ConfigCli() {
         }
     };
 
-    const usuarioAtual = {
-        nome: sessionStorage.getItem("username"),
-        email: sessionStorage.getItem("userEmail"),
-    }
-
-    const usuarioParaAtualizar = {
-        username: formData.nome,
-        email: formData.email,
-        phone: formData.telefone,
-        password: formData.senha
-    };
-
-    const editar = async () => {
-        if (!desabilitado) {
-            try {
-                const authToken = sessionStorage.getItem("authToken");
-                await axios.patch(
-                    `https://backend-f9bkhkdqfkcqhwe6.westus3-01.azurewebsites.net//usuarios/${userId}`,
-                    usuarioParaAtualizar,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${authToken}`,
-                        },
-                    }
-                );
-                setMensagem("Alterações salvas!");
-                setCaminho("/assets/Check-pop.png");
-                limparAlert();
-            } catch (error) {
-                console.error("Erro ao salvar os dados:", error);
-                setMensagem("❌ Erro ao salvar os dados");
-                setCaminho("/assets/Alert.png");
-                limparAlert();
-            }
-        }
-        setDesabilitado(!desabilitado);
-    };
-
-    const deletar = async (e) => {
+    const deletar = async () => {
         try {
-            e.preventDefault();
-            const authToken = sessionStorage.getItem("authToken"); 
-            await axios.delete(
-                `http://localhost:8080/usuarios/${userId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                }
-            );
-            console.log("Resposta do backend:", response);
+            const authToken = sessionStorage.getItem("authToken");
+            await axios.delete(`${apiUrl}/usuarios/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
+            });
             setMensagem("Conta deletada com sucesso!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();
@@ -98,7 +56,8 @@ export default function ConfigCli() {
             setCaminho("/assets/Alert.png");
             limparAlert();
         }
-    }
+        setShowModal(false); // Fechar o modal após a ação
+    };
 
     const logoOff = () => {
         sessionStorage.removeItem("authToken");
@@ -127,13 +86,6 @@ export default function ConfigCli() {
             <div className="h-full w-full bg-[#FFF3DC] justify-center ">
                 <NavbarCli caminho={"/pages/client-pages/Home"} />
 
-                {mensagem && (
-                    <Alerta
-                        mensagem={mensagem}
-                        imagem="/assets/Check-pop.png"
-                    />
-                )}
-
                 <div className="h-screen flex justify-center flex-col items-center pt-10">
                     <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Configurações</h1>
 
@@ -155,9 +107,10 @@ export default function ConfigCli() {
                             id="email"
                             name="email"
                             className="bg-[#ffffff] p-2 rounded-xl"
-                            disabled={desabilitado}
+                            disabled={true}
                             value={formData.email}
                             onChange={handleInputChange}
+                            placeholder="Campo E-mail não pode ser editado"
                         />
 
                         <label htmlFor="telefone">Telefone:</label>
@@ -185,7 +138,7 @@ export default function ConfigCli() {
                             <button
                                 type="button"
                                 className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer"
-                                onClick={editar}
+                                onClick={() => setDesabilitado(!desabilitado)}
                             >
                                 {desabilitado ? "Editar" : "Salvar"}
                             </button>
@@ -198,11 +151,40 @@ export default function ConfigCli() {
                             >
                                 Sair da conta
                             </button>
-                            <button onClick={deletar} className="text-[#982546] cursor-pointer">Deletar conta</button>
+                            <button
+                                type="button"
+                                onClick={() => setShowModal(true)} // Abrir o modal
+                                className="text-[#982546] cursor-pointer"
+                            >
+                                Deletar conta
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="fixed inset-0 flex justify-center items-center">
+                    <div className="bg-[#FFF3DC] p-6 rounded-lg shadow-lg border border-[#982546]">
+                        <h2 className="text-lg font-bold text-[#982546]">Confirmar exclusão</h2>
+                        <p className="text-[#362323]">Tem certeza de que deseja deletar sua conta? Esta ação não pode ser desfeita.</p>
+                        <div className="flex justify-end gap-4 mt-4">
+                            <button
+                                className="bg-[#341C1C] text-[#FFF3DC] cursor-pointer rounded-lg px-4 py-2"
+                                onClick={() => setShowModal(false)} 
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                className="bg-[#982546] text-white cursor-pointer rounded-lg px-4 py-2"
+                                onClick={deletar} // Confirmar exclusão
+                            >
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

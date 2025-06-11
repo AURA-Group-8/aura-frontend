@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Alerta from "../Pop-up";
+import Alerta from "../../Pop-up";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Login from "./Login";
+import Login from "../Login";
 
 export default function FormularioCadastro() {
     const [nomeCompleto, setNomeCompleto] = useState("");
@@ -13,10 +13,12 @@ export default function FormularioCadastro() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
+    const [isSubmitting, setIsSubmitting] = useState(false); 
+
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const navigate = useNavigate();
-    const UserUrl = "https://backend-f9bkhkdqfkcqhwe6.westus3-01.azurewebsites.net/usuarios";
+    const UserUrl = `${apiUrl}/usuarios`;
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -28,10 +30,6 @@ export default function FormularioCadastro() {
         e.preventDefault(); // evita recarregar a página
 
         if (isSubmitting) return; // Evita múltiplos cliques
-
-        const temMaiuscula = /[A-Z]/.test(senha);
-        const temNumero = /[0-9]/.test(senha);
-        const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
 
         if (nomeCompleto.trim() === "" || telefone.trim() === "" || email.trim() === "" || senha.trim() === "") {
             setMensagem("Não pode haver campo obrigatório vazio");
@@ -53,12 +51,6 @@ export default function FormularioCadastro() {
         }
         if (senha.trim().length < 6) {
             setMensagem("Senha deve ter mais de 6 caracteres");
-            setCaminho("/assets/Alert.png");
-            limparAlert();
-            return;
-        }
-        if (!(temNumero && temMaiuscula && temEspecial)) {
-            setMensagem("❌ A senha deve conter ao menos: uma letra maiúscula, um número e um caractere especial.");
             setCaminho("/assets/Alert.png");
             limparAlert();
             return;
