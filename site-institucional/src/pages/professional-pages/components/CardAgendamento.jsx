@@ -21,13 +21,14 @@ export default function CardAgendamento(props) {
     if (status === "FEITO") {
       setCor("#a34862");
       setText("Feito");
-      setBotaoAtivo(true);
+      setBotaoAtivo(false);
       setPaymentStatus("PAGO");
+
     } else if (status === "CANCELADO") {
       setCor("#807679");
       setText("Cancelado");
       setBotaoAtivo(false);
-      setPaymentStatus("CANCELADO");
+
     } else {
       setCor("#982546");
       setText("Marcar como feito");
@@ -110,7 +111,6 @@ export default function CardAgendamento(props) {
       setCor("#807679");
       setText("Cancelado");
       setBotaoAtivo(false);
-      setPaymentStatus("CANCELADO");
       setMostrarMotivo(false);
 
       limparAlert();
