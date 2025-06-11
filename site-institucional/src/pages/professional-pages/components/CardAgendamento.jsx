@@ -13,6 +13,7 @@ export default function CardAgendamento(props) {
   const [mensagem, setMensagem] = useState("");
   const [caminho, setCaminho] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("PENDENTE");
+  const [carregando, setCarregando] = useState(false);
 
   useEffect(() => {
     const status = props.status?.toUpperCase();
@@ -40,45 +41,45 @@ export default function CardAgendamento(props) {
   };
 
   const marcarFeito = () => {
-    const novoStatus = text === "Feito" ? "PENDENTE" : "FEITO";
-    const novoPaymentStatus = novoStatus === "FEITO" ? "PAGO" : "PENDENTE";
+    if (text === "Feito") return; 
 
-    axios.patch(`${apiUrl}/agendamentos/${props.id}`, {
+    const novoStatus = "FEITO";
+    const novoPaymentStatus = "PAGO";
+
+    const payload = {
       id: props.id,
-      feedback: 0,
       status: novoStatus,
       paymentStatus: novoPaymentStatus,
-
       
-    },
-    
-    console.log("Atualizando status do agendamento:", {
-        id: props.id,
-        feedback: 0,
-        status: novoStatus,
-        paymentStatus: novoPaymentStatus
-      }),
+    };
 
-    {
+    setCarregando(true);
+
+    axios.patch(`${apiUrl}/agendamentos/${props.id}`, payload, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
       }
-    }).then(() => {
-      setMensagem("Status atualizado com sucesso!");
-      setCaminho("/assets/Check-pop.png");
+    })
+      .then(() => {
+        setMensagem("Status atualizado com sucesso!");
+        setCaminho("/assets/Check-pop.png");
 
-      setCor(novoStatus === "FEITO" ? "#a34862" : "#982546");
-      setText(novoStatus === "FEITO" ? "Feito" : "Marcar como feito");
-      setPaymentStatus(novoPaymentStatus);
-      setMostrarMotivo(false);
-
-      limparAlert();
-    }).catch((error) => {
-      console.error("Erro ao atualizar status:", error.response?.data || error.message);
-      setMensagem("Erro ao atualizar status do agendamento. Tente novamente.");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-    });
+        setCor("#a34862");
+        setText("Feito");
+        setPaymentStatus("PAGO");
+        setBotaoAtivo(true);
+        setMostrarMotivo(false);
+        limparAlert();
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar status:", error.response?.data || error.message);
+        setMensagem("Erro ao atualizar status do agendamento. Tente novamente.");
+        setCaminho("/assets/Alert.png");
+        limparAlert();
+      })
+      .finally(() => {
+        setCarregando(false);
+      });
   };
 
   const cancelar = () => setMostrarMotivo(true);
@@ -132,7 +133,7 @@ export default function CardAgendamento(props) {
 
       <div className="flex flex-row w-full relative mt-15">
         <div className="flex flex-col justify-center w-full h-40">
-     
+
           <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
             style={{
               backgroundColor: cor,
@@ -171,12 +172,12 @@ export default function CardAgendamento(props) {
               <button
                 className="bg-[#FFF3DC] cursor-pointer p-2 rounded-2xl text-[#982546]"
                 onClick={marcarFeito}
-                disabled={!botaoAtivo}
+                disabled={!botaoAtivo || carregando}
               >
-                {text}
+                {carregando ? "Atualizando..." : text}
               </button>
 
-              {botaoAtivo && text !== "Feito" && (
+              {text === "Marcar como feito" && (
                 <button
                   className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC]"
                   onClick={cancelar}
@@ -188,9 +189,8 @@ export default function CardAgendamento(props) {
           </div>
         </div>
 
-        {/* Modal de cancelamento */}
         {mostrarMotivo && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 ">
+          <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">
               <h2 className="text-[#982546] text-xl font-bold mb-4">Motivo do cancelamento</h2>
               <textarea

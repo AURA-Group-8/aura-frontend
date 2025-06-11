@@ -15,7 +15,7 @@ import {
 import { ptBR } from "date-fns/locale";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-
+import Alerta from "../../pages/Pop-up";
 
 
 export default function CalendarioCarrossel() {
@@ -195,9 +195,17 @@ export default function CalendarioCarrossel() {
     }
   };
 
+  const limparAlert = () => {
+    setTimeout(() => {
+      setMensagem("");
+    }, 2000);
+  };
+
+
   const confirmar = () => {
     if (!dataSelecionada || !horarioSelecionado) {
       setMensagem("Selecione uma data e horário!");
+      limparAlert();
       setCaminho("/assets/Alert.png");
       return;
     }

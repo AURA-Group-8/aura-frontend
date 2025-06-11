@@ -52,7 +52,6 @@ export default function EsqueceuSenha() {
                     imagem={caminho}
                 />
             )}
-
            
             <div className="h-full w-full bg-[#FFF3DC] flex flex-col items-center justify-center">  
                 <Header caminho={"/pages/client-pages/Login"} />

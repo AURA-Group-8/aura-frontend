@@ -1,5 +1,5 @@
 import { parse, format } from 'date-fns';
-import NavbarPro from "./components/Navbar"
+import NavbarPro from "./components/Navbar";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -10,6 +10,7 @@ export default function Confirmar() {
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
+    const [isLoading, setIsLoading] = useState(false); // Estado para evitar múltiplas requisições
 
     const location = useLocation();
     const { cliente, data, hora, servicos } = location.state || {};
@@ -21,12 +22,12 @@ export default function Confirmar() {
         }, 2000);
     }
 
-    console.log("Cliente recebido:", cliente);
-
     const confirmar = () => {
+        if (isLoading) return; // Impede reenvio
+
+        setIsLoading(true); // Ativa loading
 
         const apiUrl = import.meta.env.VITE_API_URL;
-
         const dataFormatada = format(parse(data, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');
 
         const agendamento = {
@@ -35,8 +36,6 @@ export default function Confirmar() {
             startDatetime: `${dataFormatada}T${hora}:00`,
             roleId: 1,
         };
-
-        console.log("Agendamento:", agendamento);
 
         axios.post(`${apiUrl}/agendamentos`, agendamento, {
             headers: {
@@ -49,8 +48,7 @@ export default function Confirmar() {
                 setTimeout(() => {
                     setMensagem("");
                     navigate("/pages/professional-pages/Dashboard");
-                }, 2000);
-                
+                }, 1000);
             })
             .catch((error) => {
                 console.error("Erro ao confirmar agendamento:", error);
@@ -58,8 +56,9 @@ export default function Confirmar() {
                 setCaminho("/assets/Alert.png");
                 limparAlert();
             })
-
-
+            .finally(() => {
+                setIsLoading(false); 
+            });
     }
 
     return (
@@ -71,17 +70,16 @@ export default function Confirmar() {
                 />
             )}
 
-
             <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>
                 <div className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-60 rounded-2xl flex flex-col mt-5">
-                    <div className=" bg-[#982546] w-full h-10 rounded-t-2xl flex p-2 items-center">
+                    <div className="bg-[#982546] w-full h-10 rounded-t-2xl flex p-2 items-center">
                         <h1 className="text-white font-bold text-2xl">{cliente.username}</h1>
                     </div>
                     <div className="flex flex-row justify-between p-5">
-                        <div className="h-20 ">
+                        <div className="h-20">
                             <p className="font-bold text-[#982546]">Serviços</p>
                             <ul>
                                 {Array.isArray(servicos) && servicos.length > 0 ? (
@@ -101,7 +99,6 @@ export default function Confirmar() {
                             </div>
 
                             <div>
-
                                 <h1 className="font-bold text-[#982546] text-2xl">
                                     Total: R$ {
                                         Array.isArray(servicos)
@@ -111,14 +108,17 @@ export default function Confirmar() {
                                 </h1>
                             </div>
                         </div>
-
                     </div>
 
-                    <button className="bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl cursor-pointer" onClick={confirmar}>Confirmar agendamento</button>
-
+                    <button
+                        className={`bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl cursor-pointer ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={confirmar}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Confirmando..." : "Confirmar agendamento"}
+                    </button>
                 </div>
-
             </div>
         </>
-    )
+    );
 }
