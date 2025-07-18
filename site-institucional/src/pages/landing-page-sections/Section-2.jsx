@@ -1,22 +1,27 @@
 function Section_2() {
     return (
         <>
-            <div className="h-full flex flex-col justify-center items-center gap-15">
-                <h1 className="text-center font-bold text-2xl">
-                    Somos a <span className="text-[#982546]">AURA</span>
-                </h1>
-
-                <div className="flex flex-wrap justify-around gap-10">
-                    <img src="/assets/pincel-2.png" className="max-h-70" alt="" />
-                    <img src="/assets/logo-escuro-vertical.png" className="max-h-50" alt="" />
-                    <img src="/assets/pincel-1.png" className="max-h-70" alt="" />
+            <div className="h-full flex flex-col  items-center ">
+                <div className="flex flex-col justify-center items-center gap-5 mt-10 text-center font-bold text-3xl text-[#241313]">
+                    <h1>
+                        Somos a <span className="text-[#982546]"><i>AURA</i></span>
+                    </h1>
+                    <h2 className="text-xl"><i>"Facilidade para clientes, organização para profissionais"</i></h2>
                 </div>
 
-                <span className="text-center max-w-200">
-                    A Aura é uma empresa de tecnologia dedicada a criar soluções para o setor de beleza.
-                    Pensando na praticidade e experiência dos clientes, desenvolvemos um sistema de agendamento
-                    exclusivo para designers de sobrancelhas, conectando profissionais a quem busca serviços de qualidade.
-                </span>
+                <div className="flex flex-row justify-around gap-10 p-10">
+                    <span className="text-center max-w-100 leading-8 font-medium text-lg">
+                        A Aura é uma empresa de tecnologia dedicada a criar soluções para o setor de beleza.
+                        Pensando na praticidade e experiência dos clientes, desenvolvemos um sistema de agendamento,
+                        conectando profissionais a quem busca serviços de qualidade.
+                    </span>
+
+                    <div >
+                        aaaaaaaaaaaaaaa
+                    </div>
+                </div>
+
+
             </div>
         </>
     )

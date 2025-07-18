@@ -24,24 +24,24 @@ function Navbar() {
 
   return (
     <>
-      <div className="w-full h-15 bg-[#FFF3DC] fixed">
-        <div className="w-full mx-auto h-full flex justify-around  items-center">
+      <div className="w-full h-15 fixed shadow-md ">
+        <div className="w-full mx-auto h-full flex justify-around  items-center bg-[#241313] rounded-bl-2xl rounded-br-2xl">
 
-          <img src="/assets/logo-escuro-horizontal.png" alt="" className="max-h-30 " />
+          <img src="/assets/LOGO.png" alt="" className="max-h-10 " />
 
-          <ul className="flex flex-row justify-around w-80 gap-8 ">
-            <li><a href="#inicio" className="text-[#982546] font-bold">Início</a></li>
-            <li><a href="#sobre" className="text-[#982546] font-bold">Sobre</a></li>
-            <li><a href="#para_voce" className="text-[#982546] font-bold">Pra você</a></li>
-            <li><a href="#contato" className="text-[#982546] font-bold">Contatos</a></li>
+          <ul className="flex flex-row justify-around w-80 gap-8 text-[#FFF3DC] font-bold rounded-xl ">
+            <li><a href="#inicio" >Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#para_voce">Pra você</a></li>
+            <li><a href="#contato">Contatos</a></li>
           </ul>
 
           <div className="flex gap-2 ">
-            <button className="bg-transparent border border-[#982546] text-[#982546] w-20 h-9 rounded-xl cursor-pointer" onClick={() => navigate("/pages/client-pages/Cadastro")}>Cadastro</button>
+            <button className="border bg-[#FFF3DC] border-[#982546] text-[#982546] w-20 h-9 rounded-xl cursor-pointer hover:bg-[#d8d3af] transition duration-300 font-medium" onClick={() => navigate("/pages/client-pages/Cadastro")}>Cadastro</button>
 
-            <select value={opcao} onChange={opcaoLogin}  className="appearance-none bg-[#982546] text-center text-[#FFF3DC] rounded-xl w-30 h-9 cursor-pointer">
+            <select value={opcao} onChange={opcaoLogin}  className="appearance-none bg-[#982546] text-center text-[#FFF3DC] rounded-xl w-30 h-9 cursor-pointer hover:bg-[#7f1d3f] transition duration-300 font-medium">
               <option value="" disabled hidden>Login</option>
-              <option value="cliente" className="bg-amber-50 text-[#982546] cursor-pointer">Sou cliente</option>
+              <option value="cliente" className="bg-amber-50 text-[#982546] cursor-pointe">Sou cliente</option>
               <option value="profissional" className="bg-amber-50 text-[#982546] cursor-pointer">Sou profissional</option>
             </select>
 

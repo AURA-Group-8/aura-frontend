@@ -17,7 +17,7 @@ export default function HomePage() {
                     <Navbar />
                 </header>
 
-                <section className="bg-[url('/assets/bg-img.png')] bg-cover bg-center h-140 w-full" id="inicio">
+                <section className="bg-[#241313] bg-[url('/assets/background.png')] bg-center bg-cover h-140 w-full " id="inicio">
                     <Section_1 />
                 </section>
 
