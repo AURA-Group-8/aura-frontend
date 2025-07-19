@@ -31,5 +31,14 @@ body{
   
 }
 
+.wave-section {
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 85%,
+    50% 100%,
+    0% 85%
+  );
+}
 
 
