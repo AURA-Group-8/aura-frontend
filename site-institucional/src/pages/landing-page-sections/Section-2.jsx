@@ -6,13 +6,12 @@ function Section_2() {
 
     const imagens = [
         { id: 1, src: '/assets/pincel-1.png', alt: 'Imagem 1' },
-        { id: 2, src: '/assets/pincel-2.png', alt: 'Imagem 2' },
-        { id: 3, src: '/assets/imagem3.png', alt: 'Imagem 3' }
+        { id: 2, src: '/assets/pincel-2.png', alt: 'Imagem 2' }
     ];
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setImagemAtual((img) => (img + 1) === imagens.length - 1 ? 0 : img + 1);
+            setImagemAtual((img) => (img + 1) === imagens.length ? 0 : img + 1);
         }, 3000);
 
         return () => clearInterval(interval);

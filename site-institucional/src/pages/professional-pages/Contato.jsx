@@ -72,7 +72,7 @@ export default function ContatoPro() {
                             </div>
 
 
-                            <div className=" mt-5 border border-[#982546] h-60 w-120 p-5 flex  flex-col justify-center rounded-2xl">
+                            <div className=" mt-5 border border-[#982546] h-60 w-150 p-5 flex  flex-col justify-center rounded-2xl">
 
                                 <span>Mensagem:</span>
 

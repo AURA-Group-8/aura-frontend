@@ -71,14 +71,15 @@ export default function Agendar() {
 
         } else {
 
+            const duracaoTotal = servicosSelecionados.reduce((acc, servico) => acc + (servico.durationInMinutes || 0), 0);
             navigate("/pages/professional-pages/DataHora",
                 {
                     state: {
                         servicos: servicosSelecionados,
-                        cliente: clienteObj
+                        cliente: clienteObj,
+                        duracaoTotal
                     }
                 }
-
             );
         }
 

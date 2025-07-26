@@ -10,12 +10,12 @@ export default function Confirmar() {
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // Estado para evitar múltiplas requisições
+    const [isLoading, setIsLoading] = useState(false);
 
     const location = useLocation();
     const { cliente, data, hora, servicos } = location.state || {};
     const navigate = useNavigate();
-
+[]
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
@@ -23,9 +23,9 @@ export default function Confirmar() {
     }
 
     const confirmar = () => {
-        if (isLoading) return; // Impede reenvio
+        if (isLoading) return; 
 
-        setIsLoading(true); // Ativa loading
+        setIsLoading(true);
 
         const apiUrl = import.meta.env.VITE_API_URL;
         const dataFormatada = format(parse(data, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');

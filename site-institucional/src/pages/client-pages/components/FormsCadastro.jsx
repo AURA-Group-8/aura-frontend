@@ -112,16 +112,16 @@ export default function FormularioCadastro() {
                 />
             )}
 
-            <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative">
+            <div className="flex items-center justify-center h-full bg-[#FFF2DC] relative">
                 <div className="absolute inset-0 bg-[url('/assets/wave-background.png')] bg-cover bg-center opacity-65 z-0"></div>
 
-                <div className="bg-[#982546] w-[40vw] rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
+                <div className="bg-[#982546] h-170 w-[40vw] mt-5 rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
                     <div className="w-full bg-[#982546] text-[#FFF2DC] font-bold justify-start gap-2 flex items-center mb-8  hover:border-[#341C1C]">
                         <img className="h-10 " src="/assets/LOGO.png " alt="" />
                         <h1 className="text-2xl ml-10">Crie sua conta</h1>
                     </div>
 
-                    <form onSubmit={cadastrar} className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]" method="POST">
+                    <form onSubmit={cadastrar} className="w-full flex flex-col gap-[0.5vh] text-xl text-[#FFF2DC]" method="POST">
                         <label>Nome Completo:
                             <input type="text" onChange={e => setNomeCompleto(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />
                         </label>
@@ -161,7 +161,7 @@ export default function FormularioCadastro() {
                         </button>
                     </form>
 
-                    <p className="text-xs mt-4">Já possui conta? <a href="/pages/client-pages/Login" className="underline">Login</a></p>
+                    <p className=" mt-4">Já possui conta? <a href="/pages/client-pages/Login" className="underline">Login</a></p>
                 </div>
             </div>
         </>

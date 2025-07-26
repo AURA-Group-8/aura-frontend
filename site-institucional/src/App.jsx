@@ -11,7 +11,7 @@ function App() {
         <RouterProvider router={routes} />
 
         
-        <Vlibras/>
+        {/* <Vlibras/> */}
     </>
   )
 }

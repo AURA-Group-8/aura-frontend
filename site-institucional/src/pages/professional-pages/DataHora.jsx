@@ -23,7 +23,7 @@ export default function CalendarioCarrossel() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const location = useLocation();
-  const { cliente, servicos } = location.state || {};
+  const { cliente, servicos, duracaoTotal } = location.state || {};
 
   const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ export default function CalendarioCarrossel() {
 
   const [inicioHorarios, setInicioHorarios] = useState(0);
   const [horarioSelecionado, setHorarioSelecionado] = useState(null);
+  const [horarioDisponivel, setHorarioDisponivel] = useState([]);
 
   const [diasSemanaAPI, setDiasSemanaAPI] = useState([]);
   const [workStart, setWorkStart] = useState(null);
@@ -101,8 +102,6 @@ export default function CalendarioCarrossel() {
       atual = addMinutes(atual, 60);
     }
 
-
-
     return horarios;
   };
 
@@ -116,8 +115,38 @@ export default function CalendarioCarrossel() {
 
   useEffect(() => {
     const horarios = gerarHorarios();
-    setHorariosParaMostrar(horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis));
-  }, [workStart, workEnd, breakStart, breakEnd, inicioHorarios]);
+
+    if (dataSelecionada) {
+      const dataFormatada = format(dataSelecionada, "yyyy-MM-dd");
+
+      const disponibilidadeDoDia = horarioDisponivel.find(
+        (item) => item.date === dataFormatada
+      );
+
+      if (disponibilidadeDoDia) {
+        const horasDisponiveis = (disponibilidadeDoDia.availableTimes || []).map(h =>
+          parse(h, "HH:mm:ss", new Date())
+        );
+
+        const horariosFiltrados = horarios.filter(h => {
+          return horasDisponiveis.some(hDisponivel =>
+            format(hDisponivel, "HH:mm") === h
+          );
+        });
+
+        setHorariosParaMostrar(
+          horariosFiltrados.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
+        );
+
+        return;
+      }
+    }
+
+    setHorariosParaMostrar(
+      horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
+    );
+  }, [dataSelecionada, horarioDisponivel, inicioHorarios, workStart, workEnd, breakStart, breakEnd]);
+
 
   const [dataAtual, setDataAtual] = useState(null);
   useEffect(() => {
@@ -127,15 +156,14 @@ export default function CalendarioCarrossel() {
   }, [diasParaMostrar]);
 
   useEffect(() => {
-    async function pegarDados() {
+    async function buscarConfiguracoes() {
       try {
-
         const token = sessionStorage.getItem("authToken");
 
         const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
           headers: {
             Authorization: `Bearer ${token}`,
-          }
+          },
         });
 
         const dados = response.data;
@@ -149,8 +177,43 @@ export default function CalendarioCarrossel() {
         console.error("Erro ao buscar dados da API:", error);
       }
     }
-    pegarDados();
+
+    buscarConfiguracoes();
   }, []);
+
+
+  useEffect(() => {
+
+    async function buscarHorariosDisponiveis() {
+      if (diasSemanaAPI.length === 0) return;
+
+      try {
+        const token = sessionStorage.getItem("authToken");
+        
+        const datas = datasDiasSemana();
+        const firstDayOfWeek = datas.length > 0 ? format(datas[0], "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd");
+
+        const horariosAPI = await axios.get(`${apiUrl}/agendamentos/available-times`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            durationInMinutes: 60,
+            firstDayOfWeek,
+          },
+        });
+
+        const horaDisponivel = horariosAPI.data;
+        setHorarioDisponivel(horaDisponivel || []);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    }
+
+    buscarHorariosDisponiveis();
+  }, [duracaoTotal, diasSemanaAPI]);
+
+
 
   const handleProximoDias = () => {
     if (inicioDias + diasVisiveis < datasDiasSemana().length) {
@@ -210,7 +273,7 @@ export default function CalendarioCarrossel() {
       return;
     }
     navigate("/pages/professional-pages/Confirmar",
-       {
+      {
         state: {
           data: format(dataSelecionada, "dd/MM/yyyy"),
           hora: horarioSelecionado,

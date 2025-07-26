@@ -93,17 +93,17 @@ export default function LoginPro() {
             )}
 
             <Header caminho={"/"} />
-            <div className="flex items-center justify-center h-screen bg-[#FFF2DC] relative ">
+            <div className="flex justify-center h-screen bg-[#FFF2DC] relative ">
                 <div className="absolute inset-0 bg-[url('/assets/wave-background.png')] bg-cover bg-center opacity-65 z-0"></div>
 
-                <div className="bg-[#351818] w-[40vw] rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
+                <div className="bg-[#351818] mt-5 w-[40vw] h-120 rounded-xl p-8 flex flex-col items-center text-white shadow-lg font-bold z-10">
                     <img className="h-20 ml-8 self-center" src="/assets/LOGO.png" alt="" />
 
                     <div className="w-[40vw]  text-[#FFF2DC] font-bold flex justify-center items-center mb-8 gap-x-16 hover:border-[#341C1C]">
                         <h1 className="text-2xl mt-5"> Acesse sua conta</h1>
                     </div>
 
-                    <form onSubmit={logar} className="w-full flex flex-col gap-[0.5vh] text-xs text-[#FFF2DC]">
+                    <form onSubmit={logar} className="w-full flex flex-col gap-[0.5vh] text-xl text-[#FFF2DC]">
 
                         <label htmlFor="Campo">Email:</label>
                         <input type="text" onChange={e => setEmail(e.target.value)} className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4" required />

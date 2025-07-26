@@ -20,11 +20,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 export default function Financeiro() {
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const [dadosMensais, setDadosMensais] = useState({
-        totalFaturadoMes: 0,
-        totalAtendimentosMes: 0,
-        totalAtendimentosCanceladosMes: 0
-    });
+    const [dadosMensais, setDadosMensais] = useState([]);
     const [topServicos, setTopServicos] = useState([]);
     const [topClientes, setTopClientes] = useState([]);
     const [atendimentosSemana, setAtendimentosSemana] = useState([]);
@@ -38,45 +34,52 @@ export default function Financeiro() {
                 Authorization: `Bearer ${token}`,
             },
         })
-        .then((response) => {
-            const res = response.data;
+            .then((response) => {
+                const data = response.data;
 
-            function parseStringArray(str) {
-                if (!str) return [];
-                try {
-                    const jsonStr = str.replace(/'/g, '"');
-                    return JSON.parse(jsonStr);
-                } catch (e) {
-                    console.error("Erro ao converter string para array:", e);
-                    return [];
+                let servicos = data.topServicos;
+                if (typeof servicos === 'string') {
+                    try {
+                        servicos = JSON.parse(servicos.replace(/'/g, '"'));
+                    } catch (e) {
+                        servicos = [];
+                    }
                 }
-            }
+                setTopServicos(Array.isArray(servicos) ? servicos : []);
 
-            const dados = (typeof res.dadosMensais === "object" && res.dadosMensais !== null) 
-                ? res.dadosMensais 
-                : {
-                    totalFaturadoMes: 0,
-                    totalAtendimentosMes: 0,
-                    totalAtendimentosCanceladosMes: 0
-                };
+                let clientes = data.topClientes;
+                if (typeof clientes === 'string') {
+                    try {
+                        clientes = JSON.parse(clientes.replace(/'/g, '"'));
+                    } catch (e) {
+                        clientes = [];
+                    }
+                }
+                setTopClientes(Array.isArray(clientes) ? clientes : []);
 
-            setTopServicos(Array.isArray(res.topServicos) 
-                ? res.topServicos 
-                : parseStringArray(res.topServicos));
+                let semana = data.atendimentosDiaDaSemanaNoMes;
+                if (typeof semana === 'string') {
+                    try {
+                        semana = JSON.parse(semana.replace(/'/g, '"'));
+                    } catch (e) {
+                        semana = [];
+                    }
+                }
+                setAtendimentosSemana(Array.isArray(semana) ? semana : []);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar dados financeiros:", error);
+            });
 
-            setTopClientes(Array.isArray(res.topClientes) 
-                ? res.topClientes 
-                : parseStringArray(res.topClientes));
-
-            setDadosMensais(dados);
-
-            setAtendimentosSemana(Array.isArray(res.atendimentosDiaDaSemanaNoMes) 
-                ? res.atendimentosDiaDaSemanaNoMes 
-                : []);
+        axios.get(`${apiUrl}/insights/finance/historico`, {
+            headers: { Authorization: `Bearer ${token}` },
         })
-        .catch((error) => {
-            console.error("Erro ao buscar dados:", error);
-        });
+            .then((response) => {
+                setDadosMensais(response.data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar histórico financeiro:", error);
+            });
     }, []);
 
     const chartData = {
@@ -112,7 +115,7 @@ export default function Financeiro() {
                 <MenuLateral />
 
                 <div className="flex flex-col w-full h-full items-center">
-                    <SinoNotificacao/>
+                    <SinoNotificacao />
 
                     <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
 
@@ -121,13 +124,23 @@ export default function Financeiro() {
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Balanço mensal</h1>
                             <div className="w-100 bg-[#982546] rounded-2xl flex flex-col justify-between p-2">
                                 <div className="flex flex-col text-[#FFF3DC] p-4 h-full gap-4">
-                                    <span className="font-bold mb-2 text-3xl">
-                                        R$ {dadosMensais.totalFaturadoMes.toFixed(2)}
-                                    </span>
-                                    <div className="flex flex-col">
-                                        <span>Total de atendimentos: {dadosMensais.totalAtendimentosMes}</span>
-                                        <span>Total de cancelamentos: {dadosMensais.totalAtendimentosCanceladosMes}</span>
-                                    </div>
+                                    {(() => {
+                                        
+                                        const hoje = new Date();
+                                        const mesAtual = hoje.getMonth() + 1;
+                                        const dadosMes = dadosMensais.find((item) => item.mes === mesAtual) || {};
+                                        return (
+                                            <>
+                                                <span className="font-bold mb-2 text-3xl">
+                                                    R$ {dadosMes.totalFaturadoMes ? Number(dadosMes.totalFaturadoMes).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '0,00'}
+                                                </span>
+                                                <div className="flex flex-col">
+                                                    <span>Total de atendimentos: {dadosMes.totalAtendimentosMes ?? 0}</span>
+                                                    <span>Total de cancelamentos: {dadosMes.totalAtendimentosCanceladosMes ?? 0}</span>
+                                                </div>
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                                 <button
                                     className="p-2 rounded-2xl bg-[#FFF3DC] text-[#982546] self-end cursor-pointer"
