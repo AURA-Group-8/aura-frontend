@@ -16,7 +16,7 @@ export default function NavbarCli({caminho}) {
 
                 <div className="flex flex-row items-center gap-5">
                     <img src="/assets/user.png" alt="" className="h-8 cursor-pointer " onClick={() => navigate("/pages/client-pages/Config")} />
-                    <img src="/assets/Doorbell.png" alt="" className="h- cursor-pointer" onClick={() => navigate("/pages/client-pages/Notificacao")}  />
+                    <img src="/assets/Doorbell.png" alt="" className="h-8 cursor-pointer" onClick={() => navigate("/pages/client-pages/Notificacao")}  />
                 </div>
             </div>
         </>

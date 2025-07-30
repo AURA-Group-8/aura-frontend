@@ -10,7 +10,7 @@ export default function ConfigCli() {
     const [desabilitado, setDesabilitado] = useState(true);
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
-    const [showModal, setShowModal] = useState(false); // Estado para controlar o modal
+    const [showModal, setShowModal] = useState(false); 
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -88,7 +88,7 @@ export default function ConfigCli() {
             setCaminho("/assets/Alert.png");
             limparAlert();
         }
-        setShowModal(false); // Fechar o modal após a ação
+        setShowModal(false); 
     };
 
     const logoOff = () => {
@@ -169,7 +169,7 @@ export default function ConfigCli() {
                             />
                             <button
                                 type="button"
-                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer"
+                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer hover:bg-[#7f1d3f] transition duration-300"
                                 onClick={() => {
                                     if (!desabilitado) {
                                         editar();
@@ -184,7 +184,7 @@ export default function ConfigCli() {
 
                         <div className="flex flex-row justify-between gap-4 pt-5">
                             <button
-                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 self-end cursor-pointer"
+                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 self-end cursor-pointer hover:bg-[#7f1d3f] transition duration-300"
                                 onClick={logoOff}
                             >
                                 Sair da conta

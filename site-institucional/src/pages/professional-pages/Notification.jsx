@@ -41,17 +41,6 @@ const ProNotification = () => {
                   <span className="text-sm">
                     {new Date(notificacao.created_at).toLocaleString("pt-BR")}
                   </span>
-
-                  {notificacao.hasButtonToRate && !notificacao.wasAnswered && (
-                    <button
-                      className="flex items-center cursor-pointer bg-white text-black px-4 py-1 rounded-md hover:bg-gray-200"
-                      onClick={() => {
-                        alert("Botão de avaliação clicado!");
-                      }}
-                    >
-                      Avaliar
-                    </button>
-                  )}
                 </div>
               </div>
             ))

@@ -19,8 +19,6 @@ export default function Agendar() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
-
-
     useEffect(() => {
         async function pegarDados() {
             try {

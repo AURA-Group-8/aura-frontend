@@ -143,7 +143,7 @@ export default function Financeiro() {
                                     })()}
                                 </div>
                                 <button
-                                    className="p-2 rounded-2xl bg-[#FFF3DC] text-[#982546] self-end cursor-pointer"
+                                    className="p-2 rounded-2xl bg-[#FFF3DC] text-[#982546] self-end cursor-pointer hover:bg-[#f0e4d1] transition-colors"
                                     onClick={() => navigate("/pages/professional-pages/HistoricoFinanceiro")}
                                 >
                                     Ver histórico

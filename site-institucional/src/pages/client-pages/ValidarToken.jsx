@@ -55,17 +55,17 @@ export default function ValidarToken() {
                 <div className="h-full w-full bg-[#FFF3DC] flex flex-col justify-center ">
                     <Header caminho={"/pages/client-pages/ForgotPassword"} />
                     <div className="h-full flex justify-center items-center">
-                        <div className="flex flex-col h-screen justify-center items-center">
+                        <div className="flex flex-col h-screen items-center">
                             <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>
-                            <p className="w-84 flex justify-center font-semibold text-[#982546] mb-4">Confirme o código que recebeu por E-mail para seguir com a alteração</p>
+                            <p className="w-84 flex justify-center font-semibold text-[#982546] mb-4 text-center text-xl">Confirme o código que recebeu por E-mail para seguir com a alteração</p>
         
-                            <form action="#" method="get" className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 ">
+                            <form action="#" method="get" className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
                                 <label>Confirmar Código:</label>
                                 <input onChange={(e) => setTokenCliente(e.target.value)} type="text" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
                                 <div className="flex flex-row justify-between gap-4 pt-5">
-                                    <button type="button" className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer" onClick={() => navigate("/pages/client-pages/Login")}>Cancelar</button>
+                                    <button type="button" className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/pages/client-pages/Login")}>Cancelar</button>
                                     <button
-                                        className={`bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                                        className={`bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                                         onClick={validar}
                                         disabled={isSubmitting} 
                                     >

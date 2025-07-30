@@ -137,7 +137,7 @@ export default function Configuracoes() {
                                                 />
                                                 <button
                                                     type="button"
-                                                    className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer"
+                                                    className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer hover:bg-[#b36078] transition-colors"
                                                     onClick={() => {
                                                         navigate("/pages/professional-pages/AlterarSenha");
                                                     }}
@@ -252,7 +252,7 @@ export default function Configuracoes() {
 
                                             <button
                                                 type="button"
-                                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-10 cursor-pointer mt-8 self-end"
+                                                className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-10 cursor-pointer mt-8 self-end hover:bg-[#b36078] transition-colors"
                                                 onClick={async () => {
                                                     const diasFormatados = diasSelecionados.map(dia => {
                                                         const diaSemAcento = dia.normalize("NFD").replace(/[\u0300-\u036f]/g, "");

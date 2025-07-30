@@ -12,26 +12,26 @@ export default function AlterarSenha() {
     const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId, email } = location.state || {};
+    const { userId} = location.state || {};
 
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false); // Estado para controlar o envio
+    const [isSubmitting, setIsSubmitting] = useState(false); 
+
     const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
     }
 
-
-
-
     const alterar = (e) => {
         e.preventDefault();
-        if (isSubmitting) return; // Evita duplicidade
-        setIsSubmitting(true); // Bloqueia o botão
+        if (isSubmitting) return; 
+
+        setIsSubmitting(true); 
+        
         if (senha !== confirmarSenha) {
             setMensagem("❌ As senhas não coincidem.");
             setCaminho("/assets/Alert.png");
@@ -39,6 +39,15 @@ export default function AlterarSenha() {
             setIsSubmitting(false);
             return;
         }
+
+        if (senha.length < 6) {
+            setMensagem("❌ A senha deve ter pelo menos 6 caracteres.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            setIsSubmitting(false);
+            return;
+        }
+
         axios.patch(`${apiUrl}/usuarios/alterar-senha/${userId}?password=${senha}`)
             .then((response) => {
                 console.log("Senha alterada com sucesso:", response.data);
@@ -74,11 +83,11 @@ export default function AlterarSenha() {
 
                 <div className="h-full flex justify-center items-center">
 
-                    <div className="flex flex-col h-screen justify-center items-center">
+                    <div className="flex flex-col h-screen ">
 
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Alterar senha</h1>
 
-                        <form action="#" method="get" className="w-120 flex flex-col text-[#362323]  border border-[#982546] py-5 px-8 rounded-2xl gap-2 ">
+                        <form action="#" method="get" className="w-120 flex flex-col text-[#362323]  border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
 
                             <label>Nova Senha:</label>
                             <input type="password"
@@ -91,8 +100,8 @@ export default function AlterarSenha() {
                                 id="nome" name="confirmarSenha" className="bg-[#ffffff] p-2 rounded-xl" />
 
                             <div className="flex flex-row justify-between gap-4 pt-5">
-                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer" onClick={() => navigate("/pages/client-pages/ForgotPassword")}>Cancelar</button>
-                                <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer" onClick={alterar}>Alterar</button>
+                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/pages/client-pages/ForgotPassword")}>Cancelar</button>
+                                <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300" onClick={alterar}>Alterar</button>
                             </div>
                         </form>
                     </div>

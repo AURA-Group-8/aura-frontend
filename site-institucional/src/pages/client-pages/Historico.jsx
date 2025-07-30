@@ -12,14 +12,8 @@ export default function Historico() {
     const navigate = useNavigate();
 
     const [agendamentos, setAgendamentos] = useState([]);
-    const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
-    const [pagamentoSelecionado, setPagamentoSelecionado] = useState(null);
 
-    const [menuAberto, setMenuAberto] = useState(false);
     const [mensagem, setMensagem] = useState("");
-    const [caminho, setCaminho] = useState("");
-
-
 
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
@@ -31,21 +25,21 @@ export default function Historico() {
             }
         })
             .then((response) => {
-                console.log("Response data from API:", response.data); // Log dos dados retornados pela API
+                console.log("Response data from API:", response.data); 
 
-                // Filtra os agendamentos pelo userName no frontend
+                
                 const agendamentosFiltrados = response.data.filter(
                     (agendamento) => agendamento.userName === userName
                 );
 
-                console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados
+                console.log("Filtered agendamentos:", agendamentosFiltrados); 
 
-                // Filtra os agendamentos realizados anteriormente à data atual
+                
                 const agendamentosPassados = agendamentosFiltrados.filter(
                     (agendamento) => new Date(agendamento.startDatetime) < new Date()
                 );
 
-                console.log("Past agendamentos:", agendamentosPassados); // Log dos agendamentos passados
+                console.log("Past agendamentos:", agendamentosPassados); 
 
                 setAgendamentos(agendamentosPassados);
             })
@@ -78,10 +72,9 @@ export default function Historico() {
 
                             <h1 className="text-[#982546] mt-3 font-bold text-2xl">Histórico de Agendamentos</h1>
 
-
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 mt-15 overflow-y-auto">
+                        <div className="grid grid-cols-1 w-6xl h-100 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
@@ -89,8 +82,8 @@ export default function Historico() {
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}
-                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        isHistorico={true} // Indica que é o histórico
+                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12:false })}
+                                        isHistorico={true}
                                     />
                                 ))
                             ) : (
@@ -103,7 +96,7 @@ export default function Historico() {
                         <div className="w-full flex justify-center it mt-5">
                             <button
                                 onClick={() => navigate("/pages/client-pages/MeusAgendamentosCli")}
-                                className="bg-[#982546] text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-[#b36078] transition-colors"
+                                className="bg-[#982546] text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-[#b36078] transition-colors mb-10"
                             >
                                 Visualizar Agendamentos
                             </button>

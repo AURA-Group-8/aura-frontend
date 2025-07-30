@@ -69,7 +69,7 @@ export default function MenuLateral() {
                             </div>
 
                             {mostrarModal && (
-                                <div className="absolute left-44 bottom-2 bg-[#FFF3DC] p-4 rounded-2xl border border-[#982546] shadow-lg z-50 w-64">
+                                <div className="absolute left-44 bottom-2 bg-white p-4 rounded-2xl border border-[#982546] shadow-lg z-50 w-64">
                                     <p className="text-[#645454] font-medium text-sm mb-4 text-center">Deseja sair da sua conta?</p>
                                     <div className="flex justify-around">
                                         <button

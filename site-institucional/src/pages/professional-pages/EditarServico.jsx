@@ -161,7 +161,7 @@ export default function EditarServico() {
                         <div className="flex flex-row w-full justify-between mt-10">
                             <button
                                 type="reset"
-                                className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
+                                className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer hover:bg-[#e6ddcce0] transition-colors"
                                 onClick={() => navigate("/pages/professional-pages/MeusServicos")}
                             >
                                 Cancelar
@@ -169,7 +169,7 @@ export default function EditarServico() {
 
                             <button
                                 type="submit"
-                                className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer"
+                                className="bg-[#982546] py-2 px-8 rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
                                 onClick={editarServico}
                             >
                                 Editar serviço

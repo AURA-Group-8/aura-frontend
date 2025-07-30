@@ -42,6 +42,7 @@ export default function CardAgendamento(props) {
     const cancelar = () => setMostrarMotivo(true);
 
     const confirmarCancelamento = () => {
+        
         if (motivoCancelamento.trim() === "") {
             fecharModal();
             setMensagem("Por favor, informe o motivo do cancelamento.");
@@ -94,7 +95,7 @@ export default function CardAgendamento(props) {
                     <div
                         className="h-20 rounded-t-2xl flex items-center p-2 z-10"
                         style={{
-                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, // Fundo cinza no histórico
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, 
                             boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)",
                         }}
                     >
@@ -104,7 +105,7 @@ export default function CardAgendamento(props) {
                     <div
                         className="rounded-b-2xl"
                         style={{
-                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, // Fundo cinza no histórico
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, 
                         }}
                     >
                         <div className="flex flex-col p-2 text-white text-lg">
@@ -124,9 +125,9 @@ export default function CardAgendamento(props) {
                         </div>
     
                         <div className="flex justify-between p-2">
-                            {botaoAtivo && text !== "Feito" && (
+                            {!props.isHistorico && botaoAtivo && text !== "Feito" && paymentStatus !== "CANCELADO" && paymentStatus !== "PAGO" && (
                                 <button
-                                    className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC]"
+                                    className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC] hover:bg-[#b36078]"
                                     onClick={cancelar}
                                 >
                                     Cancelar atendimento
@@ -136,7 +137,7 @@ export default function CardAgendamento(props) {
                     </div>
                 </div>
     
-                {/* Modal de cancelamento */}
+                
                 {mostrarMotivo && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 ">
                         <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">

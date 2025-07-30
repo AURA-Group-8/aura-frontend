@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+
 import { use, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CardAgendamento from "./components/CardAgendamento";
@@ -12,13 +12,7 @@ export default function MeusAgendamentosCli() {
     const navigate = useNavigate();
 
     const [agendamentos, setAgendamentos] = useState([]);
-    const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
-    const [pagamentoSelecionado, setPagamentoSelecionado] = useState(null);
-
-    const [menuAberto, setMenuAberto] = useState(false);
     const [mensagem, setMensagem] = useState("");
-    const [caminho, setCaminho] = useState("");
-
 
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
@@ -30,16 +24,16 @@ export default function MeusAgendamentosCli() {
             }
         })
             .then((response) => {
-                console.log("Response data from API:", response.data); // Log dos dados retornados pela API
+                console.log("Response data from API:", response.data); 
     
-                // Filtra os agendamentos pelo userName no frontend
+                
                 const agendamentosFiltrados = response.data.filter(
                     (agendamento) => 
                         agendamento.userName === userName &&
-                        new Date(agendamento.startDatetime) > new Date() // Exclui agendamentos passados
+                        new Date(agendamento.startDatetime) > new Date() 
                 );
     
-                console.log("Filtered agendamentos:", agendamentosFiltrados); // Log dos agendamentos filtrados
+                console.log("Filtered agendamentos:", agendamentosFiltrados);
     
                 setAgendamentos(agendamentosFiltrados);
             })
@@ -72,10 +66,9 @@ export default function MeusAgendamentosCli() {
 
                             <h1 className="text-[#982546] mt-3 font-bold text-2xl">Meus Agendamentos</h1>
 
-
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 w-6xl h-100 mt-15 overflow-y-auto p-4">
+                        <div className="grid grid-cols-1  w-6xl h-100 overflow-y-auto items-start p-4">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento
@@ -84,9 +77,9 @@ export default function MeusAgendamentosCli() {
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={new Date(agendamento.startDatetime).toLocaleDateString()}
-                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12:false })}
                                         value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
-                                        status={agendamento.status} // Passa o status do agendamento
+                                        status={agendamento.status} 
                                     />
                                 ))
                             ) : (
@@ -99,7 +92,7 @@ export default function MeusAgendamentosCli() {
                         <div className="w-full flex justify-center mt-5">
                             <button
                                 onClick={() => navigate("/pages/client-pages/Historico")}
-                                className="bg-[#982546] text-white py-2 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors"
+                                className="bg-[#982546] text-white py-2 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors mb-10"
                             >
                                 Visualizar Histórico
                             </button>

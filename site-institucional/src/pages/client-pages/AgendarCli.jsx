@@ -54,10 +54,19 @@ export default function AgendarCli() {
             limparAlert();
             return;
         }
+        
+        const durationInMinutes = servicosSelecionados.reduce((acc, item) => acc + (Number(item.duration) || 0), 0);
+
+        const clienteObj = {
+            id: Number(sessionStorage.getItem("userId")),
+            userName: sessionStorage.getItem("userName")
+        };
 
         navigate("/pages/client-pages/DataHoraCli", {
             state: {
+                cliente: clienteObj,
                 servicos: servicosSelecionados,
+                duracaoTotal: durationInMinutes,
             },
         });
     };

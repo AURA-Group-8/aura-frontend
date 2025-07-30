@@ -27,9 +27,9 @@ export default function FormularioCadastro() {
     };
 
     const cadastrar = (e) => {
-        e.preventDefault(); // evita recarregar a página
+        e.preventDefault(); 
 
-        if (isSubmitting) return; // Evita múltiplos cliques
+        if (isSubmitting) return;
 
         if (nomeCompleto.trim() === "" || telefone.trim() === "" || email.trim() === "" || senha.trim() === "") {
             setMensagem("Não pode haver campo obrigatório vazio");
@@ -73,7 +73,7 @@ export default function FormularioCadastro() {
             roleId: 2
         };
 
-        setIsSubmitting(true); // Desabilita o botão
+        setIsSubmitting(true); 
 
         axios.post(UserUrl, usuario)
             .then((response) => {
@@ -91,7 +91,7 @@ export default function FormularioCadastro() {
                 limparAlert();
             })
             .finally(() => {
-                setIsSubmitting(false); // Reabilita o botão
+                setIsSubmitting(false); 
             });
     };
 
@@ -154,7 +154,7 @@ export default function FormularioCadastro() {
 
                         <button
                             type="submit"
-                            disabled={isSubmitting} // Desabilita o botão
+                            disabled={isSubmitting} 
                             className={`mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
                             {isSubmitting ? "Enviando..." : "Cadastrar"}

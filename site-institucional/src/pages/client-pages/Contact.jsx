@@ -44,7 +44,7 @@ export default function Contato() {
 
                     <textarea className="border border-[#982546] bg-[#fff] h-100 w-full rounded-2xl p-2 mt-4" placeholder="Envie suas dúvidas"></textarea>
 
-                    <button className="bg-[#982546] text-[#FFF3DC] cursor-pointer p-1 mt-5 rounded-2xl w-50 self-end" onClick={envio}>Enviar</button>
+                    <button className="bg-[#982546] text-[#FFF3DC] cursor-pointer p-1 mt-5 rounded-2xl w-50 self-end hover:bg-[#7f1d3f] transition duration-300" onClick={envio}>Enviar</button>
                 </div>
 
             </div>

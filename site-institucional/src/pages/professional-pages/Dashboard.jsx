@@ -33,15 +33,24 @@ export default function Dashboard() {
         if (periodoSelecionado && periodoSelecionado !== "todos") {
             const hoje = new Date();
             resultado = resultado.filter((ag) => {
+
                 const data = new Date(ag.startDatetime);
+
                 if (periodoSelecionado === "hoje") {
+
                     return data.toDateString() === hoje.toDateString();
+
                 } else if (periodoSelecionado === "semana") {
+
                     const primeiroDia = new Date(hoje);
                     primeiroDia.setDate(hoje.getDate() - hoje.getDay());
+
                     const ultimoDia = new Date(primeiroDia);
+
                     ultimoDia.setDate(primeiroDia.getDate() + 6);
+
                     return data >= primeiroDia && data <= ultimoDia;
+
                 } else if (periodoSelecionado === "mes") {
                     return data.getMonth() === hoje.getMonth() &&
                         data.getFullYear() === hoje.getFullYear();
@@ -237,7 +246,7 @@ export default function Dashboard() {
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={formatDateDDMMYYYY(new Date(agendamento.startDatetime))}
-                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12:false})}
                                         value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
                                         paymentStatus={agendamento.paymentStatus}
                                     />

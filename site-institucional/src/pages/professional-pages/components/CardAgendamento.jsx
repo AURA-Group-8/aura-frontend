@@ -149,7 +149,7 @@ export default function CardAgendamento(props) {
                 <div className="flex gap-2">
                   <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
                   <span> - </span>
-                  <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
+                  <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time }</span></p>
                 </div>
                 <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
               </div>
@@ -170,7 +170,7 @@ export default function CardAgendamento(props) {
 
             <div className="flex justify-between p-2">
               <button
-                className="bg-[#FFF3DC] cursor-pointer p-2 rounded-2xl text-[#982546]"
+                className="bg-[#FFF3DC] cursor-pointer p-2 rounded-2xl text-[#982546] hover:bg-[#e9e3d3] transition-colors"
                 onClick={marcarFeito}
                 disabled={!botaoAtivo || carregando}
               >
@@ -179,7 +179,7 @@ export default function CardAgendamento(props) {
 
               {text === "Marcar como feito" && (
                 <button
-                  className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC]"
+                  className="p-2 rounded-2xl border cursor-pointer border-[#FFF3DC] text-[#FFF3DC] hover:bg-[#b36078] transition-colors"
                   onClick={cancelar}
                 >
                   Cancelar atendimento

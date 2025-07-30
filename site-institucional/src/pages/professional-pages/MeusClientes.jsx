@@ -58,7 +58,7 @@ export default function MeusClientes() {
 
           <div className="flex flex-row w-210 justify-between ml-20 mt-10">
             <button
-              className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer"
+              className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
               onClick={() => navigate("/pages/professional-pages/Mensagem")}
             >
               Enviar mensagem para todos

@@ -1,21 +1,20 @@
 import NavbarPro from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ptBR } from "date-fns/locale";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import Alerta from "../../pages/Pop-up";
 import {
   format,
   parse,
   addDays,
   startOfDay,
-  eachDayOfInterval,
   isAfter,
   isBefore,
   isEqual,
   addMinutes,
 } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import Alerta from "../../pages/Pop-up";
 
 
 export default function CalendarioCarrossel() {
@@ -45,6 +44,12 @@ export default function CalendarioCarrossel() {
   const [workEnd, setWorkEnd] = useState(null);
   const [breakStart, setBreakStart] = useState(null);
   const [breakEnd, setBreakEnd] = useState(null);
+
+  const [diasParaMostrar, setDiasParaMostrar] = useState([]);
+  const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
+
+  const [dataAtual, setDataAtual] = useState(null);
+  const token = sessionStorage.getItem("authToken");
 
   const diaNomeParaNumero = (dia) => {
     switch (dia) {
@@ -90,23 +95,16 @@ export default function CalendarioCarrossel() {
 
     while (isBefore(atual, fimTrabalho) || isEqual(atual, fimTrabalho)) {
 
-      if (
-        inicioPausa &&
-        fimPausa &&
-        ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
-          (isBefore(atual, fimPausa)))
-      ) {
-      } else {
+      if (inicioPausa && fimPausa && ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
+        (isBefore(atual, fimPausa)))) {}
+      else {
         horarios.push(format(atual, "HH:mm"));
       }
-      atual = addMinutes(atual, 60);
+      atual = addMinutes(atual, 30);
     }
 
     return horarios;
   };
-
-  const [diasParaMostrar, setDiasParaMostrar] = useState([]);
-  const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
 
   useEffect(() => {
     const datas = datasDiasSemana();
@@ -147,8 +145,6 @@ export default function CalendarioCarrossel() {
     );
   }, [dataSelecionada, horarioDisponivel, inicioHorarios, workStart, workEnd, breakStart, breakEnd]);
 
-
-  const [dataAtual, setDataAtual] = useState(null);
   useEffect(() => {
     if (diasParaMostrar.length > 0) {
       setDataAtual(diasParaMostrar[0]);
@@ -158,7 +154,6 @@ export default function CalendarioCarrossel() {
   useEffect(() => {
     async function buscarConfiguracoes() {
       try {
-        const token = sessionStorage.getItem("authToken");
 
         const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
           headers: {
@@ -182,24 +177,23 @@ export default function CalendarioCarrossel() {
   }, []);
 
 
-  useEffect(() => {
-
+useEffect(() => {
     async function buscarHorariosDisponiveis() {
       if (diasSemanaAPI.length === 0) return;
 
       try {
-        const token = sessionStorage.getItem("authToken");
         
-        const datas = datasDiasSemana();
-        const firstDayOfWeek = datas.length > 0 ? format(datas[0], "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd");
+        const dataFormatada = dataSelecionada
+          ? format(dataSelecionada, "yyyy-MM-dd")
+          : (datasDiasSemana().length > 0 ? format(datasDiasSemana()[0], "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd"));
 
         const horariosAPI = await axios.get(`${apiUrl}/agendamentos/available-times`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            durationInMinutes: 60,
-            firstDayOfWeek,
+            durationInMinutes: duracaoTotal,
+            firstDayOfWeek: dataFormatada,
           },
         });
 
@@ -211,7 +205,7 @@ export default function CalendarioCarrossel() {
     }
 
     buscarHorariosDisponiveis();
-  }, [duracaoTotal, diasSemanaAPI]);
+  }, [duracaoTotal, diasSemanaAPI, dataSelecionada]);
 
 
 
@@ -221,7 +215,7 @@ export default function CalendarioCarrossel() {
     }
   };
 
-  const handleAnteriorDias = () => {
+  const handleDiasAnteriores = () => {
     if (inicioDias - diasVisiveis >= 0) {
       setInicioDias(inicioDias - diasVisiveis);
     }
@@ -233,7 +227,7 @@ export default function CalendarioCarrossel() {
     }
   };
 
-  const handleAnteriorHorarios = () => {
+  const handleHorariosAnteriores = () => {
     if (inicioHorarios - horariosVisiveis >= 0) {
       setInicioHorarios(inicioHorarios - horariosVisiveis);
     }
@@ -298,19 +292,12 @@ export default function CalendarioCarrossel() {
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">
-          {dataAtual
-            ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR })
-              .toUpperCase()
-              .slice(0, 1) +
-              format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1))
-            : ""}
+          {dataAtual ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).toUpperCase().slice(0, 1) +
+              format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)) : ""}
         </h1>
 
         <div className="flex items-center gap-6 border-b-1 border-[#982546] pb-4">
-          <button
-            onClick={handleAnteriorDias}
-            className="text-[#982546] text-2xl cursor-pointer"
-          >
+          <button onClick={handleDiasAnteriores} className="text-[#982546] text-2xl cursor-pointer">
             ❮
           </button>
 
@@ -346,7 +333,7 @@ export default function CalendarioCarrossel() {
 
         <div className="flex items-center gap-4 mt-10">
           <button
-            onClick={handleAnteriorHorarios}
+            onClick={handleHorariosAnteriores}
             className="text-[#982546] text-2xl cursor-pointer"
           >
             ❮

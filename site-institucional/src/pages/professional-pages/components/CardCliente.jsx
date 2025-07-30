@@ -1,5 +1,5 @@
 export default function CardCliente({ name, phone, birthDate }) {
-  // Formatar data para dd/mm/yyyy
+
   const formatarData = (dataISO) => {
     if (!dataISO) return "";
     const data = new Date(dataISO);

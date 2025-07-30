@@ -1,19 +1,19 @@
 import { parse, format } from 'date-fns';
-import NavbarPro from "./components/Navbar";
+import NavbarCli from './components/Navbar';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Alerta from "../Pop-up";
 import axios from "axios";
 
-export default function Confirmar() {
+export default function ConfirmarCli() {
 
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const location = useLocation();
-    const { cliente, data, hora, servicos } = location.state || {};
+    const {cliente, data, hora, servicos } = location.state || {};
     const navigate = useNavigate();
 []
     const limparAlert = () => {
@@ -31,10 +31,10 @@ export default function Confirmar() {
         const dataFormatada = format(parse(data, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');
 
         const agendamento = {
-            userId: cliente?.id,
+            userId: cliente.id,
             jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
             startDatetime: `${dataFormatada}T${hora}:00`,
-            roleId: 1,
+            roleId: 2,
         };
 
         axios.post(`${apiUrl}/agendamentos`, agendamento, {
@@ -47,7 +47,7 @@ export default function Confirmar() {
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     setMensagem("");
-                    navigate("/pages/professional-pages/Dashboard");
+                    navigate("/pages/client-pages/MeusAgendamentosCli");
                 }, 1000);
             })
             .catch((error) => {
@@ -70,13 +70,12 @@ export default function Confirmar() {
                 />
             )}
 
-            <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
+            <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>
                 <div className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-60 rounded-2xl flex flex-col mt-5">
                     <div className="bg-[#982546] w-full h-10 rounded-t-2xl flex p-2 items-center">
-                        <h1 className="text-white font-bold text-2xl">{cliente.username}</h1>
                     </div>
                     <div className="flex flex-row justify-between p-5">
                         <div className="h-20">
@@ -111,7 +110,7 @@ export default function Confirmar() {
                     </div>
 
                     <button
-                        className={`bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl cursor-pointer hover:bg-[#b36078] transition-colors ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`bg-[#982546] w-60 self-center mt-5 p-2 text-[#FFF3DC] rounded-2xl cursor-pointer ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={confirmar}
                         disabled={isLoading}
                     >

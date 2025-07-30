@@ -1,9 +1,6 @@
-import React from "react";
-
 import { createBrowserRouter } from "react-router-dom";
 import Cadastro from "../pages/client-pages/Cadastro";
 import Login from "../pages/client-pages/Login";
-import App from "../App";
 import ChangePassword from "../pages/client-pages/ChangePassword";
 import ConfigCli from "../pages/client-pages/Config";
 import Contato from "../pages/client-pages/Contact";
@@ -24,20 +21,17 @@ import MeusClientes from "../pages/professional-pages/MeusClientes";
 import Mensagem from "../pages/professional-pages/Mensagem";
 import LoginPro from "../pages/professional-pages/Login";
 import ContatoPro from "../pages/professional-pages/Contato";
-
 import Configuracoes from "../pages/professional-pages/ConfigPro";
 import AgendarCli from "../pages/client-pages/AgendarCli";
 import DataHoraCli from "../pages/client-pages/DataHoraCli";
 import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
 import EditarServico from "../pages/professional-pages/EditarServico";
-
 import Historico from "../pages/client-pages/Historico";
 import AlterarSenha from "../pages/professional-pages/AlterarSenha";
-
 import EsqueceuSenha from "../pages/client-pages/ForgotPassword";
 import ValidarToken from "../pages/client-pages/ValidarToken";
 import ProNotification from "../pages/professional-pages/Notification";
-
+import ConfirmarCli from "../pages/client-pages/ConfirmarCli";
 
 
 
@@ -231,6 +225,12 @@ export const routes = createBrowserRouter([
     {
         path: "/pages/client-pages/ValidarToken",
         element: <ValidarToken/>,
+        errorElement: <h1>Page not found</h1>
+    },
+
+     {
+        path: "/pages/client-pages/ConfirmarCli",
+        element: <ConfirmarCli/>,
         errorElement: <h1>Page not found</h1>
     },
 

@@ -156,14 +156,14 @@ export default function AlterarSenha() {
                             <div className="flex flex-row justify-between gap-4 pt-5">
                                 <button
                                     type="button"
-                                    className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer"
+                                    className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#eee9ca] transition-colors"
                                     onClick={() => navigate("/pages/professional-pages/Configuracoes")}
                                 >
                                     Cancelar
                                 </button>
                                 <button
                                     type="submit"
-                                    className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer"
+                                    className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#b36078] transition-colors"
                                 >
                                     Alterar
                                 </button>

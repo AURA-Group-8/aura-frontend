@@ -1,6 +1,10 @@
 import NavbarCli from "./components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ptBR } from "date-fns/locale";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import Alerta from "../../pages/Pop-up";
 import {
   format,
   parse,
@@ -11,15 +15,15 @@ import {
   isEqual,
   addMinutes,
 } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
-import Alerta from "../../pages/Pop-up";
+
 
 export default function CalendarioCarrossel() {
+
   const apiUrl = import.meta.env.VITE_API_URL;
+
   const location = useLocation();
-  const { cliente, servicos } = location.state || {};
+  const { cliente, servicos, duracaoTotal } = location.state || {};
+
   const navigate = useNavigate();
 
   const [mensagem, setMensagem] = useState("");
@@ -33,6 +37,7 @@ export default function CalendarioCarrossel() {
 
   const [inicioHorarios, setInicioHorarios] = useState(0);
   const [horarioSelecionado, setHorarioSelecionado] = useState(null);
+  const [horarioDisponivel, setHorarioDisponivel] = useState([]);
 
   const [diasSemanaAPI, setDiasSemanaAPI] = useState([]);
   const [workStart, setWorkStart] = useState(null);
@@ -40,13 +45,11 @@ export default function CalendarioCarrossel() {
   const [breakStart, setBreakStart] = useState(null);
   const [breakEnd, setBreakEnd] = useState(null);
 
-  const userId = sessionStorage.getItem("userId");
+  const [diasParaMostrar, setDiasParaMostrar] = useState([]);
+  const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
 
-  const limparAlert = () => {
-    setTimeout(() => {
-      setMensagem("");
-    }, 2000);
-  };
+  const [dataAtual, setDataAtual] = useState(null);
+  const token = sessionStorage.getItem("authToken");
 
   const diaNomeParaNumero = (dia) => {
     switch (dia) {
@@ -76,50 +79,6 @@ export default function CalendarioCarrossel() {
     return datas;
   };
 
-  const confirmar = () => {
-    if (!dataSelecionada || !horarioSelecionado) {
-      setMensagem("Por favor, selecione uma data e um horário.");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-      return;
-    }
-
-    const dataFormatada = format(
-      parse(format(dataSelecionada, "dd/MM/yyyy"), "dd/MM/yyyy", new Date()),
-      "yyyy-MM-dd"
-    );
-
-    const agendamento = {
-
-      userId,
-      jobsIds: Array.isArray(servicos) ? servicos.map(s => s.id) : [servicos?.id],
-      startDatetime: `${dataFormatada}T${horarioSelecionado}:00`
-
-    };
-
-    console.log("Agendamento:", agendamento);
-
-    axios.post(`${apiUrl}/agendamentos`, agendamento, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
-      }
-    })
-    .then(() => {
-      setMensagem("Agendamento confirmado com sucesso!");
-      setCaminho("/assets/Check-pop.png");
-      limparAlert();
-      setTimeout(() => {
-        navigate("/pages/client-pages/MeusAgendamentosCli");
-      }, 2000);
-    })
-    .catch((error) => {
-      console.error("Erro ao confirmar agendamento:", error);
-      setMensagem("Erro ao confirmar agendamento. Tente novamente.");
-      setCaminho("/assets/Alert.png");
-      limparAlert();
-    });
-  };
-
   const gerarHorarios = () => {
     if (!workStart || !workEnd) return [];
 
@@ -135,25 +94,17 @@ export default function CalendarioCarrossel() {
     const horarios = [];
 
     while (isBefore(atual, fimTrabalho) || isEqual(atual, fimTrabalho)) {
-      if (
-        inicioPausa &&
-        fimPausa &&
-        ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
-          isBefore(atual, fimPausa))
-      ) {
-        // dentro da pausa, não adiciona
-      } else {
+
+      if (inicioPausa && fimPausa && ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
+        (isBefore(atual, fimPausa)))) {}
+      else {
         horarios.push(format(atual, "HH:mm"));
       }
-      atual = addMinutes(atual, 60);
+      atual = addMinutes(atual, 30);
     }
 
     return horarios;
   };
-
-  const [diasParaMostrar, setDiasParaMostrar] = useState([]);
-  const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
-  const [dataAtual, setDataAtual] = useState(null);
 
   useEffect(() => {
     const datas = datasDiasSemana();
@@ -162,8 +113,37 @@ export default function CalendarioCarrossel() {
 
   useEffect(() => {
     const horarios = gerarHorarios();
-    setHorariosParaMostrar(horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis));
-  }, [workStart, workEnd, breakStart, breakEnd, inicioHorarios]);
+
+    if (dataSelecionada) {
+      const dataFormatada = format(dataSelecionada, "yyyy-MM-dd");
+
+      const disponibilidadeDoDia = horarioDisponivel.find(
+        (item) => item.date === dataFormatada
+      );
+
+      if (disponibilidadeDoDia) {
+        const horasDisponiveis = (disponibilidadeDoDia.availableTimes || []).map(h =>
+          parse(h, "HH:mm:ss", new Date())
+        );
+
+        const horariosFiltrados = horarios.filter(h => {
+          return horasDisponiveis.some(hDisponivel =>
+            format(hDisponivel, "HH:mm") === h
+          );
+        });
+
+        setHorariosParaMostrar(
+          horariosFiltrados.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
+        );
+
+        return;
+      }
+    }
+
+    setHorariosParaMostrar(
+      horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
+    );
+  }, [dataSelecionada, horarioDisponivel, inicioHorarios, workStart, workEnd, breakStart, breakEnd]);
 
   useEffect(() => {
     if (diasParaMostrar.length > 0) {
@@ -172,14 +152,17 @@ export default function CalendarioCarrossel() {
   }, [diasParaMostrar]);
 
   useEffect(() => {
-    async function pegarDados() {
+    async function buscarConfiguracoes() {
       try {
-        const token = sessionStorage.getItem("authToken");
+
         const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const dados = response.data;
+
         setDiasSemanaAPI(dados.daysOfWeek || []);
         setWorkStart(dados.workStart);
         setWorkEnd(dados.workEnd);
@@ -189,8 +172,42 @@ export default function CalendarioCarrossel() {
         console.error("Erro ao buscar dados da API:", error);
       }
     }
-    pegarDados();
+
+    buscarConfiguracoes();
   }, []);
+
+
+useEffect(() => {
+    async function buscarHorariosDisponiveis() {
+      if (diasSemanaAPI.length === 0) return;
+
+      try {
+        
+        const dataFormatada = dataSelecionada
+          ? format(dataSelecionada, "yyyy-MM-dd")
+          : (datasDiasSemana().length > 0 ? format(datasDiasSemana()[0], "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd"));
+
+        const horariosAPI = await axios.get(`${apiUrl}/agendamentos/available-times`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            durationInMinutes: duracaoTotal,
+            firstDayOfWeek: dataFormatada,
+          },
+        });
+
+        const horaDisponivel = horariosAPI.data;
+        setHorarioDisponivel(horaDisponivel || []);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    }
+
+    buscarHorariosDisponiveis();
+  }, [duracaoTotal, diasSemanaAPI, dataSelecionada]);
+
+
 
   const handleProximoDias = () => {
     if (inicioDias + diasVisiveis < datasDiasSemana().length) {
@@ -198,7 +215,7 @@ export default function CalendarioCarrossel() {
     }
   };
 
-  const handleAnteriorDias = () => {
+  const handleDiasAnteriores = () => {
     if (inicioDias - diasVisiveis >= 0) {
       setInicioDias(inicioDias - diasVisiveis);
     }
@@ -210,7 +227,7 @@ export default function CalendarioCarrossel() {
     }
   };
 
-  const handleAnteriorHorarios = () => {
+  const handleHorariosAnteriores = () => {
     if (inicioHorarios - horariosVisiveis >= 0) {
       setInicioHorarios(inicioHorarios - horariosVisiveis);
     }
@@ -235,23 +252,54 @@ export default function CalendarioCarrossel() {
     }
   };
 
+  const limparAlert = () => {
+    setTimeout(() => {
+      setMensagem("");
+    }, 2000);
+  };
+
+
+  const confirmar = () => {
+    if (!dataSelecionada || !horarioSelecionado) {
+      setMensagem("Selecione uma data e horário!");
+      limparAlert();
+      setCaminho("/assets/Alert.png");
+      return;
+    }
+    navigate("/pages/client-pages/ConfirmarCli",
+      {
+        state: {
+          data: format(dataSelecionada, "dd/MM/yyyy"),
+          hora: horarioSelecionado,
+          cliente: cliente,
+          servicos: servicos,
+        },
+      }
+    );
+  };
+
+
   return (
     <>
+
       {mensagem && (
-        <Alerta mensagem={mensagem} imagem={caminho} />
+        <Alerta
+          mensagem={mensagem}
+          imagem={caminho}
+        />
       )}
       <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">
-          {dataAtual
-            ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).toUpperCase().slice(0, 1) +
-              format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1))
-            : ""}
+          {dataAtual ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).toUpperCase().slice(0, 1) +
+              format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)) : ""}
         </h1>
 
         <div className="flex items-center gap-6 border-b-1 border-[#982546] pb-4">
-          <button onClick={handleAnteriorDias} className="text-[#982546] text-2xl cursor-pointer">❮</button>
+          <button onClick={handleDiasAnteriores} className="text-[#982546] text-2xl cursor-pointer">
+            ❮
+          </button>
 
           {diasParaMostrar.map((dia) => {
             const selecionado =
@@ -266,18 +314,30 @@ export default function CalendarioCarrossel() {
                   ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
               >
                 <span className="text-sm">
-                  {format(dia, "EEE", { locale: ptBR }).substring(0, 3).toUpperCase()}
+                  {format(dia, "EEE", { locale: ptBR })
+                    .substring(0, 3)
+                    .toUpperCase()}
                 </span>
                 <span className="text-xl">{format(dia, "d")}</span>
               </button>
             );
           })}
 
-          <button onClick={handleProximoDias} className="text-[#982546] text-2xl cursor-pointer">❯</button>
+          <button
+            onClick={handleProximoDias}
+            className="text-[#982546] text-2xl cursor-pointer"
+          >
+            ❯
+          </button>
         </div>
 
         <div className="flex items-center gap-4 mt-10">
-          <button onClick={handleAnteriorHorarios} className="text-[#982546] text-2xl cursor-pointer">❮</button>
+          <button
+            onClick={handleHorariosAnteriores}
+            className="text-[#982546] text-2xl cursor-pointer"
+          >
+            ❮
+          </button>
 
           {horariosParaMostrar.map((horario) => {
             const selecionado = horarioSelecionado === horario;
@@ -294,20 +354,25 @@ export default function CalendarioCarrossel() {
             );
           })}
 
-          <button onClick={handleProximoHorarios} className="text-[#982546] text-2xl cursor-pointer">❯</button>
+          <button
+            onClick={handleProximoHorarios}
+            className="text-[#982546] text-2xl cursor-pointer"
+          >
+            ❯
+          </button>
         </div>
 
         <div className="flex flex-col items-start mt-8 w-170 bg-[#E5D8C0] rounded-2xl">
-          <p className="text-[#362323] p-4 font-bold">
+          <p className="text-[#362323] p-4 font-bold ">
             {dataSelecionada ? ` ${format(dataSelecionada, "dd/MM/yyyy")}` : ""}
             {" - "}
             {horarioSelecionado ? ` ${horarioSelecionado}` : ""}
           </p>
+
           <span className="flex flex-row gap-2 p-4 border-t-1 w-full border-[#9c9a9a] text-[#5e5e5e] ">
             Funcionário: <img src="/assets/user.png" alt="" className="h-8" /> Kathelyn
           </span>
         </div>
-
         <button
           className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer"
           onClick={confirmar}
