@@ -4,8 +4,12 @@ import Header from '../Header-login';
 export default function Login() {
     return (
         <>
-        <Header caminho={"/"} />
-        <FormularioLogin/>
+
+
+            <div className="min-h-screen flex flex-col justify-between">
+                <Header caminho={"/"} />
+                <FormularioLogin />
+            </div>
         </>
     );
 }

@@ -2,7 +2,7 @@ function FormsContact(){
 
     return(
         <>
-            <form action="#" method="post" className="flex flex-col text-[#FFF3DC] gap-2 text-2xl max-w-100">
+            <form action="#" method="post" className="flex flex-col text-[#FFF3DC] gap-2 text-xl md:text-2xl max-w-100 p-5">
                 <label for="nome">E-mail:</label>
                 <input type="email" id="nome" name="nome" className="bg-[#b1b1b1] h-8 rounded-xl" required/>
 

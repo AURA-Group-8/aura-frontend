@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 /* Width of the scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -22,13 +23,16 @@
 
 #root {
   --bgcolor: #FFF3DC;
+    height: 100%;
 }
 
 
 body{
   background-color: var(--bgcolor);
-  
-  
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .wave-section {

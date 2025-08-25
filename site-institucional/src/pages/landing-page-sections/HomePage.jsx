@@ -58,15 +58,15 @@ export default function HomePage() {
 
                 </section>
 
-                <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-140 w-full" id="sobre">
+                <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-170 md:h-140 w-full" id="sobre">
                     <Section_2 />
                 </section>
 
-                <section className="bg-[#FFF3DC] h-150 w-full" id="para_voce">
+                <section className="bg-[#FFF3DC] h-140 w-full" id="para_voce">
                     <Section_3 />
                     <div className="absolute left-0 w-full overflow-hidden leading-[0] ">
                         <svg
-                            className="relative block w-[calc(100%+1.3px)] h-[60px] rotate-180"
+                            className="relative block w-[calc(100%+1.3px)] h-[40px] rotate-180"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 1440 320"
                             preserveAspectRatio="none"
@@ -84,11 +84,11 @@ export default function HomePage() {
                     </div>
                 </section>
 
-                <section className="bg-[#241313] h-140 w-full" id="contato">
+                <section className="bg-[#241313] md:h-140 w-full" id="contato">
                     <Section_4 />
                 </section>
 
-                <section className="bg-[#1D0F0F] h-90 w-full" id="footer">
+                <section className="bg-[#1D0F0F] md:h-110 w-full " id="footer">
                     <Footer />
                 </section>
             </div>

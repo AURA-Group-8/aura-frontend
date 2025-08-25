@@ -1,13 +1,12 @@
 module.exports = {
   content: [
-    
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'sans-serif'],
-        dmsans: ['DM Sans', 'sans-serif'],
-        petitformal: ['Petit Formal Script', 'cursive'],
+        verdana: ['Verdana', 'sans-serif'],
       },
       keyframes: {
         'pop-in': {
