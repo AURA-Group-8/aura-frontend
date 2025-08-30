@@ -19,7 +19,7 @@ export default function Contato() {
     return (
 
         <>
-            <NavbarCli caminho={"/pages/client-pages/Home"} />
+            <NavbarCli caminho={"../pages/cliente/autenticacao/Login"} />
 
             {mensagem && (
                 <Alerta

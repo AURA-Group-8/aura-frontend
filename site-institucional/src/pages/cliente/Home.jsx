@@ -2,7 +2,7 @@ import { BrowserRouter, useNavigate } from "react-router-dom";
 import NavbarCli from "./componentes/Navbar";
 
 
-export default function HomeClient() {
+export default function Home() {
 
     const navigate = useNavigate();
 
