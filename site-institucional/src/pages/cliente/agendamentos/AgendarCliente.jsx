@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import NavbarCli from "../componentes/Navbar";
 import { useNavigate } from "react-router-dom";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 import axios from "axios";
-import React from "react";
 
 export default function AgendarCli() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -91,7 +90,7 @@ export default function AgendarCli() {
                 <Alerta mensagem={mensagem} imagem={caminho} />
             )}
 
-            <NavbarCli caminho={"/pages/client-pages/Home"} />
+            <NavbarCli caminho={"/cliente/home"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
                 <form

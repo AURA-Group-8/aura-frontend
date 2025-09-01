@@ -159,7 +159,7 @@ export default function FormularioCadastro() {
                         </button>
                     </form>
 
-                    <p className="mt-4 text-xl">Já possui conta? <a href="/pages/client-pages/Login" className="underline">Login</a></p>
+                    <p className="mt-4 text-xl">Já possui conta? <a href="/pages/cliente/autenticacao/Login" className="underline">Login</a></p>
                 </div>
             </div>
         </>

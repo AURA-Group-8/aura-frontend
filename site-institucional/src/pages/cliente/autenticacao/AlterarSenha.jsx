@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 
 
 import Header from '../componentes/HeaderLogin';
@@ -100,7 +100,7 @@ export default function AlterarSenha() {
                                 id="nome" name="confirmarSenha" className="bg-[#ffffff] p-2 rounded-xl" />
 
                             <div className="flex flex-row justify-between gap-4 pt-5">
-                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/pages/client-pages/ForgotPassword")}>Cancelar</button>
+                                <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/cliente/esqueci-senha")}>Cancelar</button>
                                 <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300" onClick={alterar}>Alterar</button>
                             </div>
                         </form>

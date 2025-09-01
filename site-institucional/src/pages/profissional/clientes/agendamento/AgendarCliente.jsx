@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NavbarPro from "../../componentes/Navbar";
 import { useNavigate } from "react-router-dom";
-import Alerta from "../../../PopUp";
+import Alerta from "../../../Popup";
 import axios from "axios";
 
 
@@ -47,7 +47,7 @@ export default function Agendar() {
     }
 
     const cancelar = () => {
-        navigate("/professional/dashboard");
+        navigate("/profissional/dashboard");
     }
 
 
@@ -107,7 +107,7 @@ export default function Agendar() {
             )}
 
 
-            <NavbarPro caminho={"/professional/dashboard"} />
+            <NavbarPro caminho={"/profissional/dashboard"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
                 <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row justify-center mt-5">

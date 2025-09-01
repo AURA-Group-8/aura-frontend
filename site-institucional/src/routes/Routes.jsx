@@ -17,29 +17,29 @@ import AgendarCli from "../pages/cliente/agendamentos/AgendarCliente";
 import DataHoraAgendamento from "../pages/cliente/agendamentos/DataHoraAgendamento";
 import ConfirmarCli from "../pages/cliente/agendamentos/ConfirmarCliente";
 import Historico from "../pages/cliente/historico/Historico";
+import MeusAgendamentosCli from "../pages/cliente/agendamentos/MeusAgendamentos";
 
 // Profissional
-import Dashboard from "../pages/professional/dashboard/Dashboard";
-import Confirmar from "../pages/professional/clientes/agendamento/Confirmar";
-import CadastroCli from "../pages/professional/clientes/CadastroCliente";
-import MeusClientes from "../pages/professional/clientes/MeusClientes";
-import MeusServicos from "../pages/professional/servicos/MeusServicos";
-import AddServico from "../pages/professional/servicos/AdicionarServico";
-import EditarServico from "../pages/professional/servicos/EditarServico";
-import Financeiro from "../pages/professional/financeiro/Financeiro";
-import HistoricoFinanceiro from "../pages/professional/financeiro/HistoricoFinanceiro";
-import Mensagem from "../pages/professional/mensagens/Mensagem";
-import ContatoPro from "../pages/professional/contato/Contato";
-import Configuracoes from "../pages/professional/configuracoes/ConfiguracoesProfissional";
-import AlterarSenhaPro from "../pages/professional/autenticacao/AlterarSenha";
-import ProNotification from "../pages/professional/notificacoes/Notificacoes";
-import LoginPro from "../pages/professional/autenticacao/Login";
-import NavbarPro from "../pages/professional/componentes/Navbar";
-import CalendarioCarrossel from "../pages/professional/clientes/agendamento/DataHora";
-import MeusAgendamentosCli from "../pages/cliente/agendamentos/MeusAgendamentos";
-import Agendar from "../pages/professional/clientes/agendamento/AgendarCliente";
 
+import Dashboard from "../pages/profissional/dashboard/Dashboard";
+import Confirmar from "../pages/profissional/clientes/agendamento/Confirmar";
+import CadastroCliente from "../pages/profissional/clientes/CadastroCliente";
+import MeusClientes from "../pages/profissional/clientes/MeusClientes";
+import AddServico from "../pages/profissional/servicos/AdicionarServico";
 import Alerta from "../pages/Popup";
+import EditarServico from "../pages/profissional/servicos/EditarServico";
+import Financeiro from "../pages/profissional/financeiro/Financeiro";
+import HistoricoFinanceiro from "../pages/profissional/financeiro/HistoricoFinanceiro";
+import MenuLateral from "../pages/profissional/componentes/MenuLateral";
+import ContatoPro from "../pages/profissional/contato/Contato"; 
+import Configuracoes from "../pages/profissional/configuracoes/ConfiguracoesProfissional";
+import AlterarSenha from "../pages/profissional/autenticacao/AlterarSenha";
+import ProNotification from "../pages/profissional/notificacoes/Notificacoes";
+import LoginPro from "../pages/profissional/autenticacao/Login";
+import NavbarPro from "../pages/profissional/componentes/Navbar";
+import CalendarioCarrossel from "../pages/profissional/clientes/agendamento/DataHora";
+import Agendar from "../pages/profissional/clientes/agendamento/AgendarCliente";
+import MeusServicos from "../pages/profissional/servicos/MeusServicos";
 
 export const routes = createBrowserRouter([
   {
@@ -63,23 +63,23 @@ export const routes = createBrowserRouter([
   { path: "/cliente/meus-agendamentos", element: <MeusAgendamentosCli/> },
 
   // Profissional
-  { path: "/profissional/dashboard", element: <Dashboard /> },
-  { path: "/profissional/confirmar", element: <Confirmar /> },
-  { path: "/profissional/cadastro-cliente", element: <CadastroCli /> },
-  { path: "/profissional/meus-clientes", element: <MeusClientes /> },
+  { path: "/profissional/dashboard", element: <Dashboard/> },
+  { path: "/profissional/confirmar", element: <Confirmar/> },
+  { path: "/profissional/cadastro-cliente", element: <CadastroCliente/> },
+  { path: "/profissional/meus-clientes", element: <MeusClientes/> },
   { path: "/profissional/meus-servicos", element: <MeusServicos /> },
-  { path: "/profissional/servico/add", element: <AddServico /> },
-  { path: "/profissional/servico/editar", element: <EditarServico /> },
-  { path: "/profissional/financeiro", element: <Financeiro /> },
-  { path: "/profissional/financeiro/historico", element: <HistoricoFinanceiro /> },
-  { path: "/profissional/mensagens", element: <Mensagem /> },
-  { path: "/profissional/contato", element: <ContatoPro /> },
-  { path: "/profissional/configuracoes", element: <Configuracoes /> },
-  { path: "/profissional/alterar-senha", element: <AlterarSenhaPro /> },
-  { path: "/profissional/notificacoes", element: <ProNotification /> },
+  { path: "/profissional/servico/add", element: <AddServico/> },
+  { path: "/profissional/servico/editar", element: <EditarServico/> },
+  { path: "/profissional/financeiro", element: <Financeiro/> },
+  { path: "/profissional/financeiro/historico", element: <HistoricoFinanceiro/> },
+  { path: "/profissional/mensagens", element: <MenuLateral/> },
+  { path: "/profissional/contato", element: <ContatoPro/> },
+  { path: "/profissional/configuracoes", element: <Configuracoes/> },
+  { path: "/profissional/alterar-senha", element: <AlterarSenha/> },
+  { path: "/profissional/notificacoes", element: <ProNotification/> },
   { path: "/profissional/login", element: <LoginPro/> },
   { path: "/profissional/navbar", element: <NavbarPro/> },
-  { path: "/profissional/data-hora", element: <CalendarioCarrossel /> },
+  { path: "/profissional/data-hora", element: <CalendarioCarrossel/> },
   { path: "/profissional/agendar", element: <Agendar/> },
 
   { path: "/popup", element: <Alerta /> },

@@ -11,7 +11,7 @@ export default function MenuLateral() {
 
     const logout = () => {
         sessionStorage.removeItem("authToken");
-        navigate("/professional/login");
+        navigate("/profissional/login");
     };
 
     return (
@@ -35,25 +35,25 @@ export default function MenuLateral() {
                        
                         <ul className="flex flex-col text-[#FFF3DC] w-full p-4 xl:text-2xl">
                             <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/Dashboard" className="p-2 flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/Dashboard" className="p-2 flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Agendamentos</span>
                                     <img src="/assets/Task.png" alt="Agendamentos" className="h-6" />
                                 </Link>
                             </li>
                             <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/MeusServicos" className="p-2 flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/MeusServicos" className="p-2 flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Meus Serviços</span>
                                     <img src="/assets/Eyebrow.png" alt="Meus Serviços" className="h-6" />
                                 </Link>
                             </li>
                             <li className={`${isSelected("/Financeiro") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/Financeiro" className="p-2 flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/Financeiro" className="p-2 flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Finanças</span>
                                     <img src="/assets/Coins.png" alt="Finanças" className="h-6" />
                                 </Link>
                             </li>
                             <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/MeusClientes" className="p-2 flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/MeusClientes" className="p-2 flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Clientes</span>
                                     <img src="/assets/User-claro.png" alt="Clientes" className="h-6" />
                                 </Link>
@@ -62,13 +62,13 @@ export default function MenuLateral() {
 
                         <ul className="text-[#DD859E] flex flex-col p-2 ">
                             <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/Contato" className="flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/Contato" className="flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Contato</span>
                                     <img src="/assets/Help2.png" alt="Contato" className="h-6" />
                                 </Link>
                             </li>
                             <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                                <Link to="/pages/professional-pages/Configuracoes" className="flex justify-between items-center w-full">
+                                <Link to="/pages/profissional-pages/Configuracoes" className="flex justify-between items-center w-full">
                                     <span className="xl:text-2xl">Config</span>
                                     <img src="/assets/Services.png" alt="Configurações" className="h-6" />
                                 </Link>
@@ -112,25 +112,25 @@ export default function MenuLateral() {
                 <div className="flex-col justify-between h-full hidden md:flex">
                     <ul className="flex flex-col gap-1 text-[#FFF3DC] w-full p-2">
                         <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/dashboard" className="p-2 flex justify-between items-center w-full">
+                            <Link to="/profissional/dashboard" className="p-2 flex justify-between items-center w-full">
                                 <span>Agendamentos</span>
                                 <img src="/assets/Task.png" alt="Agendamentos" className="h-6" />
                             </Link>
                         </li>
                         <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/meus-servicos" className="p-2 flex justify-between items-center w-full">
+                            <Link to="/profissional/meus-servicos" className="p-2 flex justify-between items-center w-full">
                                 <span>Meus Serviços</span>
                                 <img src="/assets/Eyebrow.png" alt="Meus Serviços" className="h-6" />
                             </Link>
                         </li>
                         <li className={`${isSelected("/Financeiro") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/financeiro" className="p-2 flex justify-between items-center w-full">
+                            <Link to="/profissional/financeiro" className="p-2 flex justify-between items-center w-full">
                                 <span>Finanças</span>
                                 <img src="/assets/Coins.png" alt="Finanças" className="h-6" />
                             </Link>
                         </li>
                         <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/meus-clientes" className="p-2 flex justify-between items-center w-full">
+                            <Link to="/profissional/meus-clientes" className="p-2 flex justify-between items-center w-full">
                                 <span>Clientes</span>
                                 <img src="/assets/User-claro.png" alt="Clientes" className="h-6" />
                             </Link>
@@ -139,13 +139,13 @@ export default function MenuLateral() {
 
                     <ul className="text-[#DD859E] flex flex-col p-2 ">
                         <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/contato" className="flex justify-between items-center w-full">
+                            <Link to="/profissional/contato" className="flex justify-between items-center w-full">
                                 <span>Contato</span>
                                 <img src="/assets/Help2.png" alt="Contato" className="h-6" />
                             </Link>
                         </li>
                         <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
-                            <Link to="/professional/configuracoes" className="flex justify-between items-center w-full">
+                            <Link to="/profissional/configuracoes" className="flex justify-between items-center w-full">
                                 <span>Config</span>
                                 <img src="/assets/Services.png" alt="Configurações" className="h-6" />
                             </Link>

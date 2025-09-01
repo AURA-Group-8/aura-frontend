@@ -109,7 +109,7 @@ export default function AlterarSenha() {
             setConfirmarSenha("");
 
             setTimeout(() => {
-                navigate("/professional/login");
+                navigate("/profissional/login");
             }, 2000);
 
         } catch (error) {
@@ -130,7 +130,7 @@ export default function AlterarSenha() {
             )}
 
             <div className="h-full w-full bg-[#FFF3DC] flex justify-center">
-                <NavbarPro caminho={"/professional/configuracoes"} />
+                <NavbarPro caminho={"/profissional/configuracoes"} />
 
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-center items-center">
@@ -157,7 +157,7 @@ export default function AlterarSenha() {
                                 <button
                                     type="button"
                                     className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#eee9ca] transition-colors"
-                                    onClick={() => navigate("/professional/configuracoes")}
+                                    onClick={() => navigate("/profissional/configuracoes")}
                                 >
                                     Cancelar
                                 </button>

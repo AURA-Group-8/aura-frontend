@@ -47,7 +47,7 @@ export default function Confirmar() {
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     setMensagem("");
-                    navigate("/professional/dashboard");
+                    navigate("/profissional/dashboard");
                 }, 1000);
             })
             .catch((error) => {
@@ -70,7 +70,7 @@ export default function Confirmar() {
                 />
             )}
 
-            <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
+            <NavbarPro caminho={"/pages/profissional-pages/Agendar"} />
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>

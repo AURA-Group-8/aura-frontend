@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../componentes/HeaderLogin';
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 
 export default function EsqueceuSenha() {
     const navigate = useNavigate();
@@ -74,7 +74,7 @@ export default function EsqueceuSenha() {
                             <input onChange={(e) => setEmail(e.target.value)} type="text" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
                             <div className="flex flex-row justify-between gap-4 pt-5">
 
-                                <button type="button" className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/pages/client-pages/Login")}>Cancelar</button>
+                                <button type="button" className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/cliente/login")}>Cancelar</button>
                                 <button
                                     className={`bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                                     onClick={enviarEmail}

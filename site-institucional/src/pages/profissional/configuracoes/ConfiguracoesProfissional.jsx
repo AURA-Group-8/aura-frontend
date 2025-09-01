@@ -2,11 +2,10 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
-import Alerta from "../../PopUp";
-import { se } from "date-fns/locale";
+import Alerta from "../../Popup";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
-export default function Configuracoes() {
+export default function ConfiguracoesPro() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
 

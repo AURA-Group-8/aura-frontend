@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 import { useNavigate } from "react-router-dom";
 import NavbarPro from "../componentes/Navbar";
 
@@ -161,7 +161,7 @@ export default function AddServico() {
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] hover:bg-[#f9ebdb] transition-colors cursor-pointer"
-                                onClick={() => navigate("/pages/professional-pages/MeusServicos")}
+                                onClick={() => navigate("/pages/profissional-pages/MeusServicos")}
                             >
                                 Cancelar
                             </button>

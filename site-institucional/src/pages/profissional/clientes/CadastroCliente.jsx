@@ -4,7 +4,7 @@ import Alerta from "../../Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function CadastroCli() {
+export default function CadastroCliente() {
     const navigate = useNavigate();
     const [nome, setNome] = useState("");
     const [telefone, setTelefone] = useState("");
