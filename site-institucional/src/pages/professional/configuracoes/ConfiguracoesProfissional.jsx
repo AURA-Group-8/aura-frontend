@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "../components/MenuLateral";
+import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
 import Alerta from "../../PopUp";
 import { se } from "date-fns/locale";
-import SinoNotificacao from "../components/SinoNotificacao";
+import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function Configuracoes() {
 
@@ -139,7 +139,7 @@ export default function Configuracoes() {
                                                     type="button"
                                                     className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer hover:bg-[#b36078] transition-colors"
                                                     onClick={() => {
-                                                        navigate("/pages/professional-pages/AlterarSenha");
+                                                        navigate("/profissional/alterar-senha");
                                                     }}
                                                 >Alterar senha
                                                 </button>

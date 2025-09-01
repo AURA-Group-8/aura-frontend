@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import NavbarCli from "./componentes/Navbar";
+import NavbarCli from "../componentes/Navbar";
 import { useNavigate } from "react-router-dom";
-import Alerta from "../Pop-up";
+import Alerta from "../../PopUp";
 import axios from "axios";
 import React from "react";
 
@@ -21,7 +21,7 @@ export default function AgendarCli() {
     };
 
     const cancelar = () => {
-        navigate("/pages/client-pages/Home");
+        navigate("/cliente/home");
     };
 
     const servicos = async () => {
@@ -62,7 +62,7 @@ export default function AgendarCli() {
             userName: sessionStorage.getItem("userName")
         };
 
-        navigate("/pages/client-pages/DataHoraCli", {
+        navigate("/cliente/data-hora", {
             state: {
                 cliente: clienteObj,
                 servicos: servicosSelecionados,

@@ -1,7 +1,7 @@
 import axios from "axios";
-import NavbarPro from "./components/Navbar";
+import NavbarPro from "../componentes/Navbar";
 import { useState } from "react";
-import Alerta from "../Pop-up";
+import Alerta from "../../Popup";
 import { useNavigate } from "react-router-dom";
 
 export default function Mensagem() {
@@ -75,7 +75,7 @@ export default function Mensagem() {
     <>
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-      <NavbarPro caminho={"/pages/professional-pages/MeusClientes"} />
+      <NavbarPro caminho={"/profissional/meus-clientes"} />
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
         <h1 className="text-[#982546] font-bold text-2xl">Enviar mensagem</h1>
 

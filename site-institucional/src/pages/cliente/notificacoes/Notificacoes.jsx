@@ -87,7 +87,7 @@ const Notificacao = () => {
       )}
 
 
-      <NavbarCli caminho={"/pages/client-pages/Home"} />
+      <NavbarCli caminho={"/cliente/home"} />
       <div className="min-h-screen bg-[#fef3e2] p-6 flex justify-start  items-center flex-col ">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6 mt-20">Notificações</h1>
 

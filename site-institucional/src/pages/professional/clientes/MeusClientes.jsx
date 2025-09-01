@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./components/MenuLateral";
-import CardCliente from "./components/CardCliente";
+import MenuLateral from "../componentes/MenuLateral";
+import CardCliente from "../componentes/CardCliente";
 import { useState, useEffect } from "react";
-import SinoNotificacao from "./components/SinoNotificacao";
+import SinoNotificacao from "../componentes/SinoNotificacao";
 import axios from "axios";
 
 export default function MeusClientes() {
@@ -59,7 +59,7 @@ export default function MeusClientes() {
           <div className="flex flex-row w-210 justify-between ml-20 mt-10">
             <button
               className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
-              onClick={() => navigate("/pages/professional-pages/Mensagem")}
+              onClick={() => navigate("/profissional/mensagens")}
             >
               Enviar mensagem para todos
             </button>

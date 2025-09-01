@@ -39,7 +39,7 @@ export default function CardServico({ id, name, description, averageTime, value,
                                     onClick={() => {
                                         onEditar(id);
                                         setMenuAberto(false);
-                                        navigate("/pages/professional-pages/EditarServico", {
+                                        navigate("/profissional/servico/editar", {
                                             state: { id, name, description, averageTime, value }
                                     
                                     });

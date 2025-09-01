@@ -54,7 +54,7 @@ export default function AlterarSenha() {
                 setMensagem("✅ Senha alterada com sucesso!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
-                    navigate("/pages/client-pages/Login");
+                    navigate("/cliente/login");
                 }, 2000);
             })
             .catch((error) => {
@@ -78,7 +78,7 @@ export default function AlterarSenha() {
             )}
             <div className="h-full w-full bg-[#FFF3DC] flex flex-col justify-center ">
 
-            <Header caminho={"/pages/client-pages/ForgotPassword"} />
+            <Header caminho={"/cliente/esqueci-senha"} />
 
 
                 <div className="h-full flex justify-center items-center">

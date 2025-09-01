@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../Pop-up";
-import NavbarPro from "./components/Navbar";
+import Alerta from "../../Popup";
+import NavbarPro from "../componentes/Navbar";
 
 export default function EditarServico() {
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function EditarServico() {
             setDuracao(averageTime);
             setPreco(value);
         } else {
-            navigate("/pages/professional-pages/MeusServicos");
+            navigate("/profissional/meus-servicos");
         }
     }, [location]);
 
@@ -89,7 +89,7 @@ export default function EditarServico() {
             limparAlert();
 
             setTimeout(() => {
-                navigate("/pages/professional-pages/MeusServicos");
+                navigate("/profissional/meus-servicos");
             }, 2000);
         } catch (error) {
             console.error("Erro ao atualizar serviço:", error);
@@ -103,7 +103,7 @@ export default function EditarServico() {
         <>
             {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-            <NavbarPro caminho={"/pages/professional-pages/MeusServicos"} />
+            <NavbarPro caminho={"/profissional/meus-servicos"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Editar serviço</h1>
 
@@ -162,7 +162,7 @@ export default function EditarServico() {
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer hover:bg-[#e6ddcce0] transition-colors"
-                                onClick={() => navigate("/pages/professional-pages/MeusServicos")}
+                                onClick={() => navigate("/profissional/meus-servicos")}
                             >
                                 Cancelar
                             </button>

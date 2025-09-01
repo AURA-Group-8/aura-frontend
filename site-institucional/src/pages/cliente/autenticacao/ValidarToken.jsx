@@ -2,8 +2,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../Pop-up";
-import Header from '../Header-login';
+import Alerta from "../../Popup";
+import Header from "../componentes/HeaderLogin";
 
 export default function ValidarToken() {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function ValidarToken() {
             setMensagem("✅ Token validado com sucesso!");
             setCaminho("/assets/Check-pop.png");
             setTimeout(() => {
-                navigate("/pages/client-pages/ChangePassword", {
+                navigate("/cliente/alterar-senha", {
                     state: {
                         userId: userId,
                         email: email
@@ -53,7 +53,7 @@ export default function ValidarToken() {
         
                 
                 <div className="h-full w-full bg-[#FFF3DC] flex flex-col justify-center ">
-                    <Header caminho={"/pages/client-pages/ForgotPassword"} />
+                    <Header caminho={"/cliente/login"} />
                     <div className="h-full flex justify-center items-center">
                         <div className="flex flex-col h-screen items-center">
                             <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import NavbarPro from "./components/Navbar";
+import NavbarPro from "../componentes/Navbar";
 
 export default function HistoricoFinanceiro() {
   const [dadosFinanceiros, setDadosFinanceiros] = useState([]);
@@ -32,7 +32,7 @@ export default function HistoricoFinanceiro() {
 
   return (
     <>
-      <NavbarPro caminho={"/pages/professional-pages/Financeiro"} />
+      <NavbarPro caminho={"/profissional/financeiro"} />
       <div className="w-full min-h-screen bg-[#FFF3DC] flex flex-col items-center py-10">
         <h1 className="text-[#982546] font-bold text-2xl mb-10 mt-10">Histórico financeiro</h1>
 

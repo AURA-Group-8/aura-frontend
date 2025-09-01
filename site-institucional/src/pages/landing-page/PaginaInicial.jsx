@@ -1,8 +1,8 @@
 import Navbar from '../Navbar'
-import Section_1 from './Secao1'
-import Section_2 from './Secao2'
-import Section_3 from './Secao3'
-import Section_4 from './Secao4'
+import Secao1 from './Secao1'
+import Secao2 from './Secao2'
+import Secao3 from './Secao3'
+import Secao4 from './Secao4'
 import Footer from '../Footer'
 import '../../index.css'
 
@@ -14,11 +14,11 @@ export default function HomePage() {
         <>
             <div className="scroll-smooth bg-[#FFF3DC]">
                 <header>
-                    <Navbar />
+                    <Navbar/>
                 </header>
 
                 <section className="relative bg-[url('/assets/background.png')] bg-center bg-cover h-160 w-full" id="inicio">
-                    <Section_1 />
+                    <Secao1/>
                     <div className="absolute bottom-5 left-0 w-full overflow-hidden leading-[0]">
                         <svg
                             className="relative block w-[calc(100%+1.3px)] h-[80px]"
@@ -59,11 +59,11 @@ export default function HomePage() {
                 </section>
 
                 <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-170 md:h-140 w-full" id="sobre">
-                    <Section_2 />
+                    <Secao2 />
                 </section>
 
                 <section className="bg-[#FFF3DC] h-140 w-full" id="para_voce">
-                    <Section_3 />
+                    <Secao3 />
                     <div className="absolute left-0 w-full overflow-hidden leading-[0] ">
                         <svg
                             className="relative block w-[calc(100%+1.3px)] h-[40px] rotate-180"
@@ -85,7 +85,7 @@ export default function HomePage() {
                 </section>
 
                 <section className="bg-[#241313] md:h-140 w-full" id="contato">
-                    <Section_4 />
+                    <Secao4 />
                 </section>
 
                 <section className="bg-[#1D0F0F] md:h-110 w-full " id="footer">

@@ -41,7 +41,7 @@ export default function FormularioLogin() {
                 setMensagem("✅ Login realizado com sucesso!");
                 setCaminho("/assets/Check-pop.png")
                 setTimeout(() => {
-                    navigate("/pages/client-pages/Home");
+                    navigate("/cliente/home");
                 }, 1500);
             })
             .catch((error) => {

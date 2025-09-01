@@ -80,7 +80,7 @@ export default function FormularioCadastro() {
                 setMensagem("✅ Cadastro realizado com sucesso!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
-                    navigate("/pages/client-pages/Login");
+                    navigate("/cliente/login");
                 }, 2000);
             })
             .catch((error) => {
@@ -114,7 +114,7 @@ export default function FormularioCadastro() {
             <div className="flex items-center justify-center min-h-screen bg-[#FFF2DC] bg-[url('/assets/wave-background.png')] bg-cover bg-center relative text">
                
                 <div className="bg-[#982546] h-full w-90 mb-6 md:w-120 xl:w-200 mt-5 rounded-xl p-8 xl:p-10 flex flex-col items-center text-white shadow-lg font-bold xl:text-2xl ">
-                    <div className="w-full text-[#FFF2DC] font-bold justify-start gap-30 xl:gap-25  flex items-center mb-8  hover:border-[#341C1C]">
+                    <div className="w-full text-[#FFF2DC] font-bold justify-start gap-10 xl:gap-25  flex items-center mb-8 hover:border-[#341C1C]">
                         <img className="h-10 xl:h-14 hidden md:flex" src="/assets/LOGO.png " alt="" />
                         <h1 className="text-2xl xl:text-3xl">Crie sua conta</h1>
                     </div>

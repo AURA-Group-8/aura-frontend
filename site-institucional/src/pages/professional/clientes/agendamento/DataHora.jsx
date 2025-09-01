@@ -1,10 +1,10 @@
-import NavbarPro from "./components/Navbar";
+import NavbarPro from "../../componentes/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../pages/Pop-up";
+import Alerta from "../../../Popup";
 import {
   format,
   parse,
@@ -266,7 +266,7 @@ useEffect(() => {
       setCaminho("/assets/Alert.png");
       return;
     }
-    navigate("/pages/professional-pages/Confirmar",
+    navigate("/profissional/confirmar",
       {
         state: {
           data: format(dataSelecionada, "dd/MM/yyyy"),
@@ -288,7 +288,7 @@ useEffect(() => {
           imagem={caminho}
         />
       )}
-      <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
+      <NavbarPro caminho={"/profissional/agendar"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">

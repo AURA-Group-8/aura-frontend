@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./components/MenuLateral";
+import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
-import Alerta from "../Pop-up";
-import SinoNotificacao from "./components/SinoNotificacao";
+import Alerta from "../../Popup";
+import SinoNotificacao from "../componentes/SinoNotificacao";
 
 
 export default function ContatoPro() {

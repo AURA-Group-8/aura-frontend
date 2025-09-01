@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import MenuLateral from "./components/MenuLateral";
-import CardServico from "./components/CardServico";
-import SinoNotificacao from "./components/SinoNotificacao";
-import Alerta from "../Pop-up";
+import MenuLateral from "../componentes/MenuLateral";
+import CardServico from "../componentes/CardServico";
+import SinoNotificacao from "../componentes/SinoNotificacao";
+import Alerta from "../../Popup";
 
 export default function MeusServicos() {
     const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function MeusServicos() {
     const servicosFiltrados = filtrarServicos();
 
     const editarServico = (id) => {
-        navigate(`/pages/professional-pages/EditServico`);
+        navigate("/profissional/servico/editar");
     };
 
     const abrirModalExcluir = (servico) => {
@@ -111,7 +111,7 @@ export default function MeusServicos() {
                         <div className="flex flex-row w-210 justify-between ml-20 mt-10">
                             <button
                                 className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
-                                onClick={() => navigate("/pages/professional-pages/AddServico")}
+                                onClick={() => navigate("/profissional/servico/add")}
                             >
                                 Adicionar serviço
                             </button>

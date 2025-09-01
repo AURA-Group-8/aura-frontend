@@ -31,7 +31,7 @@ export default function EsqueceuSenha() {
                 setMensagem("✅ Email enviado com sucesso!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
-                    navigate("/pages/client-pages/ValidarToken", {
+                    navigate("/cliente/validar-token", {
                         state: {
                             token: response.data.token,
                             userId: response.data.userId,
@@ -62,7 +62,7 @@ export default function EsqueceuSenha() {
 
             <div className="h-full w-full bg-[#FFF3DC] flex flex-col items-center justify-center">
 
-                <Header caminho={"/pages/client-pages/Login"} />
+                <Header caminho={"/cliente/login"} />
 
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-start items-center">

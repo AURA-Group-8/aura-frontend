@@ -3,7 +3,7 @@ import NavbarCli from '../componentes/Navbar';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from "../../PopUp";
+import Alerta from '../../Popup';
 import axios from "axios";
 
 export default function ConfirmarCli() {
@@ -47,7 +47,7 @@ export default function ConfirmarCli() {
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     setMensagem("");
-                    navigate("/pages/client-pages/MeusAgendamentosCli");
+                    navigate("/cliente/meus-agendamentos");
                 }, 1000);
             })
             .catch((error) => {
@@ -70,7 +70,7 @@ export default function ConfirmarCli() {
                 />
             )}
 
-            <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
+            <NavbarCli caminho={"/cliente/agendar"} />
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>

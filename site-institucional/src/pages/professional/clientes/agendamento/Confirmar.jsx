@@ -1,9 +1,9 @@
 import { parse, format } from 'date-fns';
-import NavbarPro from "./components/Navbar";
+import NavbarPro from '../../componentes/Navbar';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from "../Pop-up";
+import Alerta from '../../../Popup';
 import axios from "axios";
 
 export default function Confirmar() {
@@ -47,7 +47,7 @@ export default function Confirmar() {
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     setMensagem("");
-                    navigate("/pages/professional-pages/Dashboard");
+                    navigate("/professional/dashboard");
                 }, 1000);
             })
             .catch((error) => {

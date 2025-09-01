@@ -116,7 +116,7 @@ export default function ConfigCli() {
                 />
             )}
             <div className="h-full w-full bg-[#FFF3DC] justify-center ">
-                <NavbarCli caminho={"/pages/client-pages/Home"} />
+                <NavbarCli caminho={"/cliente/home"} />
 
                 <div className="h-screen flex justify-center flex-col items-center pt-10">
                     <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Configurações</h1>

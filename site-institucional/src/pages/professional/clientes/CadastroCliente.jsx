@@ -1,6 +1,6 @@
-import NavbarPro from "../components/Navbar";
+import NavbarPro from "../componentes/Navbar";
 import { useState } from "react";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -76,7 +76,7 @@ export default function CadastroCli() {
             setEmail("");
 
             setTimeout(() => {
-                navigate("/pages/professional-pages/Agendar");
+                navigate("/profissional/agendar");
             }, 2000);
 
         } catch (error) {
@@ -98,7 +98,7 @@ export default function CadastroCli() {
                 />
             )}
 
-            <NavbarPro caminho={"/pages/professional-pages/Agendar"} />
+            <NavbarPro caminho={ "/profissional/agendar"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center ">
                 <h1 className="text-[#982546] font-bold text-2xl">Cadastrar cliente</h1>
 
@@ -136,7 +136,7 @@ export default function CadastroCli() {
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer hover:bg-[#eaead5] transition-colors"
-                                onClick={() => navigate("/pages/professional-pages/Agendar")}
+                                onClick={() => navigate("/profissional/agendar")}
                             >
                                 Cancelar
                             </button>

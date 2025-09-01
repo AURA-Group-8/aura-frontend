@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../Pop-up";
+import Alerta from "../../Popup";
 import {
   format,
   parse,
@@ -17,7 +17,7 @@ import {
 } from "date-fns";
 
 
-export default function CalendarioCarrossel() {
+export default function DataHoraAgendamento() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -266,7 +266,7 @@ useEffect(() => {
       setCaminho("/assets/Alert.png");
       return;
     }
-    navigate("/pages/client-pages/ConfirmarCli",
+    navigate("/cliente/confirmar",
       {
         state: {
           data: format(dataSelecionada, "dd/MM/yyyy"),
@@ -288,7 +288,7 @@ useEffect(() => {
           imagem={caminho}
         />
       )}
-      <NavbarCli caminho={"/pages/client-pages/AgendarCli"} />
+      <NavbarCli caminho={"/cliente/agendar"} />
 
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center pt-10 ">
         <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10">

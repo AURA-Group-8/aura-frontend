@@ -8,8 +8,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const opcaoLogin = () => {
-    
-      navigate("/pages/client-pages/Login");
+
+      navigate("/profissional/login");
   }
 
   return (

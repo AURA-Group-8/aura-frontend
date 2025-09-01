@@ -1,9 +1,8 @@
-import MenuLateral from "./components/MenuLateral";
+import MenuLateral from "../componentes/MenuLateral";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
-import SinoNotificacao from "./components/SinoNotificacao";
 
 import {
     Chart as ChartJS,
@@ -144,7 +143,7 @@ export default function Financeiro() {
                                 </div>
                                 <button
                                     className="p-2 rounded-2xl bg-[#FFF3DC] text-[#982546] self-end cursor-pointer hover:bg-[#f0e4d1] transition-colors"
-                                    onClick={() => navigate("/pages/professional-pages/HistoricoFinanceiro")}
+                                    onClick={() => navigate("/profissional/financeiro/historico")}
                                 >
                                     Ver histórico
                                 </button>

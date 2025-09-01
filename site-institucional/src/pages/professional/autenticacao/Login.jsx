@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Header from "../Header-login";
-import Alerta from "../Pop-up";
+import Header from "../../cliente/componentes/HeaderLogin";
+import Alerta from "../../Popup";
 import axios from "axios";
 
 export default function LoginPro() {
@@ -64,7 +64,7 @@ export default function LoginPro() {
                 setCaminho("/assets/Check-pop.png");
                 limparAlert();
                 setTimeout(() => {
-                    navigate("/pages/professional-pages/Dashboard");
+                    navigate("/profissional/dashboard");
                 }, 1000);
             }).catch((error) => {
                 if (error.response && error.response.status === 401) {

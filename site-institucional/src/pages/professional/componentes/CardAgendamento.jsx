@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../Pop-up";
+import Alerta from "../../Popup";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
@@ -42,7 +42,7 @@ export default function CardAgendamento(props) {
   };
 
   const marcarFeito = () => {
-    if (text === "Feito") return; 
+    if (text === "Feito") return;
 
     const novoStatus = "FEITO";
     const novoPaymentStatus = "PAGO";
@@ -51,7 +51,7 @@ export default function CardAgendamento(props) {
       id: props.id,
       status: novoStatus,
       paymentStatus: novoPaymentStatus,
-      
+
     };
 
     setCarregando(true);
@@ -131,8 +131,8 @@ export default function CardAgendamento(props) {
     <>
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
-      <div className="flex flex-row w-full relative mt-15">
-        <div className="flex flex-col justify-center w-full h-40">
+      <div className="flex flex-row w-full mt-20">
+        <div className="flex flex-col justify-center w-100 h-40 mb-20">
 
           <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
             style={{
@@ -144,12 +144,21 @@ export default function CardAgendamento(props) {
 
           <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
             <div className="flex flex-col p-2 text-white text-lg">
-              <p className="mb-2 font-bold">{props.service}</p>
+              <label className="font-bold text-[#ffa8d8]">Serviços:</label>
+              <select
+                className="w-full p-1 rounded-lg mb-5 text-[#982546] bg-white border border-[#ffa8d8]"
+              >
+                {props.service?.split(",").map((serv, index) => (
+                  <option key={index} value={serv.trim()} className="p-2 rounded-md">
+                    {serv.trim()}
+                  </option>
+                ))}
+              </select>
               <div className="flex flex-row justify-between">
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-col">
                   <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
-                  <span> - </span>
-                  <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time }</span></p>
+
+                  <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
                 </div>
                 <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
               </div>

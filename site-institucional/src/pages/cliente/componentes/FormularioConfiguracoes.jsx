@@ -26,7 +26,7 @@ export default function FormsConfig() {
 
                     <div className="flex flex-row gap-5">
                         <input type="password" id="nome" name="nome" className="bg-[#b1b1b1] p-2 w-50 rounded-xl" disabled />
-                        <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer" onClick={() => navigate("/pages/client-pages/ChangePassword")}>Alterar senha</button>
+                        <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-4 cursor-pointer" onClick={() => navigate("/cliente/alterar-senha")}>Alterar senha</button>
                     </div>
 
                     <div className="flex flex-row justify-between gap-4 pt-5">

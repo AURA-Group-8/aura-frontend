@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import NavbarPro from "./components/Navbar";
-import Alerta from "../Pop-up";
+import NavbarPro from "../componentes/Navbar";
+import Alerta from "../../Popup";
 
 export default function AlterarSenha() {
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ export default function AlterarSenha() {
         const senhaTrim = novaSenha.trim();
         const confirmarTrim = confirmarSenha.trim();
 
-        // Regex para detectar emojis
+        
         const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
 
         if (senhaTrim.length === 0 || confirmarTrim.length === 0) {
@@ -109,7 +109,7 @@ export default function AlterarSenha() {
             setConfirmarSenha("");
 
             setTimeout(() => {
-                navigate("/pages/professional-pages/Login");
+                navigate("/professional/login");
             }, 2000);
 
         } catch (error) {
@@ -130,7 +130,7 @@ export default function AlterarSenha() {
             )}
 
             <div className="h-full w-full bg-[#FFF3DC] flex justify-center">
-                <NavbarPro caminho={"/pages/professional-pages/Configuracoes"} />
+                <NavbarPro caminho={"/professional/configuracoes"} />
 
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-center items-center">
@@ -157,7 +157,7 @@ export default function AlterarSenha() {
                                 <button
                                     type="button"
                                     className="text-[#982546] border border-[#982546] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#eee9ca] transition-colors"
-                                    onClick={() => navigate("/pages/professional-pages/Configuracoes")}
+                                    onClick={() => navigate("/professional/configuracoes")}
                                 >
                                     Cancelar
                                 </button>

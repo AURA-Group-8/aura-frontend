@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import Alerta from "../../PopUp";
 import { useNavigate } from "react-router-dom";
-import NavbarPro from "../components/Navbar";
+import NavbarPro from "../componentes/Navbar";
 
 export default function AddServico() {
 
@@ -86,7 +86,7 @@ export default function AddServico() {
             setPreco("");
 
             setTimeout(() => {
-                navigate("/pages/professional-pages/MeusServicos");
+                navigate("/profissional/meus-servicos");
             }, 2000);
 
         } catch (error) {
@@ -106,7 +106,7 @@ export default function AddServico() {
                 />
             )}
 
-            <NavbarPro caminho={"/pages/professional-pages/MeusServicos"} />
+            <NavbarPro caminho={"/profissional/meus-servicos"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Adicionar serviço</h1>
 

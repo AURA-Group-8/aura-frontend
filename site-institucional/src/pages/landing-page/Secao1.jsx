@@ -16,7 +16,7 @@ function Section_1() {
                         Você está no lugar certo! Crie sua conta e aproveite nossos serviços.
                     </span>
                    
-                    <button onClick={() => navigate("/pages/client-pages/Cadastro")} className="xl:text-xl bg-[#982546] text-[#FFF3DC] text-xl font-medium py-2 px-5 rounded-xl cursor-pointer hover:bg-[#d8d3af] transition duration-300">
+                    <button onClick={() => navigate("/cliente/cadastro")} className="xl:text-xl bg-[#982546] text-[#FFF3DC] text-xl font-medium py-2 px-5 rounded-xl cursor-pointer hover:bg-[#d8d3af] transition duration-300">
                         Criar conta
                     </button>
                 </div>

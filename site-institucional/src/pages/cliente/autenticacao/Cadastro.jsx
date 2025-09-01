@@ -1,5 +1,5 @@
-import FormularioCadastro from "./components/FormularioCadastro";
-import Header from "../Header-login";
+import FormularioCadastro from "../componentes/FormularioCadastro";
+import Header from "../componentes/HeaderLogin";
 
 export default function Cadastro() {
     return (

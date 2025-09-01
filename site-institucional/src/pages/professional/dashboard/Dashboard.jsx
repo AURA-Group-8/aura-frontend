@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MenuLateral from "./components/MenuLateral";
-import CardAgendamento from "./components/CardAgendamento";
+import MenuLateral from "../componentes/MenuLateral";
+import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
-import SinoNotificacao from "./components/SinoNotificacao";
+import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function Dashboard() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -141,12 +141,12 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full h-full items-center">
                     <SinoNotificacao />
 
-                    <div className="flex flex-col justify-center items-center ml-20 w-200">
+                    <div className="flex flex-col justify-center items-center md:ml-20 md:w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
-                        <div className="w-full flex flex-row justify-between items-start mt-5">
+                        <div className="w-full flex flex-row justify-between items-center mt-5">
 
-                            <div className="flex flex-row-reverse justify-between w-110 items-start relative">
+                            <div className="flex flex-row-reverse md:w-110 items-start relative gap-12">
                                 <div className="w-full transition-all duration-300 ml-2 relative">
                                     {menuAberto && (
                                         <div className="max-w-2xl flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546]">
@@ -209,7 +209,7 @@ export default function Dashboard() {
                                 </div>
 
                                 <button
-                                    className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]"
+                                    className="flex bg-[#982546] p-2 w-20 justify-center items-center text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]"
                                     onClick={() => setMenuAberto((aberto) => !aberto)}
                                 >
                                     <img src="/assets/Slider.png" alt="" className="h-6" />
@@ -218,14 +218,14 @@ export default function Dashboard() {
 
                             <button
                                 className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]"
-                                onClick={() => navigate("/pages/professional-pages/Agendar")}
+                                onClick={() => navigate("/profissional/agendar")}
                             >
                                 Adicionar agendamento
                             </button>
                         </div>
                     </div>
 
-                    <div className="flex flex-col p-2 gap-8 w-210 h-100 ml-20 mt-5 overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-2 mt-5 md:ml-20 gap-3 h-full overflow-y-auto">
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {
@@ -234,7 +234,6 @@ export default function Dashboard() {
                                         "Feito": 1,
                                         "Cancelado": 2
                                     };
-
                                     return ordemStatus[a.status] - ordemStatus[b.status];
                                 })
                                 .map((agendamento, index) => (

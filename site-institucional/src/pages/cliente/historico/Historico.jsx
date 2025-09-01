@@ -1,10 +1,10 @@
 import { m } from "framer-motion";
 import { use, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CardAgendamento from "./componentes/CardAgendamento";
+import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
-import NavbarCli from "./componentes/Navbar";
-import Alerta from "../Pop-up";
+import NavbarCli from "../componentes/Navbar";
+import Alerta from "../../PopUp";
 
 export default function Historico() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -51,7 +51,7 @@ export default function Historico() {
     return (
         <>
 
-            <NavbarCli caminho={"/pages/client-pages/Home"} />
+            <NavbarCli caminho={"/cliente/home"} />
 
             {mensagem && (
                 <Alerta
@@ -95,7 +95,7 @@ export default function Historico() {
 
                         <div className="w-full flex justify-center it mt-5">
                             <button
-                                onClick={() => navigate("/pages/client-pages/MeusAgendamentosCli")}
+                                onClick={() => navigate("/cliente/meus-agendamentos")}
                                 className="bg-[#982546] text-white py-2 cursor-pointer px-4 rounded-lg hover:bg-[#b36078] transition-colors mb-10"
                             >
                                 Visualizar Agendamentos

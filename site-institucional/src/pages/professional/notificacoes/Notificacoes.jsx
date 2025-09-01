@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavbarPro from "../components/Navbar";
+import NavbarPro from "../componentes/Navbar";
 import axios from "axios";
 
 const ProNotification = () => {
@@ -28,7 +28,7 @@ const ProNotification = () => {
 
   return (
     <>
-      <NavbarPro caminho={"/pages/professional-pages/Dashboard"} />
+      <NavbarPro caminho={"/profissional/dashboard"} />
       <div className="min-h-screen bg-[#fef3e2] p-6 flex justify-start  items-center flex-col ">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6 mt-20">Notificações</h1>
 
