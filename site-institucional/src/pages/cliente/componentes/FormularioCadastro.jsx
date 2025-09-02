@@ -2,6 +2,7 @@ import { useState } from "react";
 import Alerta from "../../Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function FormularioCadastro() {
     const [nomeCompleto, setNomeCompleto] = useState("");
@@ -12,7 +13,7 @@ export default function FormularioCadastro() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
     const [senhaConfirmada, setSenhaConfirmada] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false); 
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -26,7 +27,7 @@ export default function FormularioCadastro() {
     };
 
     const cadastrar = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         if (isSubmitting) return;
 
@@ -72,7 +73,7 @@ export default function FormularioCadastro() {
             roleId: 2
         };
 
-        setIsSubmitting(true); 
+        setIsSubmitting(true);
 
         axios.post(UserUrl, usuario)
             .then((response) => {
@@ -90,7 +91,7 @@ export default function FormularioCadastro() {
                 limparAlert();
             })
             .finally(() => {
-                setIsSubmitting(false); 
+                setIsSubmitting(false);
             });
     };
 
@@ -112,7 +113,7 @@ export default function FormularioCadastro() {
             )}
 
             <div className="flex items-center justify-center min-h-screen bg-[#FFF2DC] bg-[url('/assets/wave-background.png')] bg-cover bg-center relative text">
-               
+
                 <div className="bg-[#982546] h-full w-90 mb-6 md:w-120 xl:w-200 mt-5 rounded-xl p-8 xl:p-10 flex flex-col items-center text-white shadow-lg font-bold xl:text-2xl ">
                     <div className="w-full text-[#FFF2DC] font-bold justify-start gap-10 xl:gap-25  flex items-center mb-8 hover:border-[#341C1C]">
                         <img className="h-10 xl:h-14 hidden md:flex" src="/assets/LOGO.png " alt="" />
@@ -152,14 +153,16 @@ export default function FormularioCadastro() {
 
                         <button
                             type="submit"
-                            disabled={isSubmitting} 
+                            disabled={isSubmitting}
                             className={`mt-4 w-52 text-[#FFF3DC] bg-[#680E28] border border-[#FFF3DC] rounded-xl px-4 py-2 hover:border-[#341C1C] hover:bg-[#FFF3DC] hover:text-[#341C1C] transition hover:cursor-pointer self-center ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
                             {isSubmitting ? "Enviando..." : "Cadastrar"}
                         </button>
                     </form>
 
-                    <p className="mt-4 text-xl">Já possui conta? <a href="/pages/cliente/autenticacao/Login" className="underline">Login</a></p>
+                    <p className="mt-4 text-xl">
+                        Já possui conta? <Link to="/cliente/login" className="underline">Login</Link>
+                    </p>
                 </div>
             </div>
         </>
