@@ -144,15 +144,15 @@ export default function Dashboard() {
                     <div className="flex flex-col justify-center items-center md:ml-20 md:w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
-                        <div className="w-full flex flex-row justify-between items-center mt-5">
+                        <div className="w-full flex flex-row justify-between xl:w-300 items-center mt-5">
 
-                            <div className="flex flex-row-reverse md:w-110 items-start relative gap-12">
+                            <div className="flex flex-row-reverse md:w-110 xl:items-start relative">
                                 <div className="w-full transition-all duration-300 ml-2 relative">
                                     {menuAberto && (
-                                        <div className="max-w-2xl flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546]">
+                                        <div className="flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546] w-60 md:w-120">
                                             <div className="flex flex-col">
                                                 <p className="font-bold text-[#982546]">Período</p>
-                                                <div className="flex flex-row gap-2 mt-2 border-b-1 border-[#982546]">
+                                                <div className="grid grid-cols-1 md:gap-4 mt-2 border-b-1 border-[#982546] justify-center itens-center">
                                                     <input type="radio" name="periodo" checked={periodoSelecionado === "todos"} onChange={() => handleSelectRadio("periodo", "todos")} /><span>Todos</span>
                                                     <input type="radio" name="periodo" checked={periodoSelecionado === "hoje"} onChange={() => handleSelectRadio("periodo", "hoje")} /><span>Hoje</span>
                                                     <input type="radio" name="periodo" checked={periodoSelecionado === "semana"} onChange={() => handleSelectRadio("periodo", "semana")} /><span>Essa semana</span>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-2 mt-5 md:ml-20 gap-3 h-full overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5 md:ml-20 gap-5 h-full overflow-y-auto">
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {

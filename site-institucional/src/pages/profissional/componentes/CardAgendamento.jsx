@@ -132,7 +132,7 @@ export default function CardAgendamento(props) {
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
       <div className="flex flex-row w-full mt-20">
-        <div className="flex flex-col justify-center w-100 h-40 mb-20">
+        <div className="flex flex-col justify-center w-100 h-40 mt-10 md:mt-0 mb-20">
 
           <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
             style={{
@@ -160,7 +160,7 @@ export default function CardAgendamento(props) {
 
                   <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
                 </div>
-                <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
+                <p className="font-bold text-3xl text-[#ffa8d8] mt-12 md:mt-0">{props.value}</p>
               </div>
             </div>
 
@@ -177,7 +177,7 @@ export default function CardAgendamento(props) {
               </select>
             </div>
 
-            <div className="flex justify-between p-2">
+            <div className="flex flex-col gap-2 md:gap-0 md:flex-row justify-between p-2">
               <button
                 className="bg-[#FFF3DC] cursor-pointer p-2 rounded-2xl text-[#982546] hover:bg-[#e9e3d3] transition-colors"
                 onClick={marcarFeito}

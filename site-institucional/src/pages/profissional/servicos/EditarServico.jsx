@@ -41,13 +41,11 @@ export default function EditarServico() {
     const editarServico = async (e) => {
         e.preventDefault();
 
-        // Trim dos campos
         const nomeTrimmed = nome.trim();
         const descricaoTrimmed = descricao.trim();
         const duracaoTrimmed = duracao.toString().trim();
         const precoTrimmed = preco.toString().trim();
 
-        // Validação de campos vazios ou com emojis
         if (!nomeTrimmed || !descricaoTrimmed || !duracaoTrimmed || !precoTrimmed) {
             setMensagem("Preencha todos os campos!");
             setCaminho("/assets/Alert.png");
@@ -107,8 +105,8 @@ export default function EditarServico() {
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Editar serviço</h1>
 
-                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5">
-                    <div className="flex flex-col w-120 ">
+                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-90 md:w-150 xl-w-180 xl:text-lg p-10 rounded-2xl flex flex-row justify-center items-center mt-5">
+                    <div className="flex flex-col w-full ">
                         <p className="mt-2">Nome</p>
                         <input
                             type="text"
@@ -126,7 +124,7 @@ export default function EditarServico() {
                             onChange={e => setDescricao(e.target.value)}
                         />
 
-                        <div className="flex flex-row w-full justify-between">
+                        <div className="flex flex-col md:flex-row w-full justify-between">
                             <div className="flex flex-col">
                                 <p className="mt-4">Duração (Horas)</p>
                                 <select
@@ -158,7 +156,7 @@ export default function EditarServico() {
                             </div>
                         </div>
 
-                        <div className="flex flex-row w-full justify-between mt-10">
+                        <div className="flex flex-col-reverse gap-5 md:gap-0 md:flex-row w-full justify-between mt-10">
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer hover:bg-[#e6ddcce0] transition-colors"

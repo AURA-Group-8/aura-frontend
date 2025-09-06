@@ -76,11 +76,11 @@ export default function Mensagem() {
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
       <NavbarPro caminho={"/profissional/meus-clientes"} />
-      <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
+      <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center xl:text-2xl">
         <h1 className="text-[#982546] font-bold text-2xl">Enviar mensagem</h1>
 
         <form
-          className="border-1 border-[#982546] bg-[#FFF3DC] w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5"
+          className="border-1 border-[#982546] bg-[#FFF3DC] w-90 md:w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5"
           onSubmit={enviar}
         >
           <div className="flex flex-col w-120 ">

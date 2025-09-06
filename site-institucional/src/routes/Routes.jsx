@@ -40,6 +40,7 @@ import NavbarPro from "../pages/profissional/componentes/Navbar";
 import CalendarioCarrossel from "../pages/profissional/clientes/agendamento/DataHora";
 import Agendar from "../pages/profissional/clientes/agendamento/AgendarCliente";
 import MeusServicos from "../pages/profissional/servicos/MeusServicos";
+import Mensagem from "../pages/profissional/mensagens/Mensagem";
 
 
 export const routes = createBrowserRouter([
@@ -73,7 +74,7 @@ export const routes = createBrowserRouter([
   { path: "/profissional/servico/editar", element: <EditarServico/> },
   { path: "/profissional/financeiro", element: <Financeiro/> },
   { path: "/profissional/financeiro/historico", element: <HistoricoFinanceiro/> },
-  { path: "/profissional/mensagens", element: <MenuLateral/> },
+  { path: "/profissional/mensagens", element: <Mensagem/> },
   { path: "/profissional/contato", element: <ContatoPro/> },
   { path: "/profissional/configuracoes", element: <Configuracoes/> },
   { path: "/profissional/alterar-senha", element: <AlterarSenha/> },

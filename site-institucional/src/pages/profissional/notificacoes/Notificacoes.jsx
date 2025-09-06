@@ -29,10 +29,10 @@ const ProNotification = () => {
   return (
     <>
       <NavbarPro caminho={"/profissional/dashboard"} />
-      <div className="min-h-screen bg-[#fef3e2] p-6 flex justify-start  items-center flex-col ">
+      <div className="min-h-screen bg-[#fef3e2] p-6 flex justify-start items-center flex-col xl:text-2xl">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6 mt-20">Notificações</h1>
 
-        <div className="space-y-4 max-h-[65vh] w-200 overflow-y-auto pr-2 ">
+        <div className="space-y-4 max-h-[65vh] w-90 md:w-200 overflow-y-auto pr-2 ">
           {notificacoes.length > 0 ? (
             notificacoes.map((notificacao, index) => (
               <div key={index} className="bg-[#9e837c] w-full text-white rounded-lg p-6">

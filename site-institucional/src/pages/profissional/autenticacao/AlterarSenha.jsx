@@ -136,7 +136,7 @@ export default function AlterarSenha() {
                     <div className="flex flex-col h-screen justify-center items-center">
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Alterar senha</h1>
 
-                        <form className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2" onSubmit={alterarSenha}>
+                        <form className="w-90 md:w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2" onSubmit={alterarSenha}>
                             <label>Nova Senha:</label>
                             <input
                                 type="password"

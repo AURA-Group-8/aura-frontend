@@ -10,13 +10,13 @@ export default function CardCliente({ name, phone, birthDate }) {
   };
 
   return (
-    <div className="flex flex-col w-210 ml-20 mt-10 h-60 ">
+    <div className="flex flex-col xl:w-250 md:w-210 md:ml-20 h-60 xl:text-lg">
       <div className="bg-[#982546] rounded-t-2xl p-2 w-full flex flex-row justify-between items-center text-white text-lg font-bold">
         <span>{name}</span>
       </div>
 
-      <div className="bg-[#982546b9] rounded-b-2xl p-2 w-full text-white flex flex-row justify-between items-center">
-        <div className="flex flex-col justify-between">
+      <div className="bg-[#982546b9] rounded-b-2xl p-2 w-full text-white flex flex-col gap-5 md:flex-row justify-between items-center">
+        <div className="flex flex-col justify-between self-left text-lg">
           <span>Telefone: {phone}</span>
           <span>Data de Nascimento: {formatarData(birthDate)}</span>
         </div>

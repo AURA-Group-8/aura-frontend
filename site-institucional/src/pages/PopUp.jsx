@@ -10,7 +10,7 @@ export default function Alerta({ mensagem, imagem }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white flex flex-col py-10 px-20 justify-center gap-2 items-center rounded-2xl border border-[#982546]">
+            className="bg-white flex flex-col py-10 px-10 md:px-20 justify-center gap-2 items-center rounded-2xl border border-[#982546]">
 
             <motion.img
               src={imagem}

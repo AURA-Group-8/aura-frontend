@@ -110,20 +110,20 @@ export default function Financeiro() {
     };
 
     return (
-        <div className="w-full h-screen bg-[#FFF3DC]">
-            <div className="h-full flex flex-row">
+        <div className="w-full h-full bg-[#FFF3DC]">
+            <div className=" flex flex-row h-screen">
                 <MenuLateral />
 
-                <div className="flex flex-col w-full h-full items-center">
+                <div className="flex flex-col w-full items-center xl:text-lg">
                     <SinoNotificacao />
 
-                    <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
+                    <h1 className="text-[#982546] font-bold text-2xl md:ml-20">Meus serviços</h1>
 
-                    <div className="flex flex-row w-210 justify-around ml-20 mt-5">
-                        <div className="flex flex-col">
+                    <div className="flex flex-col md:flex-row md:w-210 justify-center gap-5 xl:gap-20 md:justify-around md:ml-20 mt-5">
+                        <div className="flex flex-col justify-center items-center md:items-start">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Balanço mensal</h1>
-                            <div className="w-100 bg-[#982546] rounded-2xl flex flex-col justify-between p-2">
-                                <div className="flex flex-col text-[#FFF3DC] p-4 h-full gap-4">
+                            <div className="md:w-100 w-80 bg-[#982546] rounded-2xl flex flex-col justify-between p-2">
+                                <div className="flex flex-col text-[#FFF3DC] p-4 h-full gap-4 xl:text-xl">
                                     {(() => {
                                         
                                         const hoje = new Date();
@@ -151,9 +151,9 @@ export default function Financeiro() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col justify-center items-center md:items-start xl:text-xl">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Serviços mais realizados</h1>
-                            <div className="w-100 h-40 border border-[#982546] rounded-2xl p-2">
+                            <div className="md:w-100 w-80 h-40 border border-[#982546] rounded-2xl p-2">
                                 <ul>
                                     {topServicos.map((servico, index) => (
                                         <li key={index} className="flex flex-row gap-2 items-center">
@@ -166,17 +166,17 @@ export default function Financeiro() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row w-210 justify-around ml-20 mt-5">
-                        <div className="flex flex-col">
+                    <div className="flex flex-col md:flex-row md:w-210 gap-5 md:gap-0 xl:gap-20 justify-center md:justify-around md:ml-20 mt-5">
+                        <div className="flex flex-col justify-center items-center md:items-start xl:text-xl">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Movimentação semanal</h1>
-                            <div className="flex w-100 h-40 border border-[#982546] rounded-2xl justify-center items-center">
+                            <div className="flex md:w-100 w-80 h-40 border border-[#982546] rounded-2xl justify-center items-center">
                                 <Bar data={chartData} options={options} />
                             </div>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col justify-center items-center md:items-start xl:">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Clientes regulares</h1>
-                            <div className="w-100 h-40 border border-[#982546] rounded-2xl p-2">
+                            <div className="md:w-100 w-80 h-40 border border-[#982546] rounded-2xl p-2">
                                 <ul>
                                     {topClientes.map((cliente, index) => (
                                         <li key={index} className="flex flex-row gap-2 items-center">

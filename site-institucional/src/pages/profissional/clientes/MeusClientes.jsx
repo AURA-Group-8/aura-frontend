@@ -54,9 +54,9 @@ export default function MeusClientes() {
         <div className="flex flex-col w-full h-full items-center">
           <SinoNotificacao/>
 
-          <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus clientes</h1>
+          <h1 className="text-[#982546] font-bold text-2xl md:ml-20">Meus clientes</h1>
 
-          <div className="flex flex-row w-210 justify-between ml-20 mt-10">
+          <div className="flex flex-col-reverse gap-5 md:gap-0 md:flex-row xl:w-250 xl:text-lg md:w-210 justify-between md:ml-20 mt-10">
             <button
               className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
               onClick={() => navigate("/profissional/mensagens")}
@@ -72,7 +72,7 @@ export default function MeusClientes() {
             />
           </div>
 
-          <div className="flex flex-col h-90 p-2 overflow-y-auto">
+          <div className="flex flex-col h-120 xl:h-full gap-5 p-2 overflow-y-auto mt-10">
             {clientesFiltrados.length > 0 ? (
               clientesFiltrados.map((usuario) => (
                 <CardCliente

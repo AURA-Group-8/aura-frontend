@@ -110,9 +110,9 @@ export default function Agendar() {
             <NavbarPro caminho={"/profissional/dashboard"} />
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
-                <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row justify-center mt-5">
-                    <div className="flex flex-col w-120">
-                        <p className="text-xl mt-2">Serviços</p>
+                <form onSubmit={agendar} className="border-1 border-[#982546] bg-[#FFF3DC] w-90 p-5 md:w-150 xl:w-180 xl:text-lg rounded-2xl flex flex-row justify-center mt-5">
+                    <div className="flex flex-col w-120 ">
+                        <p className="text-lg mt-2">Serviços</p>
                         <select
                             onChange={(e) => {
                                 const id = parseInt(e.target.value);
@@ -145,11 +145,11 @@ export default function Agendar() {
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-[#982546] text-lg p-2">Nenhum serviço selecionado</p>
+                                <p className="text-[#982546] text-lg p-2 self-center w-full">Nenhum serviço selecionado</p>
                             )}
                         </div>
 
-                        <p className="text-xl mt-2">Clientes</p>
+                        <p className="text-lg mt-2">Clientes</p>
                         <select
                             onChange={e => setClienteSelecionado(e.target.value)}
                             name="cliente"
@@ -165,7 +165,7 @@ export default function Agendar() {
                             ))}
                         </select>
 
-                        <div className="flex flex-row w-full justify-between mt-4">
+                        <div className="flex flex-col-reverse gap-5 md:gap-0 md:flex-row w-full justify-between mt-8 md:mt-4">
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
@@ -177,7 +177,7 @@ export default function Agendar() {
 
                             <button
                                 type="submit"
-                                className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center cursor-pointer hover:bg-[#b36078]"
+                                className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center justify-center cursor-pointer hover:bg-[#b36078]"
 
                             >
                                 Selecionar data e hora

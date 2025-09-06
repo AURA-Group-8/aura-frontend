@@ -68,13 +68,13 @@ export default function ConfiguracoesPro() {
                 <div className="h-full flex flex-row">
                     <MenuLateral />
 
-                    <div className="flex flex-col w-full h-full  items-center ">
+                    <div className="flex flex-col w-full">
                         <SinoNotificacao/>
 
-                        <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
+                        <div className="h-full text-[#982546] bg-[#FFF3DC] flex flex-col items-center md:ml-20">
                             <h1 className="font-bold text-2xl ">Configurações</h1>
 
-                            <div className="flex flex-col mt-5 ">
+                            <div className="flex flex-col mt-10 xl:text-lg items-center">
                                 <div className="flex flex-row mb-5 gap-5">
                                     <button className="border-b-2 border-[#982546] cursor-pointer transition-all"
 
@@ -103,7 +103,7 @@ export default function ConfiguracoesPro() {
 
                                 {formContaAberto && (
                                     <>
-                                        <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-10 w-160 rounded-2xl gap-2 ">
+                                        <form className="flex flex-col text-[#362323] border border-[#982546] p-5 h-full md:w-160 xl:w-180 rounded-2xl gap-2 ">
                                             <label htmlFor="nome">CNPJ:</label>
                                             <input
                                                 type="text"
@@ -125,7 +125,7 @@ export default function ConfiguracoesPro() {
                                             />
 
                                             <label htmlFor="senha">Senha:</label>
-                                            <div className="flex flex-row gap-5">
+                                            <div className="flex flex-col md:flex-row gap-5">
                                                 <input
                                                     type="password"
                                                     id="senha"
@@ -155,10 +155,10 @@ export default function ConfiguracoesPro() {
                                 {formHoraAberto && (
                                     <>
 
-                                        <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-10 rounded-2xl gap-2 justify-center items-center">
+                                        <form className="flex flex-col text-[#362323] border border-[#982546] p-5 w-90 md:w-auto rounded-2xl gap-2 ">
                                             <h1 className="text-[#982546] font-bold mb-5">Dias da semana</h1>
 
-                                            <div className=" gap-4 grid grid-cols-4 font-bold text-[#756363]">
+                                            <div className=" gap-4 grid grid-cols-2 md:grid-cols-4 font-bold text-[#756363]">
 
                                                 {diasSemana.map((dia) => (
                                                     <label key={dia} className="flex items-center gap-2">
@@ -174,11 +174,11 @@ export default function ConfiguracoesPro() {
                                             </div>
 
                                             <div className="flex flex-col justify-center items-center mt-10">
-                                                <div className="flex flex-row justify-between items-center gap-20">
+                                                <div className="flex flex-col md:flex-row justify-between items-center gap-20">
 
                                                     <div className="flex flex-col justify-center items-center">
                                                         <h1 className="font-bold text-[#982546] mb-5">Horário comercial</h1>
-                                                        <div className="flex flex-row gap-5">
+                                                        <div className="flex flex-row gap-5 items-center">
                                                             <div>
                                                                 <select
                                                                     name="horarioComercialInicio"
@@ -193,7 +193,7 @@ export default function ConfiguracoesPro() {
                                                                     ))}
                                                                 </select>
                                                             </div>
-                                                            <span>Até</span>
+                                                            <span>-</span>
                                                             <div>
                                                                 <select
                                                                     name="horarioComercialFim"
@@ -213,7 +213,7 @@ export default function ConfiguracoesPro() {
 
                                                     <div className="flex flex-col justify-center items-center">
                                                         <h1 className="font-bold text-[#982546] mb-5">Horário de pausa</h1>
-                                                        <div className="flex flex-row gap-5">
+                                                        <div className="flex flex-row gap-5 items-center">
                                                             <div>
                                                                 <select
                                                                     name="horarioPausaInicio"
@@ -228,7 +228,7 @@ export default function ConfiguracoesPro() {
                                                                     ))}
                                                                 </select>
                                                             </div>
-                                                            <span>Até</span>
+                                                            <span>-</span>
                                                             <div>
                                                                 <select
                                                                     name="horarioPausaFim"

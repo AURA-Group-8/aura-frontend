@@ -106,9 +106,9 @@ export default function MeusServicos() {
                     <div className="flex flex-col w-full h-full items-center ">
                         <SinoNotificacao/>
 
-                        <h1 className="text-[#982546] font-bold text-2xl ml-20">Meus serviços</h1>
+                        <h1 className="text-[#982546] font-bold text-2xl md:ml-20">Meus serviços</h1>
 
-                        <div className="flex flex-row w-210 justify-between ml-20 mt-10">
+                        <div className="flex flex-col-reverse gap-5 md:gap-0 md:flex-row w-80 md:w-210 xl:w-250 justify-between md:ml-20 mt-10">
                             <button
                                 className="p-2 bg-[#982546] rounded-2xl text-[#FFF3DC] cursor-pointer hover:bg-[#b36078] transition-colors"
                                 onClick={() => navigate("/profissional/servico/add")}
@@ -125,7 +125,7 @@ export default function MeusServicos() {
                             />
                         </div>
 
-                        <div className="flex flex-col h-90 p-2 overflow-y-auto">
+                        <div className="flex flex-col md:h-90 xl:h-screen  p-5 mt-10 overflow-y-auto">
                             {servicosFiltrados.length > 0 ? (
                                 servicosFiltrados.map((servico) => (
                                     <CardServico
@@ -150,7 +150,7 @@ export default function MeusServicos() {
             {modalAberto && (
                 <div className="fixed inset-0 flex justify-center items-center z-50 ">
                     <div className="bg-white rounded-2xl p-8 w-96 text-center shadow-lg border border-[#982546]">
-                        <h2 className="text-xl font-bold mb-4 text-[#982546]">Confirmar exclusão</h2>
+                        <h2 className=" font-bold mb-4 text-[#982546]">Confirmar exclusão</h2>
                         <p>Tem certeza que deseja excluir o serviço <strong>{servicoParaExcluir?.name}</strong>?</p>
 
                         <div className="mt-6 flex justify-around">

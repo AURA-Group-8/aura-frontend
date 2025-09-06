@@ -66,7 +66,7 @@ export default function AddServico() {
             const body = {
                 name: nome.trim(),
                 description: descricao.trim(),
-                expectedDurationMinutes: Number(duracao) * 60,
+                expectedDurationMinutes: Number(duracao),
                 price: Number(preco),
             };
 
@@ -107,10 +107,10 @@ export default function AddServico() {
             )}
 
             <NavbarPro caminho={"/profissional/meus-servicos"} />
-            <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
+            <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center xl:text-2xl">
                 <h1 className="text-[#982546] font-bold text-2xl">Adicionar serviço</h1>
 
-                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5">
+                <form className="border-1 border-[#982546] bg-[#FFF3DC]  w-90 md:w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5">
                     <div className="flex flex-col w-120 ">
                         <p className=" mt-2">Nome</p>
                         <input
@@ -127,7 +127,7 @@ export default function AddServico() {
                             onChange={e => setDescricao(e.target.value)}
                         />
 
-                        <div className="flex flex-row w-full justify-between">
+                        <div className="flex flex-col md:flex-row xl:flex-col w-full justify-between">
                             <div className="flex flex-col">
                                 <p className="mt-4">Duração (Horas)</p>
                                 <select
@@ -157,7 +157,7 @@ export default function AddServico() {
                             </div>
                         </div>
 
-                        <div className="flex flex-row w-full justify-between mt-10">
+                        <div className="flex flex-col-reverse gap-2 md:gap-0 md:flex-row w-full justify-between mt-10">
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] hover:bg-[#f9ebdb] transition-colors cursor-pointer"

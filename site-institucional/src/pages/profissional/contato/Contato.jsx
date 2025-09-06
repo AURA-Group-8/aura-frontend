@@ -61,18 +61,18 @@ export default function ContatoPro() {
                     <div className="flex flex-col w-full h-full  items-center ">
                         <SinoNotificacao />
 
-                        <div className="h-screen  text-[#982546] bg-[#FFF3DC] flex flex-col items-center ml-20">
+                        <div className="h-screen text-[#982546] bg-[#FFF3DC] flex flex-col items-center md:ml-20">
 
                             <h1 className="font-bold text-2xl">Contato</h1>
 
-                            <div className="flex flex-col items-center ">
+                            <div className="flex flex-col text-center w-80 md:w-full h-40 items-center xl:text-lg">
                                 <p className="mt-20">Tem alguma dúvida ou sugestão para a equipe da Aura? </p>
 
                                 <p className="mt-5 font-bold"> Envie aqui e receberá as respostas por e-mail em breve</p>
                             </div>
 
 
-                            <div className=" mt-5 border border-[#982546] h-60 w-150 p-5 flex  flex-col justify-center rounded-2xl">
+                            <div className=" mt-15 md:mt-5 border border-[#982546] h-60 xl:h-80 w-90 md:w-150 xl:w-180 p-5 flex flex-col justify-center rounded-2xl">
 
                                 <span>Mensagem:</span>
 

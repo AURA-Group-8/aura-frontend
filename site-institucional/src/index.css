@@ -10,7 +10,7 @@
   /* Track of the scrollbar */
   ::-webkit-scrollbar-track {
   background: #ffdec0;
-  
+    border-radius: 8px;
   }
   
   /* Handle of the scrollbar */

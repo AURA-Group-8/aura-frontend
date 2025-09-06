@@ -102,8 +102,8 @@ export default function CadastroCliente() {
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center ">
                 <h1 className="text-[#982546] font-bold text-2xl">Cadastrar cliente</h1>
 
-                <form className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-80 rounded-2xl flex flex-row justify-center items-center mt-5 ">
-                    <div className="flex flex-col w-120 ">
+                <form className="border-1 border-[#982546] bg-[#FFF3DC] md:w-150 p-5 md:h-80 rounded-2xl flex flex-row justify-center items-center mt-5 ">
+                    <div className="flex flex-col w-full ">
                         <p className=" mt-2">Nome</p>
                         <input
                             type="text"
@@ -132,7 +132,7 @@ export default function CadastroCliente() {
                             value={email}
                         />
 
-                        <div className="flex flex-row w-full justify-between mt-5">
+                        <div className="flex flex-col gap-4 md:gap-0 md:flex-row w-full justify-between mt-10 md:mt-5">
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer hover:bg-[#eaead5] transition-colors"
