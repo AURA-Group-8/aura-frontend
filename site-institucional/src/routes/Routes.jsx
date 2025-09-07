@@ -1,240 +1,88 @@
-import React from "react";
-
 import { createBrowserRouter } from "react-router-dom";
-import Cadastro from "../pages/client-pages/Cadastro";
-import Login from "../pages/client-pages/Login";
-import App from "../App";
-import ChangePassword from "../pages/client-pages/ChangePassword";
-import ConfigCli from "../pages/client-pages/Config";
-import Contato from "../pages/client-pages/Contact";
-import HomeClient from "../pages/client-pages/Home";
-import HomePage from "../pages/landing-page-sections/HomePage";
-import Dashboard from "../pages/professional-pages/Dashboard";
-import Agendar from "../pages/professional-pages/Agendar";
-import DataHora from "../pages/professional-pages/DataHora";
-import Confirmar from "../pages/professional-pages/Confirmar";
-import CadastroCli from "../pages/professional-pages/CadastroCli";
-import Alerta from "../pages/Pop-up";
-import Notificacao from "../pages/client-pages/Notificacao";
-import MeusServicos from "../pages/professional-pages/MeusServicos";
-import Financeiro from "../pages/professional-pages/Financeiro";
-import AddServico from "../pages/professional-pages/AddServico";
-import HistoricoFinanceiro from "../pages/professional-pages/HistoricoFinanceiro";
-import MeusClientes from "../pages/professional-pages/MeusClientes";
-import Mensagem from "../pages/professional-pages/Mensagem";
-import LoginPro from "../pages/professional-pages/Login";
-import ContatoPro from "../pages/professional-pages/Contato";
 
-import Configuracoes from "../pages/professional-pages/ConfigPro";
-import AgendarCli from "../pages/client-pages/AgendarCli";
-import DataHoraCli from "../pages/client-pages/DataHoraCli";
-import MeusAgendamentosCli from "../pages/client-pages/MeusAgendamentos";
-import EditarServico from "../pages/professional-pages/EditarServico";
+import HomePage from "../pages/landing-page/PaginaInicial";
 
-import Historico from "../pages/client-pages/Historico";
-import AlterarSenha from "../pages/professional-pages/AlterarSenha";
+// Cliente
 
-import EsqueceuSenha from "../pages/client-pages/ForgotPassword";
-import ValidarToken from "../pages/client-pages/ValidarToken";
-import ProNotification from "../pages/professional-pages/Notification";
+import Cadastro from "../pages/cliente/autenticacao/Cadastro";
+import Login from "../pages/cliente/autenticacao/Login";
+import AlterarSenhaCli from "../pages/cliente/autenticacao/AlterarSenha";
+import EsqueceuSenha from "../pages/cliente/autenticacao/EsqueciSenha";
+import ValidarToken from "../pages/cliente/autenticacao/ValidarToken";
+import Contato from "../pages/cliente/contato/Contato";
+import Home from "../pages/cliente/Home";
+import ConfigCli from "../pages/cliente/configuracoes/Configuracoes";
+import Notificacao from "../pages/cliente/notificacoes/Notificacoes";
+import AgendarCli from "../pages/cliente/agendamentos/AgendarCliente";
+import DataHoraAgendamento from "../pages/cliente/agendamentos/DataHoraAgendamento";
+import ConfirmarCli from "../pages/cliente/agendamentos/ConfirmarCliente";
+import Historico from "../pages/cliente/historico/Historico";
+import MeusAgendamentosCli from "../pages/cliente/agendamentos/MeusAgendamentos";
 
+// Profissional
 
+import Dashboard from "../pages/profissional/dashboard/Dashboard";
+import Confirmar from "../pages/profissional/clientes/agendamento/Confirmar";
+import CadastroCliente from "../pages/profissional/clientes/CadastroCliente";
+import MeusClientes from "../pages/profissional/clientes/MeusClientes";
+import AddServico from "../pages/profissional/servicos/AdicionarServico";
+import Alerta from "../pages/Popup";
+import EditarServico from "../pages/profissional/servicos/EditarServico";
+import Financeiro from "../pages/profissional/financeiro/Financeiro";
+import HistoricoFinanceiro from "../pages/profissional/financeiro/HistoricoFinanceiro";
+import MenuLateral from "../pages/profissional/componentes/MenuLateral";
+import ContatoPro from "../pages/profissional/contato/Contato"; 
+import Configuracoes from "../pages/profissional/configuracoes/ConfiguracoesProfissional";
+import AlterarSenha from "../pages/profissional/autenticacao/AlterarSenha";
+import ProNotification from "../pages/profissional/notificacoes/Notificacoes";
+import LoginPro from "../pages/profissional/autenticacao/Login";
+import NavbarPro from "../pages/profissional/componentes/Navbar";
+import CalendarioCarrossel from "../pages/profissional/clientes/agendamento/DataHora";
+import Agendar from "../pages/profissional/clientes/agendamento/AgendarCliente";
+import MeusServicos from "../pages/profissional/servicos/MeusServicos";
+import Mensagem from "../pages/profissional/mensagens/Mensagem";
 
 
 export const routes = createBrowserRouter([
-    {
-        path: "/",
-        element: <HomePage/>,
-        errorElement: <h1>Page not found</h1>, 
+  {
+    path: "/",
+    element: <HomePage />,
+    errorElement: <h1>Page not found</h1>,
+  },
+  { path: "/cliente/cadastro", element: <Cadastro /> },
+  { path: "/cliente/login", element: <Login /> },
+  { path: "/cliente/alterar-senha", element: <AlterarSenhaCli /> },
+  { path: "/cliente/esqueci-senha", element: <EsqueceuSenha /> },
+  { path: "/cliente/validar-token", element: <ValidarToken /> },
+  { path: "/cliente/contato", element: <Contato /> },
+  { path: "/cliente/home", element: <Home /> },
+  { path: "/cliente/configuracoes", element: <ConfigCli /> },
+  { path: "/cliente/notificacoes", element: <Notificacao /> },
+  { path: "/cliente/agendar", element: <AgendarCli /> },
+  { path: "/cliente/data-hora", element: <DataHoraAgendamento /> },
+  { path: "/cliente/confirmar", element: <ConfirmarCli /> },
+  { path: "/cliente/historico", element: <Historico /> },
+  { path: "/cliente/meus-agendamentos", element: <MeusAgendamentosCli/> },
 
-    },
+  // Profissional
+  { path: "/profissional/dashboard", element: <Dashboard/> },
+  { path: "/profissional/confirmar", element: <Confirmar/> },
+  { path: "/profissional/cadastro-cliente", element: <CadastroCliente/> },
+  { path: "/profissional/meus-clientes", element: <MeusClientes/> },
+  { path: "/profissional/meus-servicos", element: <MeusServicos /> },
+  { path: "/profissional/servico/add", element: <AddServico/> },
+  { path: "/profissional/servico/editar", element: <EditarServico/> },
+  { path: "/profissional/financeiro", element: <Financeiro/> },
+  { path: "/profissional/financeiro/historico", element: <HistoricoFinanceiro/> },
+  { path: "/profissional/mensagens", element: <Mensagem/> },
+  { path: "/profissional/contato", element: <ContatoPro/> },
+  { path: "/profissional/configuracoes", element: <Configuracoes/> },
+  { path: "/profissional/alterar-senha", element: <AlterarSenha/> },
+  { path: "/profissional/notificacoes", element: <ProNotification/> },
+  { path: "/profissional/login", element: <LoginPro/> },
+  { path: "/profissional/navbar", element: <NavbarPro/> },
+  { path: "/profissional/data-hora", element: <CalendarioCarrossel/> },
+  { path: "/profissional/agendar", element: <Agendar/> },
 
-    {
-        path: "/pages/client-pages/Cadastro",
-        element: <Cadastro/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Login",
-        element: <Login/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/ChangePassword",
-        element: <ChangePassword/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Contact",
-        element: <Contato/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Home",
-        element: <HomeClient/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Config",
-        element: <ConfigCli/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Dashboard",
-        element: <Dashboard/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Agendar",
-        element: <Agendar/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/DataHora",
-        element: <DataHora/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Confirmar",
-        element: <Confirmar/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/CadastroCli",
-        element: <CadastroCli/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/Pop-up",
-        element: <Alerta/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Notificacao",
-        element: <Notificacao/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/MeusServicos",
-        element: <MeusServicos/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Financeiro",
-        element: <Financeiro/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/AddServico",
-        element: <AddServico/>,
-        errorElement: <h1>Page not found</h1>
-    },
-    {
-        path: "/pages/professional-pages/HistoricoFinanceiro",
-        element: <HistoricoFinanceiro/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/MeusClientes",
-        element: <MeusClientes/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Mensagem",
-        element: <Mensagem/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Login",
-        element: <LoginPro/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Contato",
-        element: <ContatoPro/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Configuracoes",
-        element: <Configuracoes/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/AgendarCli",    
-        element: <AgendarCli/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/DataHoraCli",
-        element: <DataHoraCli/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/MeusAgendamentosCli",
-        element: <MeusAgendamentosCli/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/EditarServico",
-        element: <EditarServico/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/Historico",
-        element: <Historico/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/AlterarSenha",
-        element: <AlterarSenha/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/professional-pages/Notification",
-        element: <ProNotification/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/ForgotPassword",
-        element: <EsqueceuSenha/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-    {
-        path: "/pages/client-pages/ValidarToken",
-        element: <ValidarToken/>,
-        errorElement: <h1>Page not found</h1>
-    },
-
-
-
-    
-])
+  { path: "/popup", element: <Alerta /> },
+]);

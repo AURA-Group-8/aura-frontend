@@ -1,4 +1,4 @@
-import HomePage from "./pages/landing-page-sections/HomePage"
+import HomePage from "./pages/landing-page/PaginaInicial"
 import { RouterProvider, BrowserRouter } from "react-router-dom"
 import { routes } from "./routes/Routes"
 import Vlibras from "@djpfs/react-vlibras"
@@ -11,7 +11,7 @@ function App() {
         <RouterProvider router={routes} />
 
         
-        <Vlibras/>
+        {/* <Vlibras/> */}
     </>
   )
 }
