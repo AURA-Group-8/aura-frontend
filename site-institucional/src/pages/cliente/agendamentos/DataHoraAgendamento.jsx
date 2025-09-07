@@ -296,8 +296,8 @@ useEffect(() => {
               format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)) : ""}
         </h1>
 
-        <div className="flex items-center gap-6 border-b-1 border-[#982546] pb-4">
-          <button onClick={handleDiasAnteriores} className="text-[#982546] text-2xl cursor-pointer">
+        <div className="flex items-center gap-2 border-b-1 border-[#982546] pb-4">
+          <button onClick={handleDiasAnteriores} className="text-[#982546] text-xl cursor-pointer">
             ❮
           </button>
 
@@ -310,7 +310,7 @@ useEffect(() => {
               <button
                 key={dia.toString()}
                 onClick={() => handleSelecionarData(dia)}
-                className={`w-20 h-30 flex flex-col items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
+                className={`w-10 h-20 md:w-20 md:h-30 flex flex-col items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
                   ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
               >
                 <span className="text-sm">
@@ -318,20 +318,20 @@ useEffect(() => {
                     .substring(0, 3)
                     .toUpperCase()}
                 </span>
-                <span className="text-xl">{format(dia, "d")}</span>
+                <span className="text-lg">{format(dia, "d")}</span>
               </button>
             );
           })}
 
           <button
             onClick={handleProximoDias}
-            className="text-[#982546] text-2xl cursor-pointer"
+            className="text-[#982546] text-xl cursor-pointer"
           >
             ❯
           </button>
         </div>
 
-        <div className="flex items-center gap-4 mt-10">
+        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 mt-10">
           <button
             onClick={handleHorariosAnteriores}
             className="text-[#982546] text-2xl cursor-pointer"
@@ -356,13 +356,13 @@ useEffect(() => {
 
           <button
             onClick={handleProximoHorarios}
-            className="text-[#982546] text-2xl cursor-pointer"
+            className="text-[#982546] text-xl cursor-pointer"
           >
             ❯
           </button>
         </div>
 
-        <div className="flex flex-col items-start mt-8 w-170 bg-[#E5D8C0] rounded-2xl">
+        <div className="flex flex-col items-start mt-12 md:mt-8 w-90 md:w-170 bg-[#E5D8C0] rounded-2xl">
           <p className="text-[#362323] p-4 font-bold ">
             {dataSelecionada ? ` ${format(dataSelecionada, "dd/MM/yyyy")}` : ""}
             {" - "}
@@ -374,7 +374,7 @@ useEffect(() => {
           </span>
         </div>
         <button
-          className="bg-[#4B1F1F] w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer"
+          className="bg-[#4B1F1F] w-90 md:w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer"
           onClick={confirmar}
         >
           Continuar

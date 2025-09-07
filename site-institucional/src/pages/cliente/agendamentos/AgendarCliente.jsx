@@ -95,10 +95,10 @@ export default function AgendarCli() {
                 <h1 className="text-[#982546] font-bold text-2xl">Agendar</h1>
                 <form
                     onSubmit={agendar}
-                    className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-100 rounded-2xl flex flex-row items-center justify-center mt-5"
+                    className="border-1 border-[#982546] bg-[#FFF3DC] w-90 p-4 xl:p-6 xl:text-xl md:w-150 xl:w-180 rounded-2xl flex flex-row items-center justify-center mt-5"
                 >
-                    <div className="flex flex-col w-120">
-                        <p className="text-xl mt-2">Serviços</p>
+                    <div className="flex flex-col w-full">
+                        <p className="text-lg mt-2 font-bold text-[#982546]">Serviços</p>
                         <select
                             onChange={(e) => adicionarServico(parseInt(e.target.value))}
                             name="servico"
@@ -133,7 +133,7 @@ export default function AgendarCli() {
                             )}
                         </div>
 
-                        <div className="flex flex-row w-full justify-between mt-4">
+                        <div className="flex flex-col-reverse gap-2 md:gap-0 md:flex-row w-full justify-between mt-4">
                             <button
                                 type="button"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] cursor-pointer"
@@ -144,7 +144,7 @@ export default function AgendarCli() {
 
                             <button
                                 type="submit"
-                                className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center cursor-pointer hover:bg-[#b36078]"
+                                className="bg-[#982546] py-2 px-4 rounded-2xl text-[#FFF3DC] flex flex-row gap-2 items-center justify-center cursor-pointer hover:bg-[#b36078]"
                             >
                                 Selecionar data e hora
                                 <img src="/assets/Calendar.png" className="h-8" />

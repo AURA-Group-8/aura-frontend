@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
 import NavbarCli from "../componentes/Navbar";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 
 export default function Historico() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -70,11 +70,11 @@ export default function Historico() {
 
                         <div className=" flex flex-col justify-center items-center w-200">
 
-                            <h1 className="text-[#982546] mt-3 font-bold text-2xl">Histórico de Agendamentos</h1>
+                            <h1 className="text-[#982546] mt-10 md:mt-3 font-bold text-2xl">Histórico de Agendamentos</h1>
 
                         </div>
 
-                        <div className="grid grid-cols-1 w-6xl h-100 overflow-y-auto">
+                        <div className="grid grid-cols-1 justify-center items-center w-full text-center h-100 overflow-y-auto">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento

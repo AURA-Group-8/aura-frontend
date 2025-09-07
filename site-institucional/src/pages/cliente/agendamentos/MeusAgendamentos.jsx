@@ -57,18 +57,18 @@ export default function MeusAgendamentosCli() {
             <div className="w-full h-screen bg-[#FFF3DC] ">
                 <div className="h-full flex flex-row">
 
-                    <div className="flex flex-col w-full h-full  items-center ">
+                    <div className="flex flex-col w-full h-full items-center ">
                         <div className="w-full flex flex-row justify-end">
                             <img className="h-8 m-2" src="/assets/Doorbell.png " alt="" />
                         </div>
 
                         <div className=" flex flex-col justify-center items-center w-200">
 
-                            <h1 className="text-[#982546] mt-3 font-bold text-2xl">Meus Agendamentos</h1>
+                            <h1 className="text-[#982546] mt-2 mb-10 font-bold text-2xl">Meus Agendamentos</h1>
 
                         </div>
 
-                        <div className="grid grid-cols-1  w-6xl h-100 overflow-y-auto items-start p-4">
+                        <div className="grid grid-cols-1 h-120 gap-18 xl:h-150 overflow-y-auto p-4">
                             {agendamentos.length > 0 ? (
                                 agendamentos.map((agendamento, index) => (
                                     <CardAgendamento

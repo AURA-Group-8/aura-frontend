@@ -57,9 +57,9 @@ export default function ValidarToken() {
                     <div className="h-full flex justify-center items-center">
                         <div className="flex flex-col h-screen items-center">
                             <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>
-                            <p className="w-84 flex justify-center font-semibold text-[#982546] mb-4 text-center text-xl">Confirme o código que recebeu por E-mail para seguir com a alteração</p>
+                            <p className="w-84 flex justify-center  text-[#982546] mb-4 text-center text-xl">Confirme o código que recebeu por E-mail para seguir com a alteração</p>
         
-                            <form action="#" method="get" className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
+                            <form action="#" method="get" className="w-90 md:w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
                                 <label>Confirmar Código:</label>
                                 <input onChange={(e) => setTokenCliente(e.target.value)} type="text" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
                                 <div className="flex flex-row justify-between gap-4 pt-5">

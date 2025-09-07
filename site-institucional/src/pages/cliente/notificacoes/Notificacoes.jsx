@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alerta from "../../PopUp";
+import Alerta from "../../Popup";
 import NavbarCli from "../componentes/Navbar";
 import axios from "axios";
 
@@ -91,10 +91,10 @@ const Notificacao = () => {
       <div className="min-h-screen bg-[#fef3e2] p-6 flex justify-start  items-center flex-col ">
         <h1 className="text-center text-2xl font-bold text-[#7c1d34] mb-6 mt-20">Notificações</h1>
 
-        <div className="space-y-4 max-h-[65vh] w-200 overflow-y-auto pr-2 ">
+        <div className="space-y-4 max-h-[65vh] w-90 md:w-200 overflow-y-auto pr-2 ">
 
           {modalAvaliacao && (
-            <div className="fixed inset-0 flex items-center justify-center z-20 ">
+            <div className="fixed inset-0 flex items-center justify-center z-20">
               <div className="bg-white p-6 rounded-2xl shadow-xl  max-w-[90%] border border-[#982546] flex flex-col items-center justify-center">
                 <p className="text-[#982546] font-bold text-xl cursor-pointer self-end" onClick={() => { setModalAvaliacao(false); setAvaliacao(null); }}>X</p>
 
@@ -140,7 +140,7 @@ const Notificacao = () => {
 
           {notificacoes.length > 0 ? (
             notificacoes.map((notificacao, index) => (
-              <div key={index} className="bg-[#9e837c] w-full text-white rounded-lg p-6">
+              <div key={index} className="bg-[#9e837c] w-90 md:w-full text-white rounded-lg p-6">
                 <p className="mb-2">{notificacao.message}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-sm">

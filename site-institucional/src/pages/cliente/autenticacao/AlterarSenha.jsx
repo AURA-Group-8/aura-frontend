@@ -87,7 +87,7 @@ export default function AlterarSenha() {
 
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Alterar senha</h1>
 
-                        <form action="#" method="get" className="w-120 flex flex-col text-[#362323]  border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
+                        <form action="#" method="get" className="w-90 md:w-120 xl:w-150 flex flex-col text-[#362323]  border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
 
                             <label>Nova Senha:</label>
                             <input type="password"

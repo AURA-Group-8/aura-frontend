@@ -43,7 +43,7 @@ export default function ConfirmarCli() {
             }
         })
             .then(() => {
-                setMensagem("Agendamento confirmado com sucesso!");
+                setMensagem("Agendamento confirmado!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
                     setMensagem("");
@@ -74,13 +74,13 @@ export default function ConfirmarCli() {
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>
-                <div className="border-1 border-[#982546] bg-[#FFF3DC] w-150 h-60 rounded-2xl flex flex-col mt-5">
+                <div className="border-1 border-[#982546] bg-[#FFF3DC] md:w-150 xl:text-2xl h-auto pb-2 rounded-2xl m-5 flex flex-col ">
                     <div className="bg-[#982546] w-full h-10 rounded-t-2xl flex p-2 items-center">
                     </div>
                     <div className="flex flex-row justify-between p-5">
                         <div className="h-20">
                             <p className="font-bold text-[#982546]">Serviços</p>
-                            <ul>
+                            <ul className='border border-[#982546] max-h-20 xl:max-h-30 overflow-y-auto p-1 rounded-2xl md:w-60'>
                                 {Array.isArray(servicos) && servicos.length > 0 ? (
                                     servicos.map((servico, key) => (
                                         <li key={key}>{servico.name}</li>
@@ -91,14 +91,14 @@ export default function ConfirmarCli() {
                             </ul>
                         </div>
 
-                        <div className="flex flex-col items-end gap-5">
-                            <div className="flex flex-row gap-10">
+                        <div className="flex flex-col items-end gap-5 w-full">
+                            <div className="flex flex-col gap-2">
                                 <span className="font-bold text-[#982546]">Data: <span className="text-black font-normal">{data}</span></span>
                                 <span className="font-bold text-[#982546]">Hora: <span className="text-black font-normal">{hora}</span></span>
                             </div>
 
                             <div>
-                                <h1 className="font-bold text-[#982546] text-2xl">
+                                <h1 className="font-bold text-[#982546] md:text-2xl text-lg">
                                     Total: R$ {
                                         Array.isArray(servicos)
                                             ? servicos.reduce((acc, item) => acc + (Number(item.price) || 0), 0).toFixed(2)

@@ -334,7 +334,7 @@ export default function CalendarioCarrossel() {
         <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 mt-10">
           <button
             onClick={handleHorariosAnteriores}
-            className="text-[#982546] text-2xl cursor-pointer"
+            className="text-[#982546] text-xl cursor-pointer"
           >
             ❮
           </button>
@@ -356,7 +356,7 @@ export default function CalendarioCarrossel() {
 
           <button
             onClick={handleProximoHorarios}
-            className="text-[#982546] text-2xl cursor-pointer"
+            className="text-[#982546] text-xl cursor-pointer"
           >
             ❯
           </button>

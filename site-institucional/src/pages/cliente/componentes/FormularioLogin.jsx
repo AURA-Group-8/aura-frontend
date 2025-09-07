@@ -91,17 +91,17 @@ export default function FormularioLogin() {
                             />
                             <button
                                 type="button"
-                                onClick={() => setMostrarSenha(!mostrarSenha)} // Alterna o estado
+                                onClick={() => setMostrarSenha(!mostrarSenha)} 
                                 className="absolute right-3 top-2/5 transform -translate-y-1/2 text-black"
                             >
-                                {mostrarSenha ? "👁️‍🗨️" : "👁️‍🗨️"} {/* Ícone alternado */}
+                                {mostrarSenha ? "👁️‍🗨️" : "👁️‍🗨️"}
                             </button>
                         </div>
 
                         <a
                             href=""
                             onClick={() => navigate("/cliente/esqueci-senha")}
-                            className="text-white text-xl"
+                            className="text-white text-lg"
                         >
                             Esqueceu a senha?
                         </a>
@@ -111,7 +111,7 @@ export default function FormularioLogin() {
                         </button>
                     </form>
 
-                    <p className="mt-4 text-xl">
+                    <p className="mt-4 text-lg">
                         Não possui conta?{" "}
                         <a href="./Cadastro" className="underline">
                             Cadastre-se

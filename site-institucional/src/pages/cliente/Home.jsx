@@ -13,9 +13,9 @@ export default function Home() {
                 <NavbarCli caminho={"/cliente/login"} />
 
 
-                <div className="bg-[url('/assets/bg-cli.png')] bg-contain bg-center h-90 w-full text-[#FFF3DC] flex flex-row justify-around items-center pt-10">
+                <div className="bg-[url('/assets/bg-cli.png')] bg-center bg-no-repeat bg-cover h-90 w-full text-[#FFF3DC] flex flex-col md:flex-row justify-around items-center pt-10">
 
-                    <h1 className="font-bold text-2xl w-60 text-center">
+                    <h1 className="font-bold text-xl md:text-2xl w-80 md:w-60 text-center mt-10 md:mt-0">
                         Seu agendamento
                         com praticidade
                         e agilidade!
@@ -32,21 +32,21 @@ export default function Home() {
 
                     <button onClick={() => navigate("/cliente/agendar")} className="cursor-pointer bg-[#341C1C] text-[#FFF3DC] w-70 h-15 rounded-2xl self-center text-xl font-bold mb-10 hover:bg-[#452f2e] transition-colors">Agendar atendimento</button>
 
-                    <h1 className="text-[#341C1C] font-bold text-2xl self-center">Alguns dos serviços disponíveis</h1>
+                    <h1 className="text-[#341C1C] font-bold text-2xl text-center self-center">Alguns dos serviços disponíveis</h1>
 
-                    <div className="flex flex-row justify-evenly p-12 text-xl">
+                    <div className="flex flex-col gap-5 md:gap-0 md:flex-row justify-center items-center md:justify-evenly p-12 text-xl">
 
-                        <div className="flex flex-col">
-                            <div className="bg-[#982546] p-5 text-[#FFF3DC] font-bold rounded-tl-2xl rounded-tr-2xl">Nanopigmentação</div>
+                        <div className="flex flex-col w-60">
+                            <div className="bg-[#982546] p-5 text-[#FFF3DC] font-bold rounded-tl-2xl rounded-tr-2xl ">Nanopigmentação</div>
                             <img src="/assets/Lash-extension.jpg" alt="" className="max-h-60 rounded-bl-2xl rounded-br-2xl" />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col w-60">
                             <div className="bg-[#982546] p-5 text-[#FFF3DC] font-bold rounded-tl-2xl rounded-tr-2xl">Lashlifting</div>
                             <img src="/assets/Brow-lamination.jpg" alt="" className="max-h-60 rounded-bl-2xl rounded-br-2xl" />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col w-60">
                             <div className="bg-[#982546] p-5 text-[#FFF3DC] font-bold rounded-tl-2xl rounded-tr-2xl">Hydragloss</div>
                             <img src="/assets/Gloss-lips.jpg" alt="" className="max-h-60 rounded-bl-2xl rounded-br-2xl" />
                         </div>
