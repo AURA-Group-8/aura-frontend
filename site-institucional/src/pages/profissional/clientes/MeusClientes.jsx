@@ -72,7 +72,7 @@ export default function MeusClientes() {
             />
           </div>
 
-          <div className="flex flex-col h-120 xl:h-full gap-5 p-2 overflow-y-auto mt-10">
+          <div className="flex flex-col h-180 xl:h-full gap-5 p-2 overflow-y-auto mt-10">
             {clientesFiltrados.length > 0 ? (
               clientesFiltrados.map((usuario) => (
                 <CardCliente

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../../cliente/componentes/HeaderLogin";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function LoginPro() {

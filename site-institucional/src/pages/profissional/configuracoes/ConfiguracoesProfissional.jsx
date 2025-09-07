@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function ConfiguracoesPro() {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
 import NavbarCli from "../componentes/Navbar";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function MeusAgendamentosCli() {
     const apiUrl = import.meta.env.VITE_API_URL;

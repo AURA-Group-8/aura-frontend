@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import NavbarCli from "../componentes/Navbar";
 import axios from "axios";
 

@@ -8,12 +8,12 @@ export default function Home() {
 
     return (
         <>
-            <div className="w-full h-full">
+            <div className="w-full h-full bg-[#FFF3DC]">
 
                 <NavbarCli caminho={"/cliente/login"} />
 
 
-                <div className="bg-[url('/assets/bg-cli.png')] bg-center bg-no-repeat bg-cover h-90 w-full text-[#FFF3DC] flex flex-col md:flex-row justify-around items-center pt-10">
+                <div className="bg-[url('/assets/bg-cli.png')] bg-center bg-no-repeat bg-cover h-90 w-full text-[#FFF3DC] flex flex-col md:flex-row justify-around items-center  pt-10">
 
                     <h1 className="font-bold text-xl md:text-2xl w-80 md:w-60 text-center mt-10 md:mt-0">
                         Seu agendamento
@@ -28,9 +28,9 @@ export default function Home() {
 
                 </div>
 
-                <div className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover p-10 w-full flex flex-col justify-center">
+                <div className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover md:mt-0 p-10 w-full min-h-screen flex flex-col justify-center">
 
-                    <button onClick={() => navigate("/cliente/agendar")} className="cursor-pointer bg-[#341C1C] text-[#FFF3DC] w-70 h-15 rounded-2xl self-center text-xl font-bold mb-10 hover:bg-[#452f2e] transition-colors">Agendar atendimento</button>
+                    <button onClick={() => navigate("/cliente/agendar")} className="cursor-pointer bg-[#341C1C] text-[#FFF3DC] p-4  md:mt-0 rounded-2xl self-center text-xl font-bold mb-10 hover:bg-[#452f2e] transition-colors">Agendar atendimento</button>
 
                     <h1 className="text-[#341C1C] font-bold text-2xl text-center self-center">Alguns dos serviços disponíveis</h1>
 

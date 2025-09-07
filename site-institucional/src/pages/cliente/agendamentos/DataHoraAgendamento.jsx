@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import {
   format,
   parse,

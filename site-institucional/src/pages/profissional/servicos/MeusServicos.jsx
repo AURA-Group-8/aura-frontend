@@ -4,7 +4,7 @@ import axios from "axios";
 import MenuLateral from "../componentes/MenuLateral";
 import CardServico from "../componentes/CardServico";
 import SinoNotificacao from "../componentes/SinoNotificacao";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function MeusServicos() {
     const navigate = useNavigate();

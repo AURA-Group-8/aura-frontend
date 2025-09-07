@@ -9,7 +9,7 @@ function Navbar() {
 
   const opcaoLogin = () => {
 
-      navigate("/profissional/login");
+      navigate("/cliente/login");
   }
 
   return (

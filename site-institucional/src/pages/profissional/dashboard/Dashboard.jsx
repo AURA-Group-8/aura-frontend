@@ -145,19 +145,54 @@ export default function Dashboard() {
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
                         <div className="w-full flex flex-row justify-between xl:w-300 items-center mt-5">
-
                             <div className="flex flex-row-reverse md:w-110 xl:items-start relative">
                                 <div className="w-full transition-all duration-300 ml-2 relative">
                                     {menuAberto && (
-                                        <div className="flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546] w-60 md:w-120">
+                                        <div className="flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546] w-60 md:w-100 xl:text-xl">
                                             <div className="flex flex-col">
                                                 <p className="font-bold text-[#982546]">Período</p>
-                                                <div className="grid grid-cols-1 md:gap-4 mt-2 border-b-1 border-[#982546] justify-center itens-center">
-                                                    <input type="radio" name="periodo" checked={periodoSelecionado === "todos"} onChange={() => handleSelectRadio("periodo", "todos")} /><span>Todos</span>
-                                                    <input type="radio" name="periodo" checked={periodoSelecionado === "hoje"} onChange={() => handleSelectRadio("periodo", "hoje")} /><span>Hoje</span>
-                                                    <input type="radio" name="periodo" checked={periodoSelecionado === "semana"} onChange={() => handleSelectRadio("periodo", "semana")} /><span>Essa semana</span>
-                                                    <input type="radio" name="periodo" checked={periodoSelecionado === "mes"} onChange={() => handleSelectRadio("periodo", "mes")} /><span>Esse mês</span>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 mt-2 border-b-1 border-[#982546] justify-evenly ">
+                                                    <label className="flex items-center gap-2 cursor-pointer ">
+                                                        <input
+                                                            type="radio"
+                                                            name="periodo"
+                                                            checked={periodoSelecionado === "todos"}
+                                                            onChange={() => handleSelectRadio("periodo", "todos")}
+                                                        />
+                                                        <span>Todos</span>
+                                                    </label>
+
+                                                    <label className="flex items-center gap-2 cursor-pointer">
+                                                        <input
+                                                            type="radio"
+                                                            name="periodo"
+                                                            checked={periodoSelecionado === "hoje"}
+                                                            onChange={() => handleSelectRadio("periodo", "hoje")}
+                                                        />
+                                                        <span>Hoje</span>
+                                                    </label>
+
+                                                    <label className="flex items-center gap-2 cursor-pointer">
+                                                        <input
+                                                            type="radio"
+                                                            name="periodo"
+                                                            checked={periodoSelecionado === "semana"}
+                                                            onChange={() => handleSelectRadio("periodo", "semana")}
+                                                        />
+                                                        <span>Essa semana</span>
+                                                    </label>
+
+                                                    <label className="flex items-center gap-2 cursor-pointer">
+                                                        <input
+                                                            type="radio"
+                                                            name="periodo"
+                                                            checked={periodoSelecionado === "mes"}
+                                                            onChange={() => handleSelectRadio("periodo", "mes")}
+                                                        />
+                                                        <span>Esse mês</span>
+                                                    </label>
                                                 </div>
+
                                             </div>
 
                                             <div className="flex flex-col mt-5">
@@ -245,7 +280,7 @@ export default function Dashboard() {
                                         name={agendamento.userName}
                                         service={agendamento.jobsNames.join(", ")}
                                         date={formatDateDDMMYYYY(new Date(agendamento.startDatetime))}
-                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12:false})}
+                                        time={new Date(agendamento.startDatetime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
                                         value={`R$ ${agendamento.totalPrice.toFixed(2).replace('.', ',')}`}
                                         paymentStatus={agendamento.paymentStatus}
                                     />

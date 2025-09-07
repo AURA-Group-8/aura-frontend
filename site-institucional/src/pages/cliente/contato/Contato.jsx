@@ -1,7 +1,7 @@
 
 import NavbarCli from "../componentes/Navbar";
 import { useState } from "react";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import { set } from "date-fns";
 
 export default function Contato() {

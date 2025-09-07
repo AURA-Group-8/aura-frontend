@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../componentes/HeaderLogin';
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function EsqueceuSenha() {
     const navigate = useNavigate();

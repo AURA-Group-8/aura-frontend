@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
 

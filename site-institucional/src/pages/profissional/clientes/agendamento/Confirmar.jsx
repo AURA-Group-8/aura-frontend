@@ -3,7 +3,7 @@ import NavbarPro from '../../componentes/Navbar';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from '../../../Popup';
+import Alerta from '../../../componentes/PopUp';
 import axios from "axios";
 
 export default function Confirmar() {

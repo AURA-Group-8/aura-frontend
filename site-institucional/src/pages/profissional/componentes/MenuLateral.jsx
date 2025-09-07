@@ -11,7 +11,7 @@ export default function MenuLateral() {
 
     const logout = () => {
         sessionStorage.removeItem("authToken");
-        navigate("/profissional/login");
+        navigate("/login");
     };
 
     return (

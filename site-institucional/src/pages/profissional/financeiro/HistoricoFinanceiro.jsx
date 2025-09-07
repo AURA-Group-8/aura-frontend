@@ -36,7 +36,7 @@ export default function HistoricoFinanceiro() {
       <div className="w-full h-screen bg-[#FFF3DC] flex flex-col items-center py-10">
         <h1 className="text-[#982546] font-bold text-2xl mb-10 mt-10">Histórico financeiro</h1>
 
-        <div className="w-full max-w-8xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 px-4 h-150 overflow-y-auto">
+        <div className="w-full max-w-8xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 px-4 h-200 md:h-150 overflow-y-auto">
           {meses.map((nome, index) => {
             const mesIndex = index + 1;
             const dadosDoMes = dadosFinanceiros.find((item) => item.mes === mesIndex);

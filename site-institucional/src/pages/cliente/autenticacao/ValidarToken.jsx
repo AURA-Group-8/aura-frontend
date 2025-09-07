@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import Header from "../componentes/HeaderLogin";
 
 export default function ValidarToken() {

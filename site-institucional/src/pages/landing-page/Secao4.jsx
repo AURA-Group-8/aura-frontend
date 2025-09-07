@@ -1,4 +1,4 @@
-import FormsContact from "../FormularioContato"
+import FormsContact from "../componentes/FormularioContato"
 
 function Section_4() {
     return (
