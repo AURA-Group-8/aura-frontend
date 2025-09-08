@@ -141,7 +141,7 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full h-full items-center">
                     <SinoNotificacao />
 
-                    <div className="flex flex-col justify-center items-center md:ml-20 md:w-200">
+                    <div className="flex flex-col justify-center items-center md:ml-20 xl:ml-20 md:w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
                         <div className="w-full flex flex-row justify-between xl:w-300 items-center mt-5">
