@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import {
   format,
   parse,
@@ -367,6 +367,7 @@ useEffect(() => {
             {dataSelecionada ? ` ${format(dataSelecionada, "dd/MM/yyyy")}` : ""}
             {" - "}
             {horarioSelecionado ? ` ${horarioSelecionado}` : ""}
+            
           </p>
 
           <span className="flex flex-row gap-2 p-4 border-t-1 w-full border-[#9c9a9a] text-[#5e5e5e] ">
