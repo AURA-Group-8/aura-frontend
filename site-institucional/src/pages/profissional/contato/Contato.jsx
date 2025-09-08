@@ -61,7 +61,7 @@ export default function ContatoPro() {
                     <div className="flex flex-col w-full h-full  items-center ">
                         <SinoNotificacao />
 
-                        <div className="h-screen text-[#982546] bg-[#FFF3DC] flex flex-col items-center md:ml-20">
+                        <div className="h-screen text-[#982546] bg-[#FFF3DC] flex flex-col items-center ">
 
                             <h1 className="font-bold text-2xl">Contato</h1>
 

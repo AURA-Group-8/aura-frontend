@@ -21,7 +21,7 @@ export default function CardServico({ id, name, description, averageTime, value,
     }, []);
 
     return (
-        <div className="flex flex-col md:w-210 xl:w-250 mb-5 md:ml-20 relative">
+        <div className="flex flex-col md:w-210 xl:w-250 mb-5 relative">
             <div className="flex flex-col">
                 <div className="bg-[#462e2e] rounded-t-2xl p-4 md:p-2 w-full flex flex-row justify-between items-center text-white font-bold">
                     <span className="text-xl">{name}</span>

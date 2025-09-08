@@ -119,7 +119,7 @@ export default function Financeiro() {
 
                     <h1 className="text-[#982546] font-bold text-2xl md:ml-20">Meus serviços</h1>
 
-                    <div className="flex flex-col md:flex-row md:w-210 justify-center gap-5 xl:gap-20 md:justify-around md:ml-20 mt-5">
+                    <div className="flex flex-col md:flex-row md:w-210 justify-center gap-5 xl:gap-20 md:justify-around  mt-5">
                         <div className="flex flex-col justify-center items-center md:items-start">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Balanço mensal</h1>
                             <div className="md:w-100 w-80 bg-[#982546] rounded-2xl flex flex-col justify-between p-2">
@@ -166,7 +166,7 @@ export default function Financeiro() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:w-210 gap-5 md:gap-0 xl:gap-20 justify-center md:justify-around md:ml-20 mt-5">
+                    <div className="flex flex-col md:flex-row md:w-210 gap-5 md:gap-0 xl:gap-20 justify-center md:justify-around  mt-5">
                         <div className="flex flex-col justify-center items-center md:items-start xl:text-xl">
                             <h1 className="text-[#982546] font-bold text-lg mb-2">Movimentação semanal</h1>
                             <div className="flex md:w-100 w-80 h-40 border border-[#982546] rounded-2xl justify-center items-center">

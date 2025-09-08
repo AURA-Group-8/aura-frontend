@@ -10,7 +10,7 @@ export default function CardCliente({ name, phone, birthDate }) {
   };
 
   return (
-    <div className="flex flex-col xl:w-250 md:w-210 md:ml-20 h-60 xl:text-lg">
+    <div className="flex flex-col xl:w-250 md:w-210 h-60 xl:text-lg">
       <div className="bg-[#982546] rounded-t-2xl p-2 w-full flex flex-row justify-between items-center text-white text-lg font-bold">
         <span>{name}</span>
       </div>

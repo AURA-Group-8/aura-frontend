@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function CardAgendamento(props) {

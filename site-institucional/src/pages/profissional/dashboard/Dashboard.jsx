@@ -141,7 +141,7 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full h-full items-center">
                     <SinoNotificacao />
 
-                    <div className="flex flex-col justify-center items-center md:ml-20 xl:ml-20 md:w-200">
+                    <div className="flex flex-col justify-center items-center md:w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
 
                         <div className="w-full flex flex-row justify-between xl:w-300 items-center mt-5">
@@ -260,7 +260,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5 md:ml-20 gap-5 h-full overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5  gap-5 h-full overflow-y-auto">
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {
