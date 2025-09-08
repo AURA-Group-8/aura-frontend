@@ -110,6 +110,7 @@ export default function AgendarCli() {
                             {listaServicos.map((item, index) => (
                                 <option key={index} value={item.id}>
                                     {item.name}
+                                    {item.price ? ` - R$ ${item.price.toFixed(2)}` : ""}
                                 </option>
                             ))}
                         </select>
@@ -118,7 +119,7 @@ export default function AgendarCli() {
                             {servicosSelecionados.length > 0 ? (
                                 servicosSelecionados.map((item) => (
                                     <div key={item.id} className="flex justify-between items-center p-2 border-b border-[#982546]">
-                                        <p className="text-[#982546] text-lg">{item.name}</p>
+                                        <p className="text-[#982546] text-lg">{item.name}  {item.price ? ` - R$ ${item.price.toFixed(2)}` : ""}</p>
                                         <button
                                             type="button"
                                             className="text-[#982546] text-lg cursor-pointer font-extrabold"
