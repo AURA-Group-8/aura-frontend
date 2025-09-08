@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -162,10 +162,10 @@ export default function FormularioCadastro() {
                                 type="text"
                                 value={nomeCompleto}
                                 onChange={e => validarNome(e.target.value)}
-                                className={`p-2 rounded-xl w-full bg-white text-black border ${erros.nome ? "border-red-500 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
+                                className={`p-2 rounded-xl w-full bg-white text-black border ${erros.nome ? "border-rose-200 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
                                 required
                             />
-                            {erros.nome && <span className="text-red-500 text-sm">{erros.nome}</span>}
+                            {erros.nome && <span className="text-rose-200text-sm">{erros.nome}</span>}
                         </label>
 
                         <label>Email:
@@ -173,10 +173,10 @@ export default function FormularioCadastro() {
                                 type="text"
                                 value={email}
                                 onChange={e => validarEmail(e.target.value)}
-                                className={`p-2 rounded-xl w-full bg-white text-black border ${erros.email ? "border-red-500 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
+                                className={`p-2 rounded-xl w-full bg-white text-black border ${erros.email ? "border-rose-200 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
                                 required
                             />
-                            {erros.email && <span className="text-red-500 text-sm">{erros.email}</span>}
+                            {erros.email && <span className="text-rose-200text-sm">{erros.email}</span>}
                         </label>
 
                         <label>Data de Nascimento (Opcional):
@@ -205,7 +205,7 @@ export default function FormularioCadastro() {
                                     type={mostrarSenha ? "text" : "password"}
                                     value={senha}
                                     onChange={e => validarSenha(e.target.value)}
-                                    className={`p-2 rounded-xl w-full bg-white text-black border ${erros.senha ? "border-red-500 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
+                                    className={`p-2 rounded-xl w-full bg-white text-black border ${erros.senha ? "border-rose-200 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
                                     required
                                 />
                                 <button
@@ -216,7 +216,7 @@ export default function FormularioCadastro() {
                                     {mostrarSenha ? "Ocultar" : "Mostrar"}
                                 </button>
                             </div>
-                            {erros.senha && <span className="text-red-500 text-sm">{erros.senha}</span>}
+                            {erros.senha && <span className="text-rose-200 text-sm">{erros.senha}</span>}
                         </label>
 
                         <label>Confirmar senha:
@@ -236,7 +236,7 @@ export default function FormularioCadastro() {
                                     {mostrarSenhaConfirmada ? "Ocultar" : "Mostrar"}
                                 </button>
                             </div>
-                            {erros.senhaConfirmada && <span className="text-red-500 text-sm">{erros.senhaConfirmada}</span>}
+                            {erros.senhaConfirmada && <span className="text-rose-200 text-sm">{erros.senhaConfirmada}</span>}
                         </label>
 
                         <button
@@ -248,7 +248,7 @@ export default function FormularioCadastro() {
                         </button>
                     </form>
 
-                    <p className="mt-4 text-xl">
+                    <p className="mt-4 text-lg">
                         Já possui conta? <Link to="/cliente/login" className="underline">Login</Link>
                     </p>
                 </div>

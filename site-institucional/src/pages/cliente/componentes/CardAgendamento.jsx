@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../PopUp";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
@@ -23,7 +23,7 @@ export default function CardAgendamento(props) {
             setBotaoAtivo(true);
             setPaymentStatus("PAGO");
         } else if (status === "CANCELADO") {
-            setCor("#807679"); 
+            setCor("#807679");
             setText("Cancelado");
             setBotaoAtivo(false);
             setPaymentStatus("CANCELADO");
@@ -42,7 +42,7 @@ export default function CardAgendamento(props) {
     const cancelar = () => setMostrarMotivo(true);
 
     const confirmarCancelamento = () => {
-        
+
         if (motivoCancelamento.trim() === "") {
             fecharModal();
             setMensagem("Por favor, informe o motivo do cancelamento.");
@@ -89,28 +89,37 @@ export default function CardAgendamento(props) {
     return (
         <>
             {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
-    
-            <div className="flex flex-row w-full relative mt-15">
-                <div className="flex flex-col justify-center w-full h-40">
+
+            <div className="flex flex-row w-full mt-12 mb-10 md:mb-0 md:mt-5">
+                <div className="flex flex-col justify-center w-150 h-40">
                     <div
                         className="h-20 rounded-t-2xl flex items-center p-2 z-10"
                         style={{
-                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, 
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor,
                             boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3)",
                         }}
                     >
                         <p className="font-bold text-white text-lg">{props.name}</p>
                     </div>
-    
+
                     <div
                         className="rounded-b-2xl"
                         style={{
-                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor, 
+                            backgroundColor: props.isHistorico ? "#b0b0b0" : cor,
                         }}
                     >
                         <div className="flex flex-col p-2 text-white text-lg">
-                            <p className="mb-2 font-bold">{props.service}</p>
-                            <div className="flex flex-row justify-between">
+                            <label className="font-bold text-[#ffa8d8]">Serviços:</label>
+                            <select
+                                className="w-full p-1 rounded-lg mb-5 text-[#982546] bg-white border border-[#ffa8d8]"
+                            >
+                                {props.service?.split(",").map((serv, index) => (
+                                    <option key={index} value={serv.trim()} className="p-2 rounded-md">
+                                        {serv.trim()}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="flex flex-col md:flex-row justify-between">
                                 <div className="flex gap-2">
                                     <p className="text-[#ffa8d8]">
                                         Data: <span className="text-white">{props.date}</span>
@@ -120,10 +129,10 @@ export default function CardAgendamento(props) {
                                         Horário: <span className="text-white">{props.time}</span>
                                     </p>
                                 </div>
-                                <p className="font-bold text-3xl text-[#ffa8d8]">{props.value}</p>
+                                <p className="font-bold text-3xl text-[#ffa8d8] mt-5 md:mt-0">{props.value}</p>
                             </div>
                         </div>
-    
+
                         <div className="flex justify-between p-2">
                             {!props.isHistorico && botaoAtivo && text !== "Feito" && paymentStatus !== "CANCELADO" && paymentStatus !== "PAGO" && (
                                 <button
@@ -136,8 +145,8 @@ export default function CardAgendamento(props) {
                         </div>
                     </div>
                 </div>
-    
-                
+
+
                 {mostrarMotivo && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 ">
                         <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">

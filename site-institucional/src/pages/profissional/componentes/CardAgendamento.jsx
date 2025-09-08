@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
@@ -132,7 +132,7 @@ export default function CardAgendamento(props) {
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
       <div className="flex flex-row w-full mt-20">
-        <div className="flex flex-col justify-center w-100 h-40 mt-10 md:mt-0 mb-20">
+        <div className="flex flex-col justify-center w-100 h-40 mt-5 md:mt-0 mb-15">
 
           <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
             style={{

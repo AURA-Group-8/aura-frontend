@@ -1,30 +1,42 @@
 
 import NavbarCli from "../componentes/Navbar";
 import { useState } from "react";
-import Alerta from "../../PopUp";
+import Alerta from "../../componentes/PopUp";
+import { set } from "date-fns";
 
 export default function Contato() {
 
-    const [mensagem, setMensagem] = useState("");
+      const [mensagem, setMensagem] = useState("");
+    const [caminho, setCaminho] = useState("");
 
-    const envio = () => {
-
-        setMensagem("Mensagem enviada!")
-
+      const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
+    };
+
+    const envio = () => {
+        if(mensagem){
+            setMensagem("Mensagem enviada!");
+            setCaminho("/assets/Check-pop.png");
+            limparAlert();
+        }else{
+            setMensagem("Por favor, escreva uma mensagem.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        }
+        
     }
 
     return (
 
         <>
-            <NavbarCli caminho={"/cliente/login"} />
+            <NavbarCli caminho={"/cliente/home"} />
 
             {mensagem && (
                 <Alerta
                     mensagem={mensagem}
-                    imagem="/assets/Check-pop.png"
+                    imagem={caminho}
                 />
             )}
 
@@ -32,13 +44,13 @@ export default function Contato() {
 
                 <h1 className="font-bold text-2xl">Contato</h1>
 
-                <div className="flex flex-col items-center ">
-                    <p className="mt-20">Tem alguma dúvida ou sugestão para a equipe da Aura? </p>
+                <div className="flex flex-col w-90 md:w-full text-center xl:text-xl">
+                    <p className="mt-5 md:mt-10">Tem alguma dúvida ou sugestão para a equipe da Aura? </p>
 
                     <p className="mt-5 font-bold"> Envie aqui e receberá as respostas por e-mail em breve</p>
                 </div>
 
-                <div className=" mt-5 border border-[#982546] h-60 w-120 p-5 flex  flex-col justify-center rounded-2xl">
+                <div className=" mt-5 border border-[#982546] h-60 w-90 md:w-120 xl:w-150 xl:text-xl p-5 flex  flex-col justify-center rounded-2xl">
 
                     <span>Mensagem:</span>
 

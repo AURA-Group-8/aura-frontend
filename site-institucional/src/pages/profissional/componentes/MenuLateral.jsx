@@ -11,12 +11,12 @@ export default function MenuLateral() {
 
     const logout = () => {
         sessionStorage.removeItem("authToken");
-        navigate("/profissional/login");
+        navigate("/login");
     };
 
     return (
         <>
-            <div className="bg-[#341C1C] h-auto md:h-full flex flex-col w-auto xl:w-60 fixed z-40 rounded-br-2xl rounded-tr-2xl">
+            <div className="bg-[#341C1C] h-auto md:h-full flex flex-col w-60 z-40 rounded-br-2xl rounded-tr-2xl">
                 <button className="md:hidden p-2 ml-auto" onClick={() => setMenuOpen(!menuOpen)} >
                     <svg
                         className="w-8 h-8 text-[#FFF3DC]"
@@ -107,9 +107,9 @@ export default function MenuLateral() {
                     </div>
                 )}
 
-                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 m-5 hidden md:flex" />
+                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 xl:mb-20 m-5 hidden md:flex" />
 
-                <div className="flex-col justify-between h-full hidden md:flex">
+                <div className="flex-col justify-between  h-full hidden md:flex">
                     <ul className="flex flex-col gap-1 text-[#FFF3DC] w-full p-2">
                         <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/dashboard" className="p-2 flex justify-between items-center w-full">
@@ -137,7 +137,7 @@ export default function MenuLateral() {
                         </li>
                     </ul>
 
-                    <ul className="text-[#DD859E] flex flex-col p-2 ">
+                    <ul className="text-[#DD859E] flex flex-col p-2">
                         <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/contato" className="flex justify-between items-center w-full">
                                 <span>Contato</span>

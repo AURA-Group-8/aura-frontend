@@ -5,7 +5,6 @@ import HomePage from "../pages/landing-page/PaginaInicial";
 // Cliente
 
 import Cadastro from "../pages/cliente/autenticacao/Cadastro";
-import Login from "../pages/cliente/autenticacao/Login";
 import AlterarSenhaCli from "../pages/cliente/autenticacao/AlterarSenha";
 import EsqueceuSenha from "../pages/cliente/autenticacao/EsqueciSenha";
 import ValidarToken from "../pages/cliente/autenticacao/ValidarToken";
@@ -26,22 +25,22 @@ import Confirmar from "../pages/profissional/clientes/agendamento/Confirmar";
 import CadastroCliente from "../pages/profissional/clientes/CadastroCliente";
 import MeusClientes from "../pages/profissional/clientes/MeusClientes";
 import AddServico from "../pages/profissional/servicos/AdicionarServico";
-import Alerta from "../pages/Popup";
 import EditarServico from "../pages/profissional/servicos/EditarServico";
 import Financeiro from "../pages/profissional/financeiro/Financeiro";
 import HistoricoFinanceiro from "../pages/profissional/financeiro/HistoricoFinanceiro";
-import MenuLateral from "../pages/profissional/componentes/MenuLateral";
 import ContatoPro from "../pages/profissional/contato/Contato"; 
 import Configuracoes from "../pages/profissional/configuracoes/ConfiguracoesProfissional";
 import AlterarSenha from "../pages/profissional/autenticacao/AlterarSenha";
 import ProNotification from "../pages/profissional/notificacoes/Notificacoes";
-import LoginPro from "../pages/profissional/autenticacao/Login";
 import NavbarPro from "../pages/profissional/componentes/Navbar";
 import CalendarioCarrossel from "../pages/profissional/clientes/agendamento/DataHora";
 import Agendar from "../pages/profissional/clientes/agendamento/AgendarCliente";
 import MeusServicos from "../pages/profissional/servicos/MeusServicos";
 import Mensagem from "../pages/profissional/mensagens/Mensagem";
 
+//outros
+import Login from "../pages/Login";
+import Alerta from "../pages/componentes/PopUp";
 
 export const routes = createBrowserRouter([
   {
@@ -50,7 +49,6 @@ export const routes = createBrowserRouter([
     errorElement: <h1>Page not found</h1>,
   },
   { path: "/cliente/cadastro", element: <Cadastro /> },
-  { path: "/cliente/login", element: <Login /> },
   { path: "/cliente/alterar-senha", element: <AlterarSenhaCli /> },
   { path: "/cliente/esqueci-senha", element: <EsqueceuSenha /> },
   { path: "/cliente/validar-token", element: <ValidarToken /> },
@@ -79,10 +77,13 @@ export const routes = createBrowserRouter([
   { path: "/profissional/configuracoes", element: <Configuracoes/> },
   { path: "/profissional/alterar-senha", element: <AlterarSenha/> },
   { path: "/profissional/notificacoes", element: <ProNotification/> },
-  { path: "/profissional/login", element: <LoginPro/> },
   { path: "/profissional/navbar", element: <NavbarPro/> },
   { path: "/profissional/data-hora", element: <CalendarioCarrossel/> },
   { path: "/profissional/agendar", element: <Agendar/> },
+
+  
+  { path: "/cliente/login", element: <Login /> },
+  { path: "/login", element: < Login/> },
 
   { path: "/popup", element: <Alerta /> },
 ]);

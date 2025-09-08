@@ -1,8 +1,8 @@
 function Section_3() {
     return (
         <>
-            <div className="h-full flex flex-col gap-10 text-xl md:text-2xl mt-50 md:mt-20 xl:mt-40 ">
-                <h1 className="text-center font-bold text-2xl xl:text-5xl mt-10 md:mt-0 text-[#241313]">
+            <div className="h-full flex flex-col gap-10 text-xl md:text-2xl mt-30 md:mt-20 xl:mt-40 ">
+                <h1 className="text-center font-bold text-2xl xl:text-5xl md:mt-0 text-[#241313]">
                     <span className="text-[#982546]">Benefícios</span> para você
                 </h1>
 

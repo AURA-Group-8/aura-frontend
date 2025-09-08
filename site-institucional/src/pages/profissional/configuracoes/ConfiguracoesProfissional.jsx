@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function ConfiguracoesPro() {
@@ -71,7 +71,7 @@ export default function ConfiguracoesPro() {
                     <div className="flex flex-col w-full">
                         <SinoNotificacao/>
 
-                        <div className="h-full text-[#982546] bg-[#FFF3DC] flex flex-col items-center md:ml-20">
+                        <div className="h-full text-[#982546] bg-[#FFF3DC] flex flex-col items-center ">
                             <h1 className="font-bold text-2xl ">Configurações</h1>
 
                             <div className="flex flex-col mt-10 xl:text-lg items-center">

@@ -1,5 +1,5 @@
-import FormularioLogin from '../componentes/FormularioLogin';
-import Header from '../componentes/HeaderLogin';
+import FormularioLogin from './componentes/FormularioLogin';
+import Header from './cliente/componentes/HeaderLogin';
 
 export default function Login() {
     return (

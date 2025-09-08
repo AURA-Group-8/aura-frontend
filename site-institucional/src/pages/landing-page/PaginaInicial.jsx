@@ -1,9 +1,9 @@
-import Navbar from '../Navbar'
+import Navbar from '../componentes/Navbar'
 import Secao1 from './Secao1'
 import Secao2 from './Secao2'
 import Secao3 from './Secao3'
 import Secao4 from './Secao4'
-import Footer from '../Footer'
+import Footer from '../componentes/Footer'
 import '../../index.css'
 
 export default function HomePage() {

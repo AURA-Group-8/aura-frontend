@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alerta from "../../Popup";
+import Alerta from "./Popup";
 
 export default function FormularioLogin() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -10,7 +10,7 @@ export default function FormularioLogin() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
     const [senha, setSenha] = useState("");
-    const [mostrarSenha, setMostrarSenha] = useState(false); // Estado para alternar visibilidade da senha
+    const [mostrarSenha, setMostrarSenha] = useState(false); 
 
     const navigate = useNavigate();
 
@@ -31,28 +31,39 @@ export default function FormularioLogin() {
         axios
             .post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
-                console.log("Usuário logado com sucesso:", response.data);
-
                 sessionStorage.setItem("authToken", response.data.token);
                 sessionStorage.setItem("userId", response.data.id);
                 sessionStorage.setItem("userName", response.data.username);
                 sessionStorage.setItem("userEmail", response.data.email);
 
-                setMensagem("✅ Login realizado com sucesso!");
-                setCaminho("/assets/Check-pop.png");
-                setTimeout(() => {
-                    navigate("/cliente/home");
-                }, 1500);
+                axios.get(`${apiUrl}/usuarios/${response.data.id}`, {
+
+                    headers: { Authorization: `Bearer ${response.data.token}` }
+
+                }).then((res) => {
+                    const role = res.data.roleId;
+
+                    setMensagem("✅ Login realizado com sucesso!");
+                    setCaminho("/assets/Check-pop.png");
+
+                    setTimeout(() => {
+                        if (role === 2) navigate("/cliente/home");
+                        else if (role === 1) navigate("/profissional/dashboard");
+                        else navigate("/");
+                    }, 1500);
+
+                }).catch(() => {
+                    setMensagem("❌ Erro ao buscar dados do usuário");
+                    setCaminho("/assets/Alert.png");
+                    limparAlert();
+                });
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
-                    console.log("entrei aqui");
-                    console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Email ou senha incorretos.");
                     setCaminho("/assets/Alert.png");
                     limparAlert();
                 } else {
-                    console.error("Erro ao logar:", error.data);
                     setMensagem("❌ Erro ao logar");
                     setCaminho("/assets/Alert.png");
                     limparAlert();
@@ -84,24 +95,24 @@ export default function FormularioLogin() {
                         <label htmlFor="senha">Senha:</label>
                         <div className="relative">
                             <input
-                                type={mostrarSenha ? "text" : "password"} // Alterna entre "text" e "password"
+                                type={mostrarSenha ? "text" : "password"}
                                 onChange={(e) => setSenha(e.target.value)}
                                 className="p-2 rounded-xl w-full bg-white text-black border border-[#341C1C] hover:border-[#FFF2DC] mb-4"
                                 required
                             />
                             <button
                                 type="button"
-                                onClick={() => setMostrarSenha(!mostrarSenha)} // Alterna o estado
+                                onClick={() => setMostrarSenha(!mostrarSenha)} 
                                 className="absolute right-3 top-2/5 transform -translate-y-1/2 text-black"
                             >
-                                {mostrarSenha ? "👁️‍🗨️" : "👁️‍🗨️"} {/* Ícone alternado */}
+                                {mostrarSenha ? "👁️‍🗨️" : "👁️‍🗨️"}
                             </button>
                         </div>
 
                         <a
                             href=""
                             onClick={() => navigate("/cliente/esqueci-senha")}
-                            className="text-white text-xl"
+                            className="text-white text-lg"
                         >
                             Esqueceu a senha?
                         </a>
@@ -111,7 +122,7 @@ export default function FormularioLogin() {
                         </button>
                     </form>
 
-                    <p className="mt-4 text-xl">
+                    <p className="mt-4 text-lg">
                         Não possui conta?{" "}
                         <a href="./Cadastro" className="underline">
                             Cadastre-se

@@ -3,7 +3,7 @@ import NavbarPro from '../../componentes/Navbar';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from '../../../Popup';
+import Alerta from '../../../componentes/PopUp';
 import axios from "axios";
 
 export default function Confirmar() {
@@ -74,7 +74,7 @@ export default function Confirmar() {
 
             <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center">
                 <h1 className="text-[#982546] font-bold text-2xl">Confirmar agendamento</h1>
-                <div className="border-1 border-[#982546] bg-[#FFF3DC] md:w-150 xl:text-2xl h-auto pb-2 rounded-2xl m-5 flex flex-col mt-5">
+                <div className="border-1 border-[#982546] bg-[#FFF3DC] md:w-150 xl:text-2xl h-auto pb-2 rounded-2xl m-5 flex flex-col ">
                     <div className="bg-[#982546] w-full h-10 rounded-t-2xl flex p-2 items-center">
                         <h1 className="text-white font-bold md:text-2xl">{cliente.username}</h1>
                     </div>

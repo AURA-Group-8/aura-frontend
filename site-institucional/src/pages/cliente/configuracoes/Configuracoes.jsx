@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavbarCli from "../componentes/Navbar";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -121,7 +121,7 @@ export default function ConfigCli() {
                 <div className="h-screen flex justify-center flex-col items-center pt-10">
                     <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Configurações</h1>
 
-                    <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-8 w-120 rounded-2xl gap-2 ">
+                    <form className="flex flex-col text-[#362323] border border-[#982546] py-5 px-8 w-90 md:w-120 rounded-2xl gap-2 ">
                         <label htmlFor="nome">Nome:</label>
                         <input
                             type="text"
@@ -191,7 +191,7 @@ export default function ConfigCli() {
                             </button>
                             <button
                                 type="button"
-                                onClick={() => setShowModal(true)} // Abrir o modal
+                                onClick={() => setShowModal(true)} 
                                 className="text-[#982546] cursor-pointer"
                             >
                                 Deletar conta
@@ -202,8 +202,8 @@ export default function ConfigCli() {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 flex justify-center items-center">
-                    <div className="bg-[#FFF3DC] p-6 rounded-lg shadow-lg border border-[#982546]">
+                <div className="fixed inset-0 flex justify-center items-center" >
+                    <div className="bg-[#FFF3DC] p-6 rounded-lg shadow-lg border w-90  border-[#982546]">
                         <h2 className="text-lg font-bold text-[#982546]">Confirmar exclusão</h2>
                         <p className="text-[#362323]">Tem certeza de que deseja deletar sua conta? Esta ação não pode ser desfeita.</p>
                         <div className="flex justify-end gap-4 mt-4">
@@ -215,7 +215,7 @@ export default function ConfigCli() {
                             </button>
                             <button
                                 className="bg-[#982546] text-white cursor-pointer rounded-lg px-4 py-2"
-                                onClick={deletar} // Confirmar exclusão
+                                onClick={deletar} 
                             >
                                 Confirmar
                             </button>

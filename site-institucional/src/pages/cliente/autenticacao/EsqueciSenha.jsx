@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../componentes/HeaderLogin';
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function EsqueceuSenha() {
     const navigate = useNavigate();
@@ -67,9 +67,9 @@ export default function EsqueceuSenha() {
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-start items-center">
                         <h1 className="self-center text-[#982546] font-bold text-2xl p-4">Esqueci a senha</h1>
-                        <p className="w-96 flex justify-center font-semibold text-[#982546] mb-4 mt-5 text-center text-xl">Confirme seu E-mail cadastrado para receber o código de redefinição de senha</p>
+                        <p className="w-96 flex justify-center text-[#982546] mb-4 mt-5 text-center text-xl">Confirme seu E-mail cadastrado para receber o código de redefinição de senha</p>
 
-                        <form action="#" method="get" className="w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10">
+                        <form action="#" method="get" className="w-90 md:w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
                             <label>Confirmar E-mail:</label>
                             <input onChange={(e) => setEmail(e.target.value)} type="text" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
                             <div className="flex flex-row justify-between gap-4 pt-5">
