@@ -14,6 +14,7 @@ export default function CardAgendamento(props) {
   const [caminho, setCaminho] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("PENDENTE");
   const [carregando, setCarregando] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const status = props.status?.toUpperCase();
@@ -145,6 +146,7 @@ export default function CardAgendamento(props) {
           <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
             <div className="flex flex-col p-2 text-white text-lg">
               <label className="font-bold text-[#ffa8d8]">Serviços:</label>
+
               <select
                 className="w-full p-1 rounded-lg mb-5 text-[#982546] bg-white border border-[#ffa8d8]"
               >

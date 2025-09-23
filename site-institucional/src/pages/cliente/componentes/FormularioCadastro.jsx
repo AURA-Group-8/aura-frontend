@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -22,14 +22,13 @@ export default function FormularioCadastro() {
         senhaConfirmada: "",
     });
 
-    const [mostrarSenha, setMostrarSenha] = useState(false); // Estado para alternar visibilidade da senha
-    const [mostrarSenhaConfirmada, setMostrarSenhaConfirmada] = useState(false); // Estado para senha confirmada
-
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [mostrarSenhaConfirmada, setMostrarSenhaConfirmada] = useState(false); 
     const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const UserUrl = `${apiUrl}/usuarios`;
 
-    const today = new Date().toISOString().split("T")[0]; // Obtém a data atual no formato YYYY-MM-DD
+    const today = new Date().toISOString().split("T")[0]; 
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -38,7 +37,7 @@ export default function FormularioCadastro() {
     };
 
     const validarNome = (nome) => {
-        const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/; // Apenas letras e acentos
+        const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/; 
         if (nome.trim().length < 2) {
             setErros((prev) => ({ ...prev, nome: "O nome deve ter pelo menos 2 caracteres." }));
         } else if (!regex.test(nome)) {
@@ -50,7 +49,7 @@ export default function FormularioCadastro() {
     };
 
     const validarEmail = (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Deve conter "@" e "."
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regex.test(email)) {
             setErros((prev) => ({ ...prev, email: "O email deve ser válido (ex: usuario@dominio.com)." }));
         } else {
@@ -165,7 +164,7 @@ export default function FormularioCadastro() {
                                 className={`p-2 rounded-xl w-full bg-white text-black border ${erros.nome ? "border-rose-200 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
                                 required
                             />
-                            {erros.nome && <span className="text-rose-200text-sm">{erros.nome}</span>}
+                            {erros.nome && <span className="text-rose-200 text-sm">{erros.nome}</span>}
                         </label>
 
                         <label>Email:
@@ -176,7 +175,7 @@ export default function FormularioCadastro() {
                                 className={`p-2 rounded-xl w-full bg-white text-black border ${erros.email ? "border-rose-200 bg-red-100" : "border-[#341C1C]"} hover:border-[#FFF2DC] mb-1`}
                                 required
                             />
-                            {erros.email && <span className="text-rose-200text-sm">{erros.email}</span>}
+                            {erros.email && <span className="text-rose-200 text-sm">{erros.email}</span>}
                         </label>
 
                         <label>Data de Nascimento (Opcional):

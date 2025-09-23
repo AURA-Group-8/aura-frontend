@@ -260,7 +260,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5  gap-5 h-full overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5 justify-center items-center gap-5 h-full overflow-y-auto">
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {
@@ -286,7 +286,7 @@ export default function Dashboard() {
                                     />
                                 ))
                         ) : (
-                            <p className="text-[#982546] font-semibold text-lg m-auto">
+                            <p className="text-[#982546] font-semibold text-center text-lg m-auto">
                                 Nenhum agendamento encontrado.
                             </p>
                         )}

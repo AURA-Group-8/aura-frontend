@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import NavbarCli from "../componentes/Navbar";
 import axios from "axios";
 
@@ -46,7 +46,7 @@ const Notificacao = () => {
         <div className="space-y-4 max-h-[65vh] w-90 md:w-200 overflow-y-auto pr-2">
           {notificacoes.length > 0 ? (
             notificacoes.map((notificacao, index) => (
-              <div key={index} className="bg-[#9e837c] w-90 md:w-full text-white rounded-lg p-6">
+              <div key={index} className="bg-white border border-[#7c1d34] border-l-8 w-full text-gray-600 rounded-lg p-6">
                 <p className="mb-2">{notificacao.message}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-sm">

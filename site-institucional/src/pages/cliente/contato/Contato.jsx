@@ -50,7 +50,7 @@ export default function Contato() {
                     <p className="mt-5 font-bold"> Envie aqui e receberá as respostas por e-mail em breve</p>
                 </div>
 
-                <div className=" mt-5 border border-[#982546] h-60 w-90 md:w-120 xl:w-150 xl:text-xl p-5 flex  flex-col justify-center rounded-2xl">
+                <div className=" mt-5 border border-[#982546] border-t-8 h-60 w-90 md:w-120 xl:w-150 xl:text-xl p-5 flex  flex-col justify-center rounded-2xl">
 
                     <span>Mensagem:</span>
 
