@@ -15,6 +15,11 @@ export default function CardAgendamento(props) {
   const [paymentStatus, setPaymentStatus] = useState("PENDENTE");
   const [carregando, setCarregando] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Dropdown customizado de serviços
+  const [isServiceOpen, setIsServiceOpen] = useState(false);
+  const serviceList = props.service?.split(",").map(s => s.trim()) || [];
+  // Nenhum serviço selecionado inicialmente, botão exibirá 'Serviços'
+  const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
     const status = props.status?.toUpperCase();
@@ -66,7 +71,7 @@ export default function CardAgendamento(props) {
         setMensagem("Status atualizado com sucesso!");
         setCaminho("/assets/Check-pop.png");
 
-        setCor("#a34862");
+        setCor("#a34868");
         setText("Feito");
         setPaymentStatus("PAGO");
         setBotaoAtivo(true);
@@ -133,7 +138,7 @@ export default function CardAgendamento(props) {
       {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
 
       <div className="flex flex-row w-full mt-20">
-        <div className="flex flex-col justify-center w-100 h-40 mt-5 md:mt-0 mb-15">
+        <div className="flex flex-col justify-center w-100 h-40 mt-5 md:mt-0 mb-24 md:mb-15">
 
           <div className="h-20 rounded-t-2xl flex items-center p-2 z-10"
             style={{
@@ -145,17 +150,30 @@ export default function CardAgendamento(props) {
 
           <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
             <div className="flex flex-col p-2 text-white text-lg">
-              <label className="font-bold text-[#ffa8d8]">Serviços:</label>
-
-              <select
-                className="w-full p-1 rounded-lg mb-5 text-[#982546] bg-white border border-[#ffa8d8]"
-              >
-                {props.service?.split(",").map((serv, index) => (
-                  <option key={index} value={serv.trim()} className="p-2 rounded-md">
-                    {serv.trim()}
-                  </option>
-                ))}
-              </select>
+              <div className="relative w-full mb-5">
+                <button
+                  type="button"
+                  className="w-full p-2 rounded-lg text-[#982546] bg-white border border-[#ffa8d8] flex justify-between items-center"
+                  onClick={() => setIsServiceOpen(!isServiceOpen)}
+                >
+                  {selectedService || 'Serviços'}
+                  <span>{isServiceOpen ? '▾' : '▸'}</span>
+                </button>
+                {isServiceOpen && (
+                  <ul className="absolute bg-white border border-[#ffa8d8] w-full mt-1 rounded-lg max-h-32 text-[#982546] overflow-auto z-20">
+                   
+                    {serviceList.map((serv, idx) => (
+                      <li
+                        key={idx}
+                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => { setSelectedService(serv); setIsServiceOpen(false); }}
+                      >
+                        {serv}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
               <div className="flex flex-row justify-between">
                 <div className="flex gap-2 flex-col">
                   <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>

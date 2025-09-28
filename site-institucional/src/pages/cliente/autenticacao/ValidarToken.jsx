@@ -15,9 +15,6 @@ export default function ValidarToken() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { token, userId, email } = location.state || {};
     
-    console.log("Token recebido:", token);
-
-
     const validar = (e) => {
         e.preventDefault();
         if (isSubmitting) return; 

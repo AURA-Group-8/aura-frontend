@@ -1,10 +1,6 @@
-import NavbarPro from "../../componentes/Navbar";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../../componentes/PopUp";
 import {
   format,
   parse,
@@ -17,20 +13,12 @@ import {
 } from "date-fns";
 
 
-export default function CalendarioCarrossel() {
+export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora }) {
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const location = useLocation();
-  const { cliente, servicos, duracaoTotal } = location.state || {};
-
-  const navigate = useNavigate();
-
-  const [mensagem, setMensagem] = useState("");
-  const [caminho, setCaminho] = useState("");
-
-  const diasVisiveis = 7;
-  const horariosVisiveis = 7;
+  const diasVisiveis = 4;
+  const horariosVisiveis = 4;
 
   const [inicioDias, setInicioDias] = useState(0);
   const [dataSelecionada, setDataSelecionada] = useState(null);
@@ -241,6 +229,9 @@ export default function CalendarioCarrossel() {
       setDataSelecionada(null);
     } else {
       setDataSelecionada(dia);
+      if (onSelecionarDataHora) {
+        onSelecionarDataHora({ data: format(dia, "dd/MM/yyyy"), horario: horarioSelecionado });
+      }
     }
   };
 
@@ -249,49 +240,18 @@ export default function CalendarioCarrossel() {
       setHorarioSelecionado(null);
     } else {
       setHorarioSelecionado(horario);
-    }
-  };
-
-  const limparAlert = () => {
-    setTimeout(() => {
-      setMensagem("");
-    }, 2000);
-  };
-
-
-  const confirmar = () => {
-    if (!dataSelecionada || !horarioSelecionado) {
-      setMensagem("Selecione uma data e horário!");
-      limparAlert();
-      setCaminho("/assets/Alert.png");
-      return;
-    }
-    navigate("/profissional/confirmar",
-      {
-        state: {
-          data: format(dataSelecionada, "dd/MM/yyyy"),
-          hora: horarioSelecionado,
-          cliente: cliente,
-          servicos: servicos,
-        },
+      if (onSelecionarDataHora) {
+        onSelecionarDataHora({ data: dataSelecionada ? format(dataSelecionada, "dd/MM/yyyy") : "", horario });
       }
-    );
+    }
   };
-
 
   return (
     <>
 
-      {mensagem && (
-        <Alerta
-          mensagem={mensagem}
-          imagem={caminho}
-        />
-      )}
-      <NavbarPro caminho={"/profissional/agendar"} />
-
-      <div className="w-full h-screen bg-[#FFF3DC] flex flex-col justify-center items-center pt-10 ">
-        <h1 className="text-[#982546] text-2xl font-bold mb-6 mt-10 ">
+      <div className="w-full h-full flex flex-col justify-center items-center pt-5 ">
+       
+        <h1 className="text-[#982546] text-xl font-bold mb-4 mt-5 xl:text-2xl ">
           {dataAtual ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).toUpperCase().slice(0, 1) +
             format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)) : ""}
         </h1>
@@ -310,7 +270,7 @@ export default function CalendarioCarrossel() {
               <button
                 key={dia.toString()}
                 onClick={() => handleSelecionarData(dia)}
-                className={`w-10 h-20 md:w-20 md:h-30 flex flex-col items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
+                className={`w-20 h-20 md:w-15 md:h-20 flex flex-col items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
                   ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
               >
                 <span className="text-sm">
@@ -318,7 +278,7 @@ export default function CalendarioCarrossel() {
                     .substring(0, 3)
                     .toUpperCase()}
                 </span>
-                <span className="text-lg">{format(dia, "d")}</span>
+                <span className="text-md">{format(dia, "d")}</span>
               </button>
             );
           })}
@@ -331,7 +291,7 @@ export default function CalendarioCarrossel() {
           </button>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 mt-10">
+        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 mt-5">
           <button
             onClick={handleHorariosAnteriores}
             className="text-[#982546] text-xl cursor-pointer"
@@ -346,7 +306,7 @@ export default function CalendarioCarrossel() {
               <button
                 key={horario}
                 onClick={() => handleSelecionarHorario(horario)}
-                className={`w-20 h-10 flex items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
+                className={`w-20 h-10 flex items-center justify-center rounded-xl border font-bold transition-all cursor-pointer text-md
                   ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
               >
                 {horario}
@@ -362,23 +322,7 @@ export default function CalendarioCarrossel() {
           </button>
         </div>
 
-        <div className="flex flex-col items-start mt-12 md:mt-8 w-90 md:w-170 bg-[#E5D8C0] rounded-2xl">
-          <p className="text-[#362323] p-4 font-bold ">
-            {dataSelecionada ? ` ${format(dataSelecionada, "dd/MM/yyyy")}` : ""}
-            {" - "}
-            {horarioSelecionado ? ` ${horarioSelecionado}` : ""}
-          </p>
 
-          <span className="flex flex-row gap-2 p-4 border-t-1 w-full border-[#9c9a9a] text-[#5e5e5e] ">
-            Funcionário: <img src="/assets/user.png" alt="" className="h-8" /> Kathelyn
-          </span>
-        </div>
-        <button
-          className="bg-[#4B1F1F] w-90 md:w-150 mt-5 p-2 rounded-2xl font-bold text-amber-50 cursor-pointer"
-          onClick={confirmar}
-        >
-          Continuar
-        </button>
       </div>
     </>
   );

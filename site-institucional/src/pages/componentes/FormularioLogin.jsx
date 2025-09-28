@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alerta from "./Popup";
+import Alerta from "./PopUp";
 
 export default function FormularioLogin() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -26,8 +26,7 @@ export default function FormularioLogin() {
             email,
             password: senha,
         };
-        console.log(usuario);
-
+       
         axios
             .post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
@@ -124,7 +123,7 @@ export default function FormularioLogin() {
 
                     <p className="mt-4 text-lg">
                         Não possui conta?{" "}
-                        <a href="./Cadastro" className="underline">
+                        <a href="/cliente/cadastro" className="underline">
                             Cadastre-se
                         </a>
                     </p>

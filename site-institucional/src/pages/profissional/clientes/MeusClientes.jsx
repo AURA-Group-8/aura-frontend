@@ -24,8 +24,6 @@ export default function MeusClientes() {
           },
         });
 
-        console.log("Resposta da API:", response.data);
-
         setClientes(response.data || []);
         setClientesFiltrados(response.data || []);
       } catch (error) {

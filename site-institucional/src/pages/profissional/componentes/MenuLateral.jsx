@@ -107,7 +107,7 @@ export default function MenuLateral() {
                     </div>
                 )}
 
-                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 xl:mb-20 self-center m-5 hidden md:flex" />
+                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 xl:mb-20 self-center m-5 hidden md:flex cursor-pointer" onClick={() => navigate("/")} />
 
                 <div className="flex-col justify-between  h-full hidden md:flex">
                     <ul className="flex flex-col gap-1 text-[#FFF3DC] w-full p-2">

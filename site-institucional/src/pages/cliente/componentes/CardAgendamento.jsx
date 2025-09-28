@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
@@ -52,7 +52,7 @@ export default function CardAgendamento(props) {
         }
 
         const role = 2;
-        console.log("Cancelando agendamento:", props.id);
+        
         axios.delete(`${apiUrl}/agendamentos/${props.id}`, {
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem("authToken")}`

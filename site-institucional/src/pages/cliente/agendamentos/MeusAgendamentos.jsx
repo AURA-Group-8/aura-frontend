@@ -24,16 +24,12 @@ export default function MeusAgendamentosCli() {
             }
         })
             .then((response) => {
-                console.log("Response data from API:", response.data); 
-    
-                
+            
                 const agendamentosFiltrados = response.data.filter(
                     (agendamento) => 
                         agendamento.userName === userName &&
                         new Date(agendamento.startDatetime) > new Date() 
                 );
-    
-                console.log("Filtered agendamentos:", agendamentosFiltrados);
     
                 setAgendamentos(agendamentosFiltrados);
             })

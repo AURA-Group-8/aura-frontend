@@ -50,12 +50,10 @@ export default function LoginPro() {
             email: email.trim(),
             password: senha.trim()
         };
-        console.log(usuario);
-
+        
         axios.post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
-                console.log("Usuário logado com sucesso:", response.data);
-
+                
                 sessionStorage.setItem('authToken', response.data.token);
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userEmail', response.data.email);

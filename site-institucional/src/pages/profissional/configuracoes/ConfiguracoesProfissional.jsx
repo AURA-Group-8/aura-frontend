@@ -155,7 +155,7 @@ export default function ConfiguracoesPro() {
                                 {formHoraAberto && (
                                     <>
 
-                                        <form className="flex flex-col text-[#362323] border border-[#982546] p-5 w-90 md:w-auto rounded-2xl gap-2 ">
+                                        <form className="flex flex-col  text-[#362323] border border-[#982546] p-5 w-90 md:w-auto rounded-2xl gap-2 ">
                                             <h1 className="text-[#982546] font-bold mb-5">Dias da semana</h1>
 
                                             <div className=" gap-4 grid grid-cols-2 md:grid-cols-4 font-bold text-[#756363]">
@@ -267,8 +267,6 @@ export default function ConfiguracoesPro() {
                                                         daysOfWeek: diasFormatados
 
                                                     };
-
-                                                    console.log("Dados a serem enviados:", dadosParaEnviar);
 
                                                     try {
                                                         await axios.patch(

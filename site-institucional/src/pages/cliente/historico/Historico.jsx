@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
 import NavbarCli from "../componentes/Navbar";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function Historico() {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -25,21 +25,14 @@ export default function Historico() {
             }
         })
             .then((response) => {
-                console.log("Response data from API:", response.data); 
-
                 
                 const agendamentosFiltrados = response.data.filter(
                     (agendamento) => agendamento.userName === userName
                 );
 
-                console.log("Filtered agendamentos:", agendamentosFiltrados); 
-
-                
                 const agendamentosPassados = agendamentosFiltrados.filter(
                     (agendamento) => new Date(agendamento.startDatetime) < new Date()
                 );
-
-                console.log("Past agendamentos:", agendamentosPassados); 
 
                 setAgendamentos(agendamentosPassados);
             })

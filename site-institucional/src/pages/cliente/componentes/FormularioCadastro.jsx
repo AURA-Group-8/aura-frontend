@@ -112,11 +112,10 @@ export default function FormularioCadastro() {
 
         axios.post(UserUrl, usuario)
             .then((response) => {
-                console.log("Usuário cadastrado com sucesso:", response.data);
                 setMensagem("✅ Cadastro realizado com sucesso!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
-                    navigate("/cliente/login");
+                    navigate("/login");
                 }, 2000);
             })
             .catch((error) => {
@@ -248,7 +247,7 @@ export default function FormularioCadastro() {
                     </form>
 
                     <p className="mt-4 text-lg">
-                        Já possui conta? <Link to="/cliente/login" className="underline">Login</Link>
+                        Já possui conta? <Link to="/login" className="underline">Login</Link>
                     </p>
                 </div>
             </div>

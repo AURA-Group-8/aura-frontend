@@ -27,7 +27,6 @@ export default function EsqueceuSenha() {
         setIsSubmitting(true);
         axios.post(`${apiUrl}/mensagens/esqueci-senha`, { email })
             .then((response) => {
-                console.log("Email enviado com sucesso:", response.data);
                 setMensagem("✅ Email enviado com sucesso!");
                 setCaminho("/assets/Check-pop.png");
                 setTimeout(() => {
@@ -62,7 +61,7 @@ export default function EsqueceuSenha() {
 
             <div className="h-full w-full bg-[#FFF3DC] flex flex-col items-center justify-center">
 
-                <Header caminho={"/cliente/login"} />
+                <Header caminho={"/login"} />
 
                 <div className="h-full flex justify-center items-center">
                     <div className="flex flex-col h-screen justify-start items-center">
@@ -70,7 +69,7 @@ export default function EsqueceuSenha() {
                         <p className="w-96 flex justify-center text-[#982546] mb-4 mt-5 text-center text-xl">Confirme seu E-mail cadastrado para receber o código de redefinição de senha</p>
 
                         <form action="#" method="get" className="w-90 md:w-120 flex flex-col text-[#362323] border border-[#982546] py-5 px-8 rounded-2xl gap-2 mt-10 text-xl">
-                            <label>Confirmar E-mail:</label>
+                            <label className="text-[#5a5a5a]">Confirmar E-mail:</label>
                             <input onChange={(e) => setEmail(e.target.value)} type="text" id="nome" name="nome" className="bg-[#ffffff] p-2 rounded-xl" />
                             <div className="flex flex-row justify-between gap-4 pt-5">
 
