@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alerta from "../componentes/PopUp";
 import axios from "axios";
 
-export default function CardNotificacao({ roleId = 1 }) {
+export default function CardNotificacao() {
     const apiUrl = import.meta.env.VITE_API_URL;
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("authToken");
@@ -11,12 +11,14 @@ export default function CardNotificacao({ roleId = 1 }) {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
+    const roleId = Number(sessionStorage.getItem("roleId")) || 1;
+    
     useEffect(() => {
         const fetchNotificacoes = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/notificacoes/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
-                    params: { roleId },
+                    params: { roleId }
                 });
                 
                 const dataArray = Array.isArray(response.data)

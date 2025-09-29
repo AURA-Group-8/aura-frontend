@@ -66,7 +66,14 @@ export default function MeusAgendamentosCli() {
 
                         <div className="grid grid-cols-1 h-120 gap-18 xl:h-150 overflow-y-auto p-4">
                             {agendamentos.length > 0 ? (
-                                agendamentos.map((agendamento, index) => (
+                                agendamentos.sort((a, b) => {
+                                    const ordemStatus = {
+                                        "Pendente": 0,
+                                        "Feito": 1,
+                                        "Cancelado": 2
+                                    };
+                                    return ordemStatus[a.status] - ordemStatus[b.status];
+                                }).map((agendamento, index) => (
                                     <CardAgendamento
                                         key={index}
                                         id={agendamento.idScheduling}

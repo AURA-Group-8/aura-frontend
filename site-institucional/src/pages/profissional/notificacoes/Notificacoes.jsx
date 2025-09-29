@@ -9,7 +9,7 @@ const ProNotification = () => {
     <>
       <NavbarPro caminho={"/profissional/dashboard"} />
 
-      <CardNotificacao roleId={1} />
+      <CardNotificacao />
     </>
   );
 };

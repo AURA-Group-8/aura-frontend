@@ -7,7 +7,7 @@ const Notificacao = () => {
     <>
      
       <NavbarCli caminho={"/cliente/home"} />
-      <CardNotificacao roleId={2} />
+      <CardNotificacao/>
     </>
   );
 };
