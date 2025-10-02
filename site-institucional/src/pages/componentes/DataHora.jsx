@@ -143,7 +143,7 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
     async function buscarConfiguracoes() {
       try {
 
-        const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
+        const response = await axios.get(`${apiUrl}/v2/configuracao-agendamento`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

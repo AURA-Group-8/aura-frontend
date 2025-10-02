@@ -11,15 +11,13 @@ export default function CardNotificacao() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
-    const roleId = Number(sessionStorage.getItem("roleId")) || 1;
     
     useEffect(() => {
         const fetchNotificacoes = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/notificacoes/${userId}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: { roleId }
-                });
+                            headers: { Authorization: `Bearer ${token}` }
+                        });
                 
                 const dataArray = Array.isArray(response.data)
                     ? response.data
@@ -31,7 +29,7 @@ export default function CardNotificacao() {
         };
 
         fetchNotificacoes();
-    }, [apiUrl, userId, token, roleId]);
+    }, [apiUrl, userId, token]);
 
     return (
         <>
