@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import NavbarPro from "../componentes/Navbar";
 
 export default function EditarServico() {
@@ -17,7 +17,7 @@ export default function EditarServico() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const limparAlert = () => {
         setTimeout(() => {

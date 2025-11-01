@@ -111,25 +111,25 @@ export default function MenuLateral() {
 
                 <div className="flex-col justify-between  h-full hidden md:flex">
                     <ul className="flex flex-col gap-1 text-[#FFF3DC] w-full p-2">
-                        <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/Dashboard") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/dashboard" className="p-2 flex justify-between items-center w-full">
                                 <span>Agendamentos</span>
                                 <img src="/assets/Task.png" alt="Agendamentos" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/meus-servicos" className="p-2 flex justify-between items-center w-full">
                                 <span>Meus Serviços</span>
                                 <img src="/assets/Eyebrow.png" alt="Meus Serviços" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/Financeiro") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/Financeiro") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/financeiro" className="p-2 flex justify-between items-center w-full">
                                 <span>Finanças</span>
                                 <img src="/assets/Coins.png" alt="Finanças" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/meus-clientes" className="p-2 flex justify-between items-center w-full">
                                 <span>Clientes</span>
                                 <img src="/assets/User-claro.png" alt="Clientes" className="h-6" />
@@ -138,13 +138,13 @@ export default function MenuLateral() {
                     </ul>
 
                     <ul className="text-[#DD859E] flex flex-col p-2">
-                        <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`p-2 flex justify-between items-center cursor-pointer hover:bg-[#982546] rounded-md transition ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/contato" className="flex justify-between items-center w-full">
                                 <span>Contato</span>
                                 <img src="/assets/Help2.png" alt="Contato" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`p-2 flex justify-between items-center cursor-pointer hover:bg-[#982546] rounded-md transition ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/configuracoes" className="flex justify-between items-center w-full">
                                 <span>Config</span>
                                 <img src="/assets/Services.png" alt="Configurações" className="h-6" />

@@ -2,17 +2,16 @@ import { useNavigate } from "react-router-dom";
 import MenuLateral from "../componentes/MenuLateral";
 import { use, useState } from "react";
 import axios from "axios";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function ConfiguracoesPro() {
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const navigate = useNavigate();
 
     const [mensagem, setMensagem] = useState("");
-    const [caminho, setCaminho] = useState('');
 
     const token = sessionStorage.getItem('authToken');
 

@@ -11,7 +11,7 @@ export default function MeusClientes() {
   const [clientesFiltrados, setClientesFiltrados] = useState([]);
   const navigate = useNavigate();
 
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
 
   useEffect(() => {
     const listarUsuarios = async () => {

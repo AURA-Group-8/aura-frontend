@@ -1,6 +1,6 @@
 import NavbarPro from "../componentes/Navbar";
 import { useState } from "react";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -87,7 +87,7 @@ export default function CadastroCliente() {
         }
     };
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     return (
         <>

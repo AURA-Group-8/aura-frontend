@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Alerta from "../componentes/PopUp";
+import Alerta from "./Popup";
 import axios from "axios";
 
 export default function CardNotificacao() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("authToken");
 
@@ -19,8 +19,8 @@ export default function CardNotificacao() {
                             headers: { Authorization: `Bearer ${token}` }
                         });
                 
-                const dataArray = Array.isArray(response.data)
-                    ? response.data
+                const dataArray = Array.isArray(response.data.content)
+                    ? response.data.content
                     : (response.data.content || []);
                 setNotificacoes(dataArray);
             } catch (error) {

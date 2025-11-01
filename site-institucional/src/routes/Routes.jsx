@@ -40,7 +40,7 @@ import Mensagem from "../pages/profissional/mensagens/Mensagem";
 
 //outros
 import Login from "../pages/Login";
-import Alerta from "../pages/componentes/PopUp";
+import Alerta from "../pages/componentes/Popup";
 import SelecaoServicoCliente from "../pages/profissional/componentes/SelecaoServicoCliente";
 import CalendarioCarrossel from "../pages/componentes/DataHora";
 

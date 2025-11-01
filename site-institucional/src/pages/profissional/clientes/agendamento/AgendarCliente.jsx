@@ -12,6 +12,13 @@ export default function Agendar() {
 
     const durationInMinutes = servicos.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0);
 
+    const durationFormatted = (() => {
+        if (!durationInMinutes) return "";
+        const h = Math.floor(durationInMinutes / 60);
+        const m = durationInMinutes % 60;
+        return h > 0 ? `${h}h${m ? ` ${m}min` : ""}` : `${m}min`;
+    })();
+
     return (
         <>
             <NavbarPro caminho={"/profissional/dashboard"} />
@@ -24,7 +31,7 @@ export default function Agendar() {
                             onSelecionarServicos={setServicos} />
                     </div>
 
-                    <div className="bg-[#982546] w-1 h-full hidden md:block rounded-2xl"></div>
+                    <div className="bg-[#982546] w-0.5 h-full hidden md:block rounded-2xl"></div>
 
                     <div className="flex flex-col items-center">
                         <CalendarioCarrossel
@@ -36,6 +43,7 @@ export default function Agendar() {
                             servicos={servicos}
                             data={dataHora.data}
                             horario={dataHora.horario}
+                            duracaoTotal={durationFormatted}
                         />
                     </div>
                 </div>

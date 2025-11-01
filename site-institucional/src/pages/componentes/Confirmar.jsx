@@ -1,10 +1,10 @@
 import { parse, format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from './PopUp';
+import Alerta from './Popup';
 import axios from "axios";
 
-export default function Confirmar({ cliente, servicos, data, horario, redirectTo = "/profissional/dashboard" }) {
+export default function Confirmar({ cliente, servicos, data, duracaoTotal, horario, redirectTo = "/profissional/dashboard" }) {
 
     const [mensagem, setMensagem] = useState("");
     const [imagemCaminho, setImagemCaminho] = useState("");
@@ -30,7 +30,7 @@ export default function Confirmar({ cliente, servicos, data, horario, redirectTo
 
         setIsLoading(true);
 
-        const apiUrl = import.meta.env.VITE_API_URL;
+        const apiUrl = import.meta.env.VITE_API_URL_V2;
         const dataFormatada = format(parse(data, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd');
 
         const agendamento = {
@@ -81,7 +81,7 @@ export default function Confirmar({ cliente, servicos, data, horario, redirectTo
                 <div className="flex flex-row w-full justify-center p-5">
                     <div className="h-20">
                         <p className="font-bold text-[#5a5a5a]">Serviços:</p>
-                        <ul className='border border-[#982546] max-h-20 xl:max-h-30 overflow-y-auto p-1 rounded-2xl md:w-70'>
+                        <ul className='border border-[#982546] max-h-20 xl:max-h-30 overflow-y-auto p-1 rounded-2xl w-40 md:w-70'>
                             {Array.isArray(servicos) && servicos.length > 0 ? (
                                 servicos.map((servico, key) => (
                                     <li key={key}>{servico.name}</li>
@@ -93,9 +93,16 @@ export default function Confirmar({ cliente, servicos, data, horario, redirectTo
                     </div>
 
                     <div className="flex flex-col items-end gap-2 w-full">
-                        <div className="flex flex-col gap-2">
-                            <span className="font-bold text-[#5a5a5a]">Data: <span className="text-black font-normal">{data}</span></span>
-                            <span className="font-bold text-[#5a5a5a]">Hora: <span className="text-black font-normal">{horario}</span></span>
+                        <div className="flex flex-col">
+                            <div className='flex flex-col md:flex-row'>
+                                <span className="font-bold text-[#5a5a5a]">Data: </span><span className="text-black font-normal">{data}</span>
+                            </div>
+                            <div className='flex flex-col md:flex-row'>
+                                <span className="font-bold text-[#5a5a5a]">Hora: </span><span className="text-black font-normal">{horario}</span>
+                            </div>
+                            <div className='flex flex-col md:flex-row'>
+                                <span className="font-bold text-[#5a5a5a]">Duração: </span><span className="text-black font-normal">{duracaoTotal}</span>
+                            </div>
                         </div>
 
                         <div className='flex flex-col font-bold text-[#982546] md:text-xl text-right'>

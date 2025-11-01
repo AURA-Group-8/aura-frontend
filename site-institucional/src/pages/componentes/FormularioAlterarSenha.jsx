@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import Alerta from "../componentes/PopUp";
+import Alerta from "./Popup";
 
 export default function FormularioAlterarSenha() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const navigate = useNavigate();
     const location = useLocation();
     const { userId } = location.state || {};

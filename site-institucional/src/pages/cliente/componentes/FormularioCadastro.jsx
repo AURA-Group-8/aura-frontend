@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function FormularioCadastro() {
 
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [mostrarSenhaConfirmada, setMostrarSenhaConfirmada] = useState(false); 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const navigate = useNavigate();
     const UserUrl = `${apiUrl}/usuarios`;
 

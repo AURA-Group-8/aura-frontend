@@ -7,7 +7,7 @@ export default function NavbarCli({ caminho, atualizarNotificacoes }) {
     const [temNotificacaoNova, setTemNotificacaoNova] = useState(false);
     const navigate = useNavigate();
     const location = useLocation(); 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("authToken");
 

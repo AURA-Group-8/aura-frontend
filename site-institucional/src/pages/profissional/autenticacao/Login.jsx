@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Header from "../../cliente/componentes/HeaderLogin";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import axios from "axios";
 
 export default function LoginPro() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");

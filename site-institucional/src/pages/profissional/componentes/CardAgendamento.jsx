@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../componentes/PopUp";
+import Alerta from "../../componentes/Popup";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
+  const apiUrl_v2 = import.meta.env.VITE_API_URL_V2;
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const [cor, setCor] = useState("#982546");
@@ -14,11 +15,8 @@ export default function CardAgendamento(props) {
   const [caminho, setCaminho] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("PENDENTE");
   const [carregando, setCarregando] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  // Dropdown customizado de serviços
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const serviceList = props.service?.split(",").map(s => s.trim()) || [];
-  // Nenhum serviço selecionado inicialmente, botão exibirá 'Serviços'
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
@@ -102,7 +100,7 @@ export default function CardAgendamento(props) {
 
     const role = 1;
 
-    axios.delete(`${apiUrl}/agendamentos/${props.id}`, {
+    axios.delete(`${apiUrl_v2}/agendamentos/${props.id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
       },
@@ -151,38 +149,50 @@ export default function CardAgendamento(props) {
           <div className="rounded-b-2xl" style={{ backgroundColor: cor }}>
             <div className="flex flex-col p-2 text-white text-lg">
               <div className="relative w-full mb-5">
-                <button
-                  type="button"
-                  className="w-full p-2 rounded-lg text-[#982546] bg-white border border-[#ffa8d8] flex justify-between items-center"
-                  onClick={() => setIsServiceOpen(!isServiceOpen)}
-                >
-                  {selectedService || 'Serviços'}
-                  <span>{isServiceOpen ? '▾' : '▸'}</span>
-                </button>
-                {isServiceOpen && (
-                  <ul className="absolute bg-white border border-[#ffa8d8] w-full mt-1 rounded-lg max-h-32 text-[#982546] overflow-auto z-20">
-                   
-                    {serviceList.map((serv, idx) => (
-                      <li
-                        key={idx}
-                        className="p-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => { setSelectedService(serv); setIsServiceOpen(false); }}
-                      >
-                        {serv}
-                      </li>
-                    ))}
-                  </ul>
+                {serviceList.length === 1 ? (
+                  <div className="w-full p-2 rounded-lg text-[#982546] bg-white border border-[#ffa8d8]">
+                    <p>{serviceList[0]}</p>
+                  </div>
+                ) : (
+                  <div className="relative w-full">
+                    <button
+                      type="button"
+                      className="w-full p-2 rounded-lg text-[#982546] bg-white border border-[#ffa8d8] flex justify-between items-center"
+                      onClick={() => setIsServiceOpen(!isServiceOpen)}
+                    >
+                      {selectedService || 'Serviços'}
+                      <span>{isServiceOpen ? '▾' : '▸'}</span>
+                    </button>
+
+                    {isServiceOpen && (
+                      <ul className="absolute bg-white border border-[#ffa8d8] w-full mt-1 rounded-lg max-h-32 text-[#982546] overflow-auto z-20">
+                        {serviceList.map((serv, idx) => (
+                          <li
+                            key={idx}
+                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              setSelectedService(serv);
+                              setIsServiceOpen(false);
+                            }}
+                          >
+                            {serv}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 )}
               </div>
-              <div className="flex flex-row justify-between">
-                <div className="flex gap-2 flex-col">
-                  <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
-
-                  <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
-                </div>
-                <p className="font-bold text-3xl text-[#ffa8d8] mt-12 md:mt-0">{props.value}</p>
-              </div>
             </div>
+            <div className="flex p-2 flex-row justify-between">
+              <div className="flex gap-2 flex-col">
+                <p className="text-[#ffa8d8]">Data: <span className="text-white">{props.date}</span></p>
+
+                <p className="text-[#ffa8d8]">Horário: <span className="text-white">{props.time}</span></p>
+              </div>
+              <p className="font-bold text-3xl text-[#ffa8d8] mt-12 md:mt-0">{props.value}</p>
+            </div>
+
 
             <div className="w-full p-2 text-white text-lg">
               <span className="text-[#ffa8d8] font-bold">Pagamento: </span>
@@ -217,29 +227,30 @@ export default function CardAgendamento(props) {
             </div>
           </div>
         </div>
+      </div>
 
-        {mostrarMotivo && (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">
-              <h2 className="text-[#982546] text-xl font-bold mb-4">Motivo do cancelamento</h2>
-              <textarea
-                className="w-full h-28 border border-[#982546] rounded-xl p-2 outline-none resize-none text-[#982546] placeholder:text-[#98254699]"
-                placeholder="Digite o motivo aqui"
-                value={motivoCancelamento}
-                onChange={(e) => setMotivoCancelamento(e.target.value)}
-              />
-              <div className="flex justify-between mt-4">
-                <button onClick={fecharModal} className="px-4 py-2 cursor-pointer rounded-xl border border-[#982546] text-[#982546]">
-                  Voltar
-                </button>
-                <button onClick={confirmarCancelamento} className="px-4 cursor-pointer py-2 rounded-xl bg-[#982546] text-white">
-                  Cancelar atendimento
-                </button>
-              </div>
+      {mostrarMotivo && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-2xl shadow-xl w-[30rem] max-w-[90%]">
+            <h2 className="text-[#982546] text-xl font-bold mb-4">Motivo do cancelamento</h2>
+            <textarea
+              className="w-full h-28 border border-[#982546] rounded-xl p-2 outline-none resize-none text-[#982546] placeholder:text-[#98254699]"
+              placeholder="Digite o motivo aqui"
+              value={motivoCancelamento}
+              onChange={(e) => setMotivoCancelamento(e.target.value)}
+            />
+            <div className="flex justify-between mt-4">
+              <button onClick={fecharModal} className="px-4 py-2 cursor-pointer rounded-xl border border-[#982546] text-[#982546]">
+                Voltar
+              </button>
+              <button onClick={confirmarCancelamento} className="px-4 cursor-pointer py-2 rounded-xl bg-[#982546] text-white">
+                Cancelar atendimento
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
     </>
   );
 }

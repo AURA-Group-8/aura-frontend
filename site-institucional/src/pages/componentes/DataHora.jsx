@@ -13,9 +13,10 @@ import {
 } from "date-fns";
 
 
+
 export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora }) {
 
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
 
   const diasVisiveis = 4;
   const horariosVisiveis = 4;
@@ -143,7 +144,7 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
     async function buscarConfiguracoes() {
       try {
 
-        const response = await axios.get(`${apiUrl}/v2/configuracao-agendamento`, {
+        const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

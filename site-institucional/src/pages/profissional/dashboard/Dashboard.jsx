@@ -6,26 +6,11 @@ import axios from "axios";
 import SinoNotificacao from "../componentes/SinoNotificacao";
 
 export default function Dashboard() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const navigate = useNavigate();
-
     const [agendamentos, setAgendamentos] = useState([]);
     const [agendamentosFiltrados, setAgendamentosFiltrados] = useState([]);
-
     const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
-    const [pagamentoSelecionado, setPagamentoSelecionado] = useState(null);
-    const [servicoSelecionado, setServicoSelecionado] = useState("");
-    const [servicosDisponiveis, setServicosDisponiveis] = useState([]);
-
-    const [menuAberto, setMenuAberto] = useState(false);
-
-    const handleSelectRadio = (grupo, valor) => {
-        if (grupo === 'periodo') {
-            setPeriodoSelecionado(periodoSelecionado === valor ? null : valor);
-        } else if (grupo === 'pagamento') {
-            setPagamentoSelecionado(pagamentoSelecionado === valor ? null : valor);
-        }
-    };
 
     const aplicarFiltros = () => {
         let resultado = [...agendamentos];
@@ -58,32 +43,12 @@ export default function Dashboard() {
             });
         }
 
-        if (pagamentoSelecionado) {
-            resultado = resultado.filter(ag => {
-                const status = ag.paymentStatus?.toLowerCase().trim();
-                if (pagamentoSelecionado === "pago") return status === "pago";
-                if (pagamentoSelecionado === "pendente") return status === "pendente";
-                return true;
-            });
-        }
-
-        if (servicoSelecionado) {
-            resultado = resultado.filter(ag => ag.jobsNames.includes(servicoSelecionado));
-        }
-
         setAgendamentosFiltrados(resultado);
     };
 
-    const limparFiltros = () => {
-        setPeriodoSelecionado(null);
-        setPagamentoSelecionado(null);
-        setServicoSelecionado("");
-        setAgendamentosFiltrados(agendamentos);
-    };
-
-    const fecharMenu = () => {
-        setMenuAberto(false);
-    };
+    useEffect(() => {
+        aplicarFiltros();
+    }, [periodoSelecionado, agendamentos]);
 
     useEffect(() => {
         const token = sessionStorage.getItem("authToken");
@@ -94,29 +59,8 @@ export default function Dashboard() {
             }
         })
             .then((response) => {
-                setAgendamentos(response.data);
-                setAgendamentosFiltrados(response.data);
-
-                const servicosDeAgendamentos = new Set();
-                response.data.forEach((ag) => {
-                    ag.jobsNames.forEach(servico => servicosDeAgendamentos.add(servico));
-                });
-
-                axios.get(`${apiUrl}/servicos`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                    .then((res) => {
-                        const servicosBackend = (res.data.content || []).map(s => s.name);
-                        const todosServicosSet = new Set([...servicosDeAgendamentos, ...servicosBackend]);
-
-                        setServicosDisponiveis(Array.from(todosServicosSet));
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao buscar serviços:", error);
-                        setServicosDisponiveis(Array.from(servicosDeAgendamentos));
-                    });
+                setAgendamentos(response.data.content);
+                setAgendamentosFiltrados(response.data.content);
 
             })
             .catch((error) => {
@@ -132,6 +76,8 @@ export default function Dashboard() {
         return `${d}/${m}/${y}`;
     };
 
+    const isActive = (p) => periodoSelecionado === p;
+
     return (
         <div className="w-full h-screen bg-[#FFF3DC]">
             <div className="h-full flex flex-row">
@@ -141,126 +87,47 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full h-full items-center">
                     <SinoNotificacao />
 
-                    <div className="flex flex-col justify-center items-center md:w-200">
+                    <div className="flex flex-col justify-center items-center w-80 md:w-200">
                         <h1 className="text-[#982546] font-bold text-2xl">Agendamentos</h1>
-
                         <div className="w-full flex flex-row justify-between xl:w-300 items-center mt-5">
-                            <div className="flex flex-row-reverse md:w-110 xl:items-start relative">
-                                <div className="w-full transition-all duration-300 ml-2 relative">
-                                    {menuAberto && (
-                                        <div className="flex flex-col absolute z-999 border-1 border-[#982546] rounded-2xl p-5 bg-[#FFF3DC] shadow-lg shadow-[#982546] w-60 md:w-100 xl:text-xl">
-                                            <div className="flex flex-col">
-                                                <p className="font-bold text-[#982546]">Período</p>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 mt-2 border-b-1 border-[#982546] justify-evenly ">
-                                                    <label className="flex items-center gap-2 cursor-pointer ">
-                                                        <input
-                                                            type="radio"
-                                                            name="periodo"
-                                                            checked={periodoSelecionado === "todos"}
-                                                            onChange={() => handleSelectRadio("periodo", "todos")}
-                                                        />
-                                                        <span>Todos</span>
-                                                    </label>
+                            <div className="flex flex-col gap-4 md:gap-0 md:flex-row w-full justify-between items-center mt-4">
+                                <div className="flex flex-row gap-2 justify-evenly">
+                                    <button className={`p-2 rounded-2xl cursor-pointer transition-colors
+                                            ${isActive("todos") ? "bg-[#b36078] text-[#FFF3DC]" : "bg-[#982546] text-[#FFF3DC] hover:bg-[#b36078]"}`}
+                                        onClick={() => setPeriodoSelecionado("todos")}
+                                    >
+                                        Todos
+                                    </button>
 
-                                                    <label className="flex items-center gap-2 cursor-pointer">
-                                                        <input
-                                                            type="radio"
-                                                            name="periodo"
-                                                            checked={periodoSelecionado === "hoje"}
-                                                            onChange={() => handleSelectRadio("periodo", "hoje")}
-                                                        />
-                                                        <span>Hoje</span>
-                                                    </label>
+                                    <button className={`p-2 rounded-2xl cursor-pointer transition-colors
+                                            ${isActive("hoje") ? "bg-[#b36078] text-[#FFF3DC]" : "bg-[#982546] text-[#FFF3DC] hover:bg-[#b36078]"}`}
+                                        onClick={() => setPeriodoSelecionado("hoje")}>
+                                        Hoje
+                                    </button>
 
-                                                    <label className="flex items-center gap-2 cursor-pointer">
-                                                        <input
-                                                            type="radio"
-                                                            name="periodo"
-                                                            checked={periodoSelecionado === "semana"}
-                                                            onChange={() => handleSelectRadio("periodo", "semana")}
-                                                        />
-                                                        <span>Essa semana</span>
-                                                    </label>
+                                    <button className={`p-2 rounded-2xl cursor-pointer transition-colors
+                                            ${isActive("semana") ? "bg-[#b36078] text-[#FFF3DC]" : "bg-[#982546] text-[#FFF3DC] hover:bg-[#b36078]"}`}
+                                        onClick={() => setPeriodoSelecionado("semana")}>
+                                        Essa semana
+                                    </button>
 
-                                                    <label className="flex items-center gap-2 cursor-pointer">
-                                                        <input
-                                                            type="radio"
-                                                            name="periodo"
-                                                            checked={periodoSelecionado === "mes"}
-                                                            onChange={() => handleSelectRadio("periodo", "mes")}
-                                                        />
-                                                        <span>Esse mês</span>
-                                                    </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div className="flex flex-col mt-5">
-                                                <p className="font-bold text-[#982546]">Pagamento</p>
-                                                <div className="flex flex-row gap-2 mt-2 border-b-1 border-[#982546]">
-                                                    <input type="radio" name="pagamento" checked={pagamentoSelecionado === "pago"} onChange={() => handleSelectRadio("pagamento", "pago")} /><span>Pago</span>
-                                                    <input type="radio" name="pagamento" checked={pagamentoSelecionado === "pendente"} onChange={() => handleSelectRadio("pagamento", "pendente")} /><span>Pendente</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex flex-col mt-5">
-                                                <p className="font-bold text-[#982546]">Serviço</p>
-                                                <div className="flex flex-row gap-2 mt-2">
-                                                    <select
-                                                        name="service"
-                                                        className="border-1 border-[#982546] bg-white rounded-2xl p-2 w-full"
-                                                        value={servicoSelecionado}
-                                                        onChange={(e) => setServicoSelecionado(e.target.value)}
-                                                    >
-                                                        <option value="">Todos os serviços</option>
-                                                        {Array.isArray(servicosDisponiveis) && servicosDisponiveis.map((servico, index) => (
-                                                            <option key={index} value={servico}>{servico}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                                <div className="flex flex-row gap-2 justify-between mt-5">
-                                                    <button
-                                                        className="bg-[#FFF3DC] text-[#982546] rounded-2xl p-2 border border-[#982546] cursor-pointer"
-                                                        onClick={() => {
-                                                            limparFiltros();
-                                                            fecharMenu();
-                                                        }}
-                                                    >
-                                                        Limpar filtros
-                                                    </button>
-                                                    <button
-                                                        className="bg-[#982546] text-[#FFF3DC] rounded-2xl p-2 cursor-pointer"
-                                                        onClick={() => {
-                                                            aplicarFiltros();
-                                                            fecharMenu();
-                                                        }}
-                                                    >
-                                                        Filtrar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
+                                    <button className={`p-2 rounded-2xl cursor-pointer transition-colors
+                                            ${isActive("mes") ? "bg-[#b36078] text-[#FFF3DC]" : "bg-[#982546] text-[#FFF3DC] hover:bg-[#b36078]"}`}
+                                        onClick={() => setPeriodoSelecionado("mes")}>
+                                        Esse mês
+                                    </button>
                                 </div>
 
                                 <button
-                                    className="flex bg-[#982546] p-2 w-20 justify-center items-center text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]"
-                                    onClick={() => setMenuAberto((aberto) => !aberto)}
+                                    className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl cursor-pointer hover:bg-[#b36078]"
+                                    onClick={() => navigate("/profissional/agendar")}
                                 >
-                                    <img src="/assets/Slider.png" alt="" className="h-6" />
+                                    Adicionar agendamento
                                 </button>
                             </div>
-
-                            <button
-                                className="bg-[#982546] p-2 text-[#FFF3DC] rounded-2xl mt-5 cursor-pointer hover:bg-[#b36078]"
-                                onClick={() => navigate("/profissional/agendar")}
-                            >
-                                Adicionar agendamento
-                            </button>
                         </div>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4 mt-5 justify-center items-center gap-5 h-full overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 p-4  justify-center items-center gap-5 h-full overflow-y-auto">
                         {agendamentosFiltrados.length > 0 ? (
                             agendamentosFiltrados
                                 .sort((a, b) => {

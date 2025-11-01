@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alerta from "./PopUp";
+import Alerta from "./Popup";
 
 export default function FormularioLogin() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
