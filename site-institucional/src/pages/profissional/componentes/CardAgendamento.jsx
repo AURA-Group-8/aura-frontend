@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function CardAgendamento(props) {
-  const apiUrl_v2 = import.meta.env.VITE_API_URL_V2;
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
 
   const [cor, setCor] = useState("#982546");
   const [text, setText] = useState("Marcar como feito");
@@ -100,7 +99,7 @@ export default function CardAgendamento(props) {
 
     const role = 1;
 
-    axios.delete(`${apiUrl_v2}/agendamentos/${props.id}`, {
+    axios.delete(`${apiUrl}/agendamentos/${props.id}`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`
       },

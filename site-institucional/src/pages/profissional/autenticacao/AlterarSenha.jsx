@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import NavbarPro from "../componentes/Navbar";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function AlterarSenha() {
     const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CardAgendamento from "../componentes/CardAgendamento";
 import axios from "axios";
 import NavbarCli from "../componentes/Navbar";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function MeusAgendamentosCli() {
     const apiUrl = import.meta.env.VITE_API_URL_V2;
@@ -37,7 +37,7 @@ export default function MeusAgendamentosCli() {
             .then((response) => {
                 const { content, totalPages } = response.data;
 
-                // Filtrar agendamentos do usuário e com data futura
+                
                 const agendamentosFiltrados = content.filter(
                     (agendamento) =>
                         agendamento.userName === userName &&
@@ -45,7 +45,7 @@ export default function MeusAgendamentosCli() {
                 );
 
                 setAgendamentos(agendamentosFiltrados);
-                setTotalPages(totalPages); // Atualizar total de páginas
+                setTotalPages(totalPages); 
             })
             .catch((error) => {
                 console.error("Erro ao buscar agendamentos:", error);

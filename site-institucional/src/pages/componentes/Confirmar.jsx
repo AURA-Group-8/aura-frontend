@@ -1,7 +1,7 @@
 import { parse, format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Alerta from './Popup';
+import Alerta from './PopUp';
 import axios from "axios";
 
 export default function Confirmar({ cliente, servicos, data, duracaoTotal, horario, redirectTo = "/profissional/dashboard" }) {

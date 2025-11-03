@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import NavbarPro from "../componentes/Navbar";
 
 export default function EditarServico() {

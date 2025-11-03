@@ -18,7 +18,7 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function Financeiro() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [dadosMensais, setDadosMensais] = useState([]);
     const [topServicos, setTopServicos] = useState([]);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 
 export default function CardCliente({ id, name, phone, birthDate, observation }) {
 

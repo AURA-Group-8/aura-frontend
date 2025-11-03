@@ -5,7 +5,7 @@ import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 
 export default function Mensagem() {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
   const navigate = useNavigate();
   const [assunto, setAssunto] = useState("");
   const [textMensagem, setTextMensagem] = useState("");

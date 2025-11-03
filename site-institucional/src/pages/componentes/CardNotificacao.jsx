@@ -52,9 +52,7 @@ export default function CardNotificacao() {
                             <div key={index} className="bg-white border border-[#7c1d34] border-l-8 w-full text-gray-600 rounded-lg p-6">
                                 <p className="mb-2">{notificacao.message}</p>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sm">
-                                        {new Date(notificacao.created_at).toLocaleString("pt-BR")}
-                                    </span>
+                                    
                                 </div>
                             </div>
                         ))

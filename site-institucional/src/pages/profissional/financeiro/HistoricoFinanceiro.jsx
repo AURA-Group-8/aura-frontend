@@ -6,7 +6,7 @@ export default function HistoricoFinanceiro() {
   const [dadosFinanceiros, setDadosFinanceiros] = useState([]);
 
   const token = sessionStorage.getItem("authToken");
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
 
   useEffect(() => {
     async function fetchDados() {

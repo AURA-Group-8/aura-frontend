@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 import NavbarPro from "../componentes/Navbar";
 

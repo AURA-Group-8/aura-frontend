@@ -12,6 +12,13 @@ export default function Agendar() {
 
     const durationInMinutes = servicos.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0);
 
+    const durationFormatted = (() => {
+        if (!durationInMinutes) return "";
+        const h = Math.floor(durationInMinutes / 60);
+        const m = durationInMinutes % 60;
+        return h > 0 ? `${h}h${m ? ` ${m}min` : ""}` : `${m}min`;
+    })();
+
     return (
         <>
             <NavbarCli caminho={"/cliente/home"} />
@@ -38,6 +45,7 @@ export default function Agendar() {
                             servicos={servicos}
                             data={dataHora.data}
                             horario={dataHora.horario}
+                            duracaoTotal={durationFormatted}
                             redirectTo="/cliente/meus-agendamentos"
                         />
                     </div>

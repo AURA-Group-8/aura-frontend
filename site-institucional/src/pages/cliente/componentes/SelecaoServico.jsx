@@ -75,16 +75,16 @@ export default function SelecionarServico({ onSelecionarCliente, onSelecionarSer
                                 : 'Selecione um serviço'}
                             <span className="ml-2">{isServicoOpen ? '▾' : '▸'}</span>
                         </button>
-                        {servicos.length > 0 ? (
+                        {listaServicos.length > 0 ? (
                             isServicoOpen && (
                                 <ul className="absolute bg-white border border-[#982546] w-full mt-1 rounded-2xl max-h-44 overflow-auto z-10">
-                                    {servicos.map(servico => (
+                                    {listaServicos.map(listaServicos => (
                                         <li
-                                            key={servico.id}
+                                            key={listaServicos.id}
                                             className="p-2 hover:bg-gray-100 cursor-pointer"
-                                            onClick={() => { setServicoSelecionado(servico.id); adicionarServico(servico.id); setIsServicoOpen(false); }}
+                                            onClick={() => { setServicoSelecionado(listaServicos.id); adicionarServico(listaServicos.id); setIsServicoOpen(false); }}
                                         >
-                                            {servico.name} - R${servico.price},00
+                                            {listaServicos.name} - R${listaServicos.price},00
                                         </li>
                                     ))}
                                 </ul>
