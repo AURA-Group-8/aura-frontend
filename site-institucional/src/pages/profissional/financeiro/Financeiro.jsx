@@ -20,7 +20,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 export default function Financeiro() {
     const apiUrl = import.meta.env.VITE_API_URL_V2;
 
-    const [dadosMensais, setDadosMensais] = useState([]);
+    const [dadosMensais, setDadosMensais] = useState({});
     const [topServicos, setTopServicos] = useState([]);
     const [topClientes, setTopClientes] = useState([]);
     const [atendimentosSemana, setAtendimentosSemana] = useState([]);
@@ -37,35 +37,10 @@ export default function Financeiro() {
             .then((response) => {
                 const data = response.data;
 
-                let servicos = data.topServicos;
-                if (typeof servicos === 'string') {
-                    try {
-                        servicos = JSON.parse(servicos.replace(/'/g, '"'));
-                    } catch (e) {
-                        servicos = [];
-                    }
-                }
-                setTopServicos(Array.isArray(servicos) ? servicos : []);
+                setTopServicos(Array.isArray(data.topServicos) ? data.topServicos : []);
+                setTopClientes(Array.isArray(data.topClientes) ? data.topClientes : []);
+                setAtendimentosSemana(Array.isArray(data.atendimentosDiaDaSemanaNoMes) ? data.atendimentosDiaDaSemanaNoMes : []);
 
-                let clientes = data.topClientes;
-                if (typeof clientes === 'string') {
-                    try {
-                        clientes = JSON.parse(clientes.replace(/'/g, '"'));
-                    } catch (e) {
-                        clientes = [];
-                    }
-                }
-                setTopClientes(Array.isArray(clientes) ? clientes : []);
-
-                let semana = data.atendimentosDiaDaSemanaNoMes;
-                if (typeof semana === 'string') {
-                    try {
-                        semana = JSON.parse(semana.replace(/'/g, '"'));
-                    } catch (e) {
-                        semana = [];
-                    }
-                }
-                setAtendimentosSemana(Array.isArray(semana) ? semana : []);
             })
             .catch((error) => {
                 console.error("Erro ao buscar dados financeiros:", error);
@@ -75,7 +50,7 @@ export default function Financeiro() {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
-                setDadosMensais(response.data);
+                setDadosMensais(response.data.dadosMensais || {});
             })
             .catch((error) => {
                 console.error("Erro ao buscar histórico financeiro:", error);
@@ -111,7 +86,7 @@ export default function Financeiro() {
 
     const hoje = new Date();
     const mesAtual = hoje.getMonth() + 1;
-    const dadosMes = dadosMensais.find((item) => item.mes === mesAtual) || {};
+    const dadosMes = dadosMensais;
 
     return (
         <div className="w-full h-screen bg-[#FFF3DC]">
@@ -130,10 +105,10 @@ export default function Financeiro() {
                                         <div className="flex flex-col text-[#FFF3DC] gap-2 text-center h-full xl:text-xl">
                                             <p className="text-lg">Faturamento mensal</p>
                                             <span className="font-bold mb-2 text-3xl">
-                                                R$ {dadosMes.totalFaturadoMes ? Number(dadosMes.totalFaturadoMes).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '0,00'}
+                                                R$ {dadosMes.totalBilledInMonth ? Number(dadosMes.totalBilledInMonth).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '0,00'}
 
                                             </span>
-                                            
+
                                         </div>
 
                                     </div>
@@ -151,8 +126,8 @@ export default function Financeiro() {
                                     <div className="flex flex-col text-[#FFF3DC] p-2 xl:text-xl">
                                         <div className="flex flex-col gap-5">
                                             <p className="text-lg">Total de atendimentos </p>
-                                            <span className="font-bold mb-2 text-3xl">{dadosMes.totalAtendimentosMes ?? 0}</span>
-                                            
+                                            <span className="font-bold mb-2 text-3xl">{dadosMes.totalSchedulesInMonth ?? 0}</span>
+
                                         </div>
 
                                     </div>
@@ -162,8 +137,8 @@ export default function Financeiro() {
                                     <div className="flex flex-col text-[#FFF3DC] p-2 xl:text-xl">
                                         <div className="flex flex-col gap-5">
                                             <p className="text-lg">Total de cancelamentos</p>
-                                            <span className="font-bold mb-2 text-3xl">{dadosMes.totalAtendimentosCanceladosMes ?? 0}</span>
-                                            
+                                            <span className="font-bold mb-2 text-3xl">{dadosMes.totalCanceledSchedulesInMonth ?? 0}</span>
+
                                         </div>
 
                                     </div>

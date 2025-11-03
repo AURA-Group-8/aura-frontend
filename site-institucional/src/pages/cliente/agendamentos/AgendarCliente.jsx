@@ -33,7 +33,7 @@ export default function Agendar() {
                             />
                     </div>
 
-                    <div className="bg-[#982546] w-1 h-full hidden md:block rounded-2xl"></div>
+                    <div className="bg-[#982546] w-0.5 h-full hidden md:block rounded-2xl"></div>
 
                     <div className="flex flex-col items-center">
                         <CalendarioCarrossel
