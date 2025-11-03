@@ -50,7 +50,7 @@ export default function Financeiro() {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {
-                setDadosMensais(response.data.dadosMensais || {});
+                setDadosMensais(response.data[0]);
             })
             .catch((error) => {
                 console.error("Erro ao buscar histórico financeiro:", error);

@@ -39,11 +39,11 @@ export default function HistoricoFinanceiro() {
         <div className="w-full max-w-8xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 px-4 h-200 md:h-150 overflow-y-auto">
           {meses.map((nome, index) => {
             const mesIndex = index + 1;
-            const dadosDoMes = dadosFinanceiros.find((item) => item.mes === mesIndex);
+            const dadosDoMes = dadosFinanceiros.find((item) => item.month === mesIndex);
 
-            const faturado = dadosDoMes?.totalFaturadoMes || 0;
-            const atendimentos = dadosDoMes?.totalAtendimentosMes || 0;
-            const cancelamentos = dadosDoMes?.totalAtendimentosCanceladosMes || 0;
+            const faturado = dadosDoMes?.totalBilledInMonth || 0;
+            const atendimentos = dadosDoMes?.totalSchedulesInMonth || 0;
+            const cancelamentos = dadosDoMes?.totalCanceledSchedulesInMonth || 0;
 
             return (
               <div key={mesIndex} className="flex flex-col items-center">
