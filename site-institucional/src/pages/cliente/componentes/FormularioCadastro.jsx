@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Alerta from "../../componentes/Popup";
+import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";

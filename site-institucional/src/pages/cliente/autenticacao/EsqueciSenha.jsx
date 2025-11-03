@@ -7,7 +7,7 @@ import Alerta from "../../componentes/PopUp";
 
 export default function EsqueceuSenha() {
     const navigate = useNavigate();
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');

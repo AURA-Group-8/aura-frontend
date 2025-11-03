@@ -18,7 +18,7 @@ export default function SelecionarServico({ onSelecionarCliente, onSelecionarSer
                     Authorization: `Bearer ${authToken}`,
                 },
             });
-            setListaServicos(response.data.content);
+            setListaServicos(response.data);
         } catch (error) {
             console.error("Erro ao buscar serviços:", error);
 

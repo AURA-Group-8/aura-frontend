@@ -7,7 +7,7 @@ import Header from "../componentes/HeaderLogin";
 
 export default function ValidarToken() {
     const navigate = useNavigate();
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const location = useLocation();
     const [tokenCliente, setTokenCliente] = useState("");
     const [mensagem, setMensagem] = useState("");

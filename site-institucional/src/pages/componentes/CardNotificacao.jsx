@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Alerta from "./Popup";
+import Alerta from "./PopUp";
 import axios from "axios";
 
 export default function CardNotificacao() {
