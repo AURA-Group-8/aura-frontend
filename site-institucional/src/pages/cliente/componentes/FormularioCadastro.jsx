@@ -99,11 +99,12 @@ export default function FormularioCadastro() {
 
         const formattedDate = dataNasc ? `${dataNasc}T00:00:00` : null;
 
+        const telefoneSemMascara = telefone.replace(/\D/g, "");
         const usuario = {
             username: nomeCompleto,
             email: email,
             dateOfBirth: formattedDate,
-            phone: telefone,
+            phone: telefoneSemMascara,
             password: senha,
             roleId: 2
         };
