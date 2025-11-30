@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Acessar diretório do frontend
-        run: cd AURA-FRONTEND/site-institucional
+        run: cd aura-frontend/site-institucional
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
@@ -21,16 +21,16 @@ jobs:
           node-version: 20
 
       - name: Criar arquivo .env
-        working-directory: AURA-FRONTEND/site-institucional
+        working-directory: aura-frontend/site-institucional
         run: |
           echo "VITE_API_URL_V2=/api" > .env
 
       - name: Instalar dependências
-        working-directory: AURA-FRONTEND/site-institucional
+        working-directory: aura-frontend/site-institucional
         run: npm install
 
       - name: Build do projeto
-        working-directory: AURA-FRONTEND/site-institucional
+        working-directory: aura-frontend/site-institucional
         run: npm run build
 
       - name: Copiar build para EC2
