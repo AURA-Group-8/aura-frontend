@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alerta from "./Popup";
-
+import Alerta from "./PopUp";
 export default function FormularioLogin() {
     const apiUrl = import.meta.env.VITE_API_URL_V2;
 
