@@ -58,7 +58,7 @@ export default function HomePage() {
 
                 </section>
 
-                <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-170 md:h-140 w-full" id="sobre">
+                <section className="bg-[#FFF3DC] bg-[url('/assets/wave-background.png')] bg-center bg-cover h-170 md:h-140 mb-50 md:mb-0 w-full" id="sobre">
                     <Secao2 />
                 </section>
 

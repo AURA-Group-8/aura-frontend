@@ -6,8 +6,8 @@ import axios from 'axios';
 export default function NavbarCli({ caminho, atualizarNotificacoes }) {
     const [temNotificacaoNova, setTemNotificacaoNova] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation(); // Hook para monitorar a navegação
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const location = useLocation(); 
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("authToken");
 
@@ -19,7 +19,11 @@ export default function NavbarCli({ caminho, atualizarNotificacoes }) {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                const notificacoesNaoLidas = response.data.some((notificacao) => !notificacao.wasAnswered);
+                
+                const dataArray = Array.isArray(response.data)
+                    ? response.data
+                    : (response.data.content || []);
+                const notificacoesNaoLidas = dataArray.some((notificacao) => !notificacao.wasAnswered);
                 setTemNotificacaoNova(notificacoesNaoLidas);
                 if (atualizarNotificacoes) {
                     atualizarNotificacoes(notificacoesNaoLidas);
@@ -32,7 +36,6 @@ export default function NavbarCli({ caminho, atualizarNotificacoes }) {
         verificarNotificacoes();
     }, []);
 
-    // Atualiza o estado quando o usuário acessa a página de notificações
     useEffect(() => {
         if (location.pathname === "/cliente/notificacoes") {
             setTemNotificacaoNova(false);

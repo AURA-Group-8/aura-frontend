@@ -9,7 +9,7 @@ function Navbar() {
 
   const opcaoLogin = () => {
 
-      navigate("/cliente/login");
+      navigate("/login");
   }
 
   return (
@@ -18,7 +18,7 @@ function Navbar() {
       <div className="w-full h-15 fixed shadow-md z-100 rounded-bl-2xl rounded-br-2xl xl:text-xl">
         <div className="w-full h-full flex justify-around items-center bg-[#241313] rounded-bl-2xl rounded-br-2xl">
 
-          <img src="/assets/LOGO.png" alt="" className="max-h-10 m-2" />
+          <img src="/assets/LOGO.png" alt="" className="max-h-10 m-2 cursor-pointer" onClick={() => navigate("/")} />
 
           <button className="md:hidden p-2 ml-auto" onClick={() => setMenuOpen(!menuOpen)} >
             <svg
@@ -33,7 +33,7 @@ function Navbar() {
           </button>
 
           {menuOpen && (
-            <div className="absolute top-12 right-0 bg-[#241313] rounded-bl-2xl rounded-br-2xl shadow-lg">
+            <div className="absolute top-12 right-0 bg-[#241313] rounded-bl-2xl rounded-br-2xl shadow-lg ">
               <ul className="flex flex-col p-4">
                 <li className="py-2">
                   <a href="#inicio" className="text-[#FFF3DC]">Início</a>

@@ -10,7 +10,7 @@ export default function Home() {
         <>
             <div className="w-full h-full bg-[#FFF3DC]">
 
-                <NavbarCli caminho={"/cliente/login"} />
+                <NavbarCli caminho={"/login"} />
 
 
                 <div className="bg-[url('/assets/bg-cli.png')] bg-center bg-no-repeat bg-cover h-90 w-full text-[#FFF3DC] flex flex-col md:flex-row justify-around items-center  pt-10">

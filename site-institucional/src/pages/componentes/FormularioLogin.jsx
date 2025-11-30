@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alerta from "./Popup";
-
+import Alerta from "./PopUp";
 export default function FormularioLogin() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -26,8 +25,7 @@ export default function FormularioLogin() {
             email,
             password: senha,
         };
-        console.log(usuario);
-
+       
         axios
             .post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
@@ -41,7 +39,7 @@ export default function FormularioLogin() {
                     headers: { Authorization: `Bearer ${response.data.token}` }
 
                 }).then((res) => {
-                    const role = res.data.roleId;
+                    const role = res.data.id;
 
                     setMensagem("✅ Login realizado com sucesso!");
                     setCaminho("/assets/Check-pop.png");
@@ -124,7 +122,7 @@ export default function FormularioLogin() {
 
                     <p className="mt-4 text-lg">
                         Não possui conta?{" "}
-                        <a href="./Cadastro" className="underline">
+                        <a href="/cliente/cadastro" className="underline">
                             Cadastre-se
                         </a>
                     </p>
