@@ -39,7 +39,7 @@ export default function FormularioLogin() {
                     headers: { Authorization: `Bearer ${response.data.token}` }
 
                 }).then((res) => {
-                    const role = res.data.roleId;
+                    const role = res.data.id;
 
                     setMensagem("✅ Login realizado com sucesso!");
                     setCaminho("/assets/Check-pop.png");
