@@ -1,0 +1,56 @@
+name: Deploy Frontend Aura
+
+on:
+  push:
+    branches: ["producao-aws"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Acessar diretório do frontend
+        run: cd AURA-FRONTEND/site-institucional
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Criar arquivo .env
+        working-directory: AURA-FRONTEND/site-institucional
+        run: |
+          echo "VITE_API_URL_V2=/api" > .env
+
+      - name: Instalar dependências
+        working-directory: AURA-FRONTEND/site-institucional
+        run: npm install
+
+      - name: Build do projeto
+        working-directory: AURA-FRONTEND/site-institucional
+        run: npm run build
+
+      - name: Copiar build para EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "AURA-FRONTEND/site-institucional/dist/*"
+          target: "/tmp/frontend-build"
+
+      - name: Mover arquivos para /var/www/html na EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo rm -rf /var/www/html/*
+            sudo cp -r /tmp/frontend-build/* /var/www/html/
+            sudo rm -rf /tmp/frontend-build
+            sudo chown -R www-data:www-data /var/www/html
+            echo "Deploy do frontend concluído."
