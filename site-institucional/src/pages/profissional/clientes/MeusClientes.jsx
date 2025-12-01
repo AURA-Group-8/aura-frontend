@@ -76,11 +76,11 @@ export default function MeusClientes() {
                 <CardCliente
                   key={usuario.id}
                   id={usuario.id}
-                  name={usuario.username}
+                  username={usuario.username}
                   email={usuario.email}
-                  role={usuario.roleId}
+                  role={usuario.role.id}
                   phone={usuario.phone}
-                  birthDate={usuario.dateOfBirth}
+                  observation={usuario.observation}
                 />
               ))
             ) : (
