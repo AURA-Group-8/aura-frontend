@@ -14,7 +14,7 @@ export default function AddServico() {
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const limparAlert = () => {
         setTimeout(() => {

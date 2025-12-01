@@ -16,7 +16,9 @@ export default function MenuLateral() {
 
     return (
         <>
-            <div className="bg-[#341C1C] h-auto md:h-full flex flex-col w-60 z-40 rounded-br-2xl rounded-tr-2xl">
+            <div className={`bg-[#341C1C] z-40 fixed md:relative rounded-br-2xl rounded-tr-2xl transition-all duration-300
+                ${menuOpen ? 'h-full flex flex-col w-60' : 'h-14 w-14 flex'} md:h-full md:w-60 md:flex md:flex-col
+            `}>
                 <button className="md:hidden p-2 ml-auto" onClick={() => setMenuOpen(!menuOpen)} >
                     <svg
                         className="w-8 h-8 text-[#FFF3DC]"
@@ -30,9 +32,7 @@ export default function MenuLateral() {
                 </button>
 
                 {menuOpen && (
-
                     <div className="flex flex-col justify-between h-full">
-                       
                         <ul className="flex flex-col text-[#FFF3DC] w-full p-4 xl:text-2xl">
                             <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                                 <Link to="/profissional/dashboard" className="p-2 flex justify-between items-center w-full">
@@ -107,29 +107,29 @@ export default function MenuLateral() {
                     </div>
                 )}
 
-                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 xl:mb-20 m-5 hidden md:flex" />
+                <img src="/assets/logo-aura-claro.png" alt="Logo" className="max-h-30 w-30 xl:mb-20 self-center m-5 hidden md:flex cursor-pointer" onClick={() => navigate("/")} />
 
                 <div className="flex-col justify-between  h-full hidden md:flex">
                     <ul className="flex flex-col gap-1 text-[#FFF3DC] w-full p-2">
-                        <li className={`${isSelected("/Dashboard") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/Dashboard") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/dashboard" className="p-2 flex justify-between items-center w-full">
                                 <span>Agendamentos</span>
                                 <img src="/assets/Task.png" alt="Agendamentos" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/MeusServicos") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/meus-servicos" className="p-2 flex justify-between items-center w-full">
                                 <span>Meus Serviços</span>
                                 <img src="/assets/Eyebrow.png" alt="Meus Serviços" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/Financeiro") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/Financeiro") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/financeiro" className="p-2 flex justify-between items-center w-full">
                                 <span>Finanças</span>
                                 <img src="/assets/Coins.png" alt="Finanças" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`${isSelected("/MeusClientes") ? "bg-[#982546] hover:bg-[#655a55] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/meus-clientes" className="p-2 flex justify-between items-center w-full">
                                 <span>Clientes</span>
                                 <img src="/assets/User-claro.png" alt="Clientes" className="h-6" />
@@ -138,13 +138,13 @@ export default function MenuLateral() {
                     </ul>
 
                     <ul className="text-[#DD859E] flex flex-col p-2">
-                        <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`p-2 flex justify-between items-center cursor-pointer hover:bg-[#982546] rounded-md transition ${isSelected("/Contato") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/contato" className="flex justify-between items-center w-full">
                                 <span>Contato</span>
                                 <img src="/assets/Help2.png" alt="Contato" className="h-6" />
                             </Link>
                         </li>
-                        <li className={`p-2 flex justify-between items-center cursor-pointer ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
+                        <li className={`p-2 flex justify-between items-center cursor-pointer hover:bg-[#982546] rounded-md transition ${isSelected("/Configuracoes") ? "bg-[#982546] rounded-md shadow-md" : ""}`}>
                             <Link to="/profissional/configuracoes" className="flex justify-between items-center w-full">
                                 <span>Config</span>
                                 <img src="/assets/Services.png" alt="Configurações" className="h-6" />

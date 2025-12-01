@@ -7,7 +7,7 @@ import Alerta from "../../componentes/PopUp";
 
 export default function AlterarSenha() {
     const navigate = useNavigate();
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [novaSenha, setNovaSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
@@ -109,7 +109,7 @@ export default function AlterarSenha() {
             setConfirmarSenha("");
 
             setTimeout(() => {
-                navigate("/profissional/login");
+                navigate("/profissional/configuracoes");
             }, 2000);
 
         } catch (error) {

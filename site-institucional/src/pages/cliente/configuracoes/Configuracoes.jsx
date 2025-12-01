@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function ConfigCli() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [desabilitado, setDesabilitado] = useState(true);
     const [mensagem, setMensagem] = useState("");

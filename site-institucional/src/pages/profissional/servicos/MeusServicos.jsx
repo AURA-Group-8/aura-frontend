@@ -23,7 +23,7 @@ export default function MeusServicos() {
         }, 2000);
     };
 
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     useEffect(() => {
         const listarServicos = async () => {
@@ -36,7 +36,7 @@ export default function MeusServicos() {
                     }
                 });
 
-                setServicos(response.data.content);
+                setServicos(response.data);
             } catch (error) {
                 console.error("Erro ao buscar serviços:", error);
             }
@@ -126,7 +126,7 @@ export default function MeusServicos() {
                         </div>
 
                         <div className="flex flex-col md:h-90 xl:h-screen p-5 mt-10 overflow-y-auto">
-                            {servicosFiltrados.length > 0 ? (
+                            {servicosFiltrados ? (
                                 servicosFiltrados.map((servico) => (
                                     <CardServico
                                         key={servico.id}

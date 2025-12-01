@@ -5,7 +5,7 @@ import Alerta from "../../componentes/PopUp";
 import axios from "axios";
 
 export default function LoginPro() {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL_V2;
 
     const [email, setEmail] = useState("");
     const [mensagem, setMensagem] = useState("");
@@ -50,12 +50,10 @@ export default function LoginPro() {
             email: email.trim(),
             password: senha.trim()
         };
-        console.log(usuario);
-
+        
         axios.post(`${apiUrl}/usuarios/login`, usuario)
             .then((response) => {
-                console.log("Usuário logado com sucesso:", response.data);
-
+                
                 sessionStorage.setItem('authToken', response.data.token);
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('userEmail', response.data.email);

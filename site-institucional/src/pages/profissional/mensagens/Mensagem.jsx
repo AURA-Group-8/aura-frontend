@@ -5,7 +5,7 @@ import Alerta from "../../componentes/PopUp";
 import { useNavigate } from "react-router-dom";
 
 export default function Mensagem() {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL_V2;
   const navigate = useNavigate();
   const [assunto, setAssunto] = useState("");
   const [textMensagem, setTextMensagem] = useState("");
@@ -80,7 +80,7 @@ export default function Mensagem() {
         <h1 className="text-[#982546] font-bold text-2xl">Enviar mensagem</h1>
 
         <form
-          className="border-1 border-[#982546] bg-[#FFF3DC] w-90 md:w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5"
+          className="border-1 border-[#982546] border-t-8 bg-[#FFF3DC] w-90 md:w-150 p-4 rounded-2xl flex flex-row justify-center items-center mt-5"
           onSubmit={enviar}
         >
           <div className="flex flex-col w-120 ">
