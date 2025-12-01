@@ -19,7 +19,7 @@ export default function CardNotificacao() {
             try {
                 const response = await axios.get(`${apiUrl}/notificacoes/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
-                    params: { page: paginaAtual, size: 4, sortBy: "id" },
+                    params: { page: paginaAtual, size: 2, sortBy: "id" },
                 });
 
                 const data = response.data;
@@ -61,7 +61,7 @@ export default function CardNotificacao() {
                     )}
                 </div>
 
-                {/* Controles de paginação */}
+                
                 <div className="flex justify-center mt-4 space-x-4">
                     <button
                         onClick={() => mudarPagina(paginaAtual - 1)}
@@ -74,9 +74,9 @@ export default function CardNotificacao() {
                             className={`w-8 h-8 ${paginaAtual === 0 ? "opacity-50" : ""}`}
                         />
                     </button>
-                    {/* <span className="text-gray-600">
+                    <span className="text-gray-600">
                         Página {paginaAtual + 1} de {totalPaginas}
-                    </span> */}
+                    </span>
                     <button
                         onClick={() => mudarPagina(paginaAtual + 1)}
                         disabled={paginaAtual + 1 === totalPaginas}
