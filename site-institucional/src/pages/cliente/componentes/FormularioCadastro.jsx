@@ -105,8 +105,7 @@ export default function FormularioCadastro() {
             email: email,
             dateOfBirth: formattedDate,
             phone: telefoneSemMascara,
-            password: senha,
-            roleId: 2
+            password: senha
         };
 
         setIsSubmitting(true);
