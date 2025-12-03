@@ -39,6 +39,24 @@ export default function CardNotificacao() {
         }
     };
 
+    const marcarComoLida = async (id) => {
+        try {
+            await axios.patch(
+                `${apiUrl}/notificacoes/${id}`,
+                { id, isRead: true }, 
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            setNotificacoes((prev) =>
+                prev.map((notificacao) =>
+                    notificacao.id === id ? { ...notificacao, isRead: true } : notificacao
+                )
+            );
+        } catch (error) {
+            console.error("Erro ao marcar notificação como lida:", error);
+        }
+    };
+
     return (
         <>
             {mensagem && <Alerta mensagem={mensagem} imagem={caminho} />}
@@ -49,10 +67,22 @@ export default function CardNotificacao() {
                 <div className="space-y-4 max-h-[65vh] w-90 md:w-200 overflow-y-auto pr-2">
                     {notificacoes.length > 0 ? (
                         notificacoes.map((notificacao, index) => (
-                            <div key={index} className="bg-white border border-[#7c1d34] border-l-8 w-full text-gray-600 rounded-lg p-6">
+                            <div
+                                key={index}
+                                className={`bg-white border ${
+                                    notificacao.isRead ? "border-gray-400" : "border-[#7c1d34]"
+                                } border-l-8 w-full text-gray-600 rounded-lg p-6`}
+                            >
                                 <p className="mb-2">{notificacao.message}</p>
                                 <div className="flex justify-between items-center">
-                                    
+                                    {!notificacao.isRead && (
+                                        <button
+                                            onClick={() => marcarComoLida(notificacao.id)}
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                                        >
+                                            Marcar como lida
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         ))
@@ -61,7 +91,6 @@ export default function CardNotificacao() {
                     )}
                 </div>
 
-                
                 <div className="flex justify-center mt-4 space-x-4">
                     <button
                         onClick={() => mudarPagina(paginaAtual - 1)}
@@ -85,7 +114,9 @@ export default function CardNotificacao() {
                         <img
                             src="/assets/Back.png"
                             alt="Próxima"
-                            className={`w-8 h-8 transform rotate-180 ${paginaAtual + 1 === totalPaginas ? "opacity-50" : ""}`}
+                            className={`w-8 h-8 transform rotate-180 ${
+                                paginaAtual + 1 === totalPaginas ? "opacity-50" : ""
+                            }`}
                         />
                     </button>
                 </div>
