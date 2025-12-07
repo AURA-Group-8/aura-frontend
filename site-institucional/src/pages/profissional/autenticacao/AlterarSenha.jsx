@@ -17,7 +17,7 @@ export default function AlterarSenha() {
     const [caminho, setCaminho] = useState("");
 
     const token = sessionStorage.getItem("authToken");
-    const userId = sessionStorage.getItem("userId");
+    const userId =sessionStorage.getItem("userId");
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -52,7 +52,7 @@ export default function AlterarSenha() {
         const senhaTrim = novaSenha.trim();
         const confirmarTrim = confirmarSenha.trim();
 
-        
+
         const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
 
         if (senhaTrim.length === 0 || confirmarTrim.length === 0) {
@@ -94,7 +94,6 @@ export default function AlterarSenha() {
             const corpoAtualizado = {
                 password: senhaTrim
             };
-
             await axios.patch(`${apiUrl}/usuarios/${usuario.id}`, corpoAtualizado, {
                 headers: {
                     Authorization: `Bearer ${token}`

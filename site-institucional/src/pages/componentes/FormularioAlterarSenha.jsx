@@ -7,13 +7,14 @@ export default function FormularioAlterarSenha() {
     const apiUrl = import.meta.env.VITE_API_URL_V2;
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId } = location.state || {};
-
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [usuario, setUsuario] = useState(null);
+    const token = sessionStorage.getItem("authToken");
+    const userId = sessionStorage.getItem("userId");
+
 
     const limparAlert = () => {
         setTimeout(() => {
@@ -21,44 +22,77 @@ export default function FormularioAlterarSenha() {
         }, 2000);
     }
 
-    const alterar = (e) => {
+    const alterarSenha = async (e) => {
         e.preventDefault();
-        if (isSubmitting) return;
 
-        setIsSubmitting(true);
+        const senhaTrim = senha.trim();
+        const confirmarTrim = confirmarSenha.trim();
 
-        if (senha !== confirmarSenha) {
-            setMensagem("❌ As senhas não coincidem.");
+
+        const emojiRegex = /(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
+
+        if (senhaTrim.length === 0 || confirmarTrim.length === 0) {
+            setMensagem("Preencha ambos os campos de senha.");
             setCaminho("/assets/Alert.png");
             limparAlert();
-            setIsSubmitting(false);
             return;
         }
 
-        if (senha.length < 6) {
-            setMensagem("❌ A senha deve ter pelo menos 6 caracteres.");
+        if (emojiRegex.test(senhaTrim) || emojiRegex.test(confirmarTrim)) {
+            setMensagem("Emojis não são permitidos na senha.");
             setCaminho("/assets/Alert.png");
             limparAlert();
-            setIsSubmitting(false);
             return;
         }
 
-        axios.patch(`${apiUrl}/usuarios/alterar-senha/${userId}?password=${senha}`)
-            .then((response) => {
-                setMensagem("✅ Senha alterada com sucesso!");
-                setCaminho("/assets/Check-pop.png");
-                setTimeout(() => {
-                    navigate("/cliente/login");
-                }, 2000);
-            })
-            .catch((error) => {
-                console.error("Erro ao alterar senha:", error);
-                setMensagem("❌ Erro ao alterar senha. Tente novamente.");
-                setCaminho("/assets/Alert.png");
-            })
-            .finally(() => {
-                setIsSubmitting(false);
+        if (senhaTrim.length < 6) {
+            setMensagem("A senha deve ter no mínimo 6 caracteres.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (senhaTrim !== confirmarTrim) {
+            setMensagem("As senhas não coincidem.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        if (!usuario) {
+            setMensagem("Erro ao carregar dados do usuário.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+            return;
+        }
+
+        try {
+            const corpoAtualizado = {
+                password: senhaTrim
+            };
+            await axios.patch(`${apiUrl}/usuarios/${userId}`, corpoAtualizado, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
+
+            setMensagem("Senha alterada com sucesso!");
+            setCaminho("/assets/Check-pop.png");
+            limparAlert();
+
+            setSenha("");
+            setConfirmarSenha("");
+
+            setTimeout(() => {
+                navigate("/profissional/configuracoes");
+            }, 2000);
+
+        } catch (error) {
+            console.error("Erro ao alterar senha:", error.response?.data || error.message);
+            setMensagem("Erro ao alterar a senha. Tente novamente.");
+            setCaminho("/assets/Alert.png");
+            limparAlert();
+        }
     };
 
     return (
@@ -90,7 +124,7 @@ export default function FormularioAlterarSenha() {
 
                         <div className="flex flex-row justify-between gap-4 pt-5">
                             <button type="submit" className="text-[#982546] border border-[#982546]  rounded-xl py-2 px-6 cursor-pointer hover:bg-[#dedbbf] transition duration-300" onClick={() => navigate("/cliente/esqueci-senha")}>Cancelar</button>
-                            <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300" onClick={alterar}>Alterar</button>
+                            <button className="bg-[#982546] border border-[#FFF3DC] text-[#FFF3DC] rounded-xl py-2 px-6 cursor-pointer hover:bg-[#7f1d3f] transition duration-300" onClick={alterarSenha}>Alterar</button>
                         </div>
                     </form>
                 </div>

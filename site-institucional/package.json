@@ -12,6 +12,7 @@
   "dependencies": {
     "@djpfs/react-vlibras": "^2.0.2",
     "@tailwindcss/vite": "^4.1.3",
+    "aos": "^2.3.4",
     "axios": "^1.8.4",
     "chart.js": "^4.4.9",
     "date-fns": "^4.1.0",

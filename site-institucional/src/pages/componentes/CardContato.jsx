@@ -4,26 +4,27 @@ import Alerta from "./PopUp";
 
 export default function CardContato() {
 
+    const [textoMensagem, setTextoMensagem] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [caminho, setCaminho] = useState("");
 
-      const limparAlert = () => {
+    const limparAlert = () => {
         setTimeout(() => {
             setMensagem("");
         }, 2000);
     };
 
     const envio = () => {
-        if(mensagem){
+        if (textoMensagem.trim().length > 0) {
             setMensagem("Mensagem enviada!");
             setCaminho("/assets/Check-pop.png");
             limparAlert();
-        }else{
+        } else {
             setMensagem("Por favor, escreva uma mensagem.");
             setCaminho("/assets/Alert.png");
             limparAlert();
         }
-        
+
     }
 
     return (
@@ -51,7 +52,10 @@ export default function CardContato() {
 
                     <span>Mensagem:</span>
 
-                    <textarea className="border border-[#982546] bg-[#fff] h-100 w-full rounded-2xl p-2 mt-4" placeholder="Envie suas dúvidas"></textarea>
+                    <textarea className="border border-[#982546] bg-[#fff] h-100 w-full rounded-2xl p-2 mt-4" placeholder="Envie suas dúvidas"
+                        value={textoMensagem}
+                        onChange={(e) => setTextoMensagem(e.target.value)}
+                    ></textarea>
 
                     <button className="bg-[#982546] text-[#FFF3DC] cursor-pointer p-1 mt-5 rounded-2xl w-50 self-end hover:bg-[#7f1d3f] transition duration-300" onClick={envio}>Enviar</button>
                 </div>

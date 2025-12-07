@@ -39,9 +39,9 @@ export default function ConfigCli() {
     };
 
     const usuarioParaAtualizar = {
-        username: formData.nome,
-        phone: formData.telefone,
-        password: formData.senha
+        username: formData.nome?formData.nome : undefined,
+        phone: formData.telefone?formData.telefone : undefined,
+        password: formData.senha?formData.senha : undefined,
     };
 
     const editar = async () => {

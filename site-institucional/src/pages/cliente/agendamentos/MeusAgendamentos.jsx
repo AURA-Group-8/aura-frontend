@@ -28,7 +28,7 @@ export default function MeusAgendamentosCli() {
                 params: {
                     sortBy: "id",
                     page: page,
-                    size: 4, 
+                    size: 2, 
                 },
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -124,11 +124,11 @@ export default function MeusAgendamentosCli() {
                             )}
                         </div>
 
-                        <div className="w-full flex justify-center mt-5">
+                        <div className="w-full flex justify-center mt-5 items-center">
                             <button
                                 onClick={handlePreviousPage}
                                 disabled={currentPage === 0}
-                                className=" text-white py-2 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors mb-10 disabled:opacity-50 flex items-center justify-center"
+                                className="text-white py-1 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors disabled:opacity-50 flex items-center justify-center"
                             >
                                 <img
                                     src="/assets/Back.png"
@@ -136,10 +136,15 @@ export default function MeusAgendamentosCli() {
                                     className="h-6 w-6"
                                 />
                             </button>
+
+                            <span className="text-[#982546] font-medium text-base mx-2 flex items-center">
+                                Página {currentPage + 1} de {totalPages}
+                            </span>
+
                             <button
                                 onClick={handleNextPage}
                                 disabled={currentPage === totalPages - 1}
-                                className=" text-white py-2 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors mb-10 ml-4 disabled:opacity-50 flex items-center justify-center"
+                                className="text-white py-1 px-4 rounded-lg cursor-pointer hover:bg-[#b36078] transition-colors disabled:opacity-50 flex items-center justify-center"
                             >
                                 <img
                                     src="/assets/Back.png"

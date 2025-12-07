@@ -65,6 +65,17 @@ export default function Confirmar({ cliente, servicos, data, duracaoTotal, horar
             });
     }
 
+    const formatarDuracao = (minutos) => {
+        if (!minutos || minutos <= 0) return "0:00";
+
+        const horas = Math.floor(minutos / 60);
+        const mins = minutos % 60;
+
+        return `${horas}:${mins.toString().padStart(2, '0')}`;
+    };
+
+    const duracaoFormatada = formatarDuracao(duracaoTotal);
+
     return (
         <>
             {mensagem && (
@@ -101,7 +112,7 @@ export default function Confirmar({ cliente, servicos, data, duracaoTotal, horar
                                 <span className="font-bold text-[#5a5a5a]">Hora: </span><span className="text-black font-normal">{horario}</span>
                             </div>
                             <div className='flex flex-col md:flex-row'>
-                                <span className="font-bold text-[#5a5a5a]">Duração: </span><span className="text-black font-normal">{duracaoTotal}</span>
+                                <span className="font-bold text-[#5a5a5a]">Duração: </span><span className="text-black font-normal">{duracaoFormatada}</span>
                             </div>
                         </div>
 

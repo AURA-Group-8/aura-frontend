@@ -10,15 +10,6 @@ export default function Agendar() {
     const [servicos, setServicos] = useState([]);
     const [dataHora, setDataHora] = useState({ data: null, horario: null });
 
-    const durationInMinutes = servicos.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0);
-
-    const durationFormatted = (() => {
-        if (!durationInMinutes) return "";
-        const h = Math.floor(durationInMinutes / 60);
-        const m = durationInMinutes % 60;
-        return h > 0 ? `${h}h${m ? ` ${m}min` : ""}` : `${m}min`;
-    })();
-
     return (
         <>
             <NavbarCli caminho={"/cliente/home"} />
@@ -37,7 +28,7 @@ export default function Agendar() {
 
                     <div className="flex flex-col items-center">
                         <CalendarioCarrossel
-                            duracaoTotal={durationInMinutes}
+                            duracaoTotal={servicos.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0)}
                             onSelecionarDataHora={setDataHora} />
 
                         <Confirmar
@@ -45,7 +36,7 @@ export default function Agendar() {
                             servicos={servicos}
                             data={dataHora.data}
                             horario={dataHora.horario}
-                            duracaoTotal={durationFormatted}
+                            duracaoTotal={servicos.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0)}
                             redirectTo="/cliente/meus-agendamentos"
                         />
                     </div>
