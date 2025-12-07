@@ -109,6 +109,7 @@ export default function Mensagem() {
                 onClick={() => {
                   setAssunto("");
                   setTextMensagem("");
+                  navigate("/profissional/meus-clientes");
                 }}
               >
                 Cancelar

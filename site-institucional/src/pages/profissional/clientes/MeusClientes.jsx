@@ -44,10 +44,9 @@ export default function MeusClientes() {
     );
 
     setClientesFiltrados(filtrados);
-    setPaginaAtual(0); // Reseta para a primeira página ao aplicar o filtro
+    setPaginaAtual(0); 
   }, [filtroNome, clientes]);
 
-  // Calcula os índices para a paginação
   const indiceInicial = paginaAtual * itensPorPagina;
   const indiceFinal = indiceInicial + itensPorPagina;
   const clientesPaginados = clientesFiltrados.slice(indiceInicial, indiceFinal);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Alerta from "./PopUp";
 import axios from "axios";
 
-export default function CardNotificacao() {
+export default function CardNotificacao({ atualizarNotificacoes }) {
     const apiUrl = import.meta.env.VITE_API_URL_V2;
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("authToken");
@@ -20,7 +20,7 @@ export default function CardNotificacao() {
             try {
                 const response = await axios.get(`${apiUrl}/notificacoes/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
-                    params: { page: paginaAtual, size: 4, sortBy: "id"},
+                    params: { page: paginaAtual, size: 4, sortBy: "id" },
                 });
                 const data = response.data;
                 setNotificacoes(data.content);
@@ -47,12 +47,22 @@ export default function CardNotificacao() {
                 { id, isRead: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
-            setNotificacoes((prev) =>
-                prev.map((notificacao) =>
-                    notificacao.id === id ? { ...notificacao, isRead: true } : notificacao
-                )
+            const atualizadas = notificacoes.map((notificacao) =>
+                notificacao.id === id
+                    ? { ...notificacao, isRead: true }
+                    : notificacao
             );
+
+            setNotificacoes(atualizadas);
+
+            const aindaTemNaoLidas = atualizadas.some(
+                (notificacao) => !notificacao.isRead
+            );
+
+            if (atualizarNotificacoes) {
+                atualizarNotificacoes(aindaTemNaoLidas);
+            }
+
         } catch (error) {
             console.error("Erro ao marcar notificação como lida:", error);
         } finally {
@@ -72,9 +82,8 @@ export default function CardNotificacao() {
                         notificacoes.map((notificacao, index) => (
                             <div
                                 key={index}
-                                className={`bg-white border ${
-                                    notificacao.isRead ? "border-gray-400" : "border-[#7c1d34]"
-                                } border-l-8 w-full text-gray-600 rounded-lg p-6`}
+                                className={`bg-white border ${notificacao.isRead ? "border-gray-400" : "border-[#7c1d34]"
+                                    } border-l-8 w-full text-gray-600 rounded-lg p-6`}
                             >
                                 <p className="mb-2">{notificacao.message}</p>
                                 <div className="flex justify-between items-center">
@@ -117,9 +126,8 @@ export default function CardNotificacao() {
                         <img
                             src="/assets/Back.png"
                             alt="Próxima"
-                            className={`w-8 h-8 transform rotate-180 ${
-                                paginaAtual + 1 === totalPaginas ? "opacity-50" : ""
-                            }`}
+                            className={`w-8 h-8 transform rotate-180 ${paginaAtual + 1 === totalPaginas ? "opacity-50" : ""
+                                }`}
                         />
                     </button>
                 </div>

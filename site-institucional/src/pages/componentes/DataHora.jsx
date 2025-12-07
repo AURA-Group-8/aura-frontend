@@ -1,44 +1,29 @@
 import { useState, useEffect } from "react";
 import { ptBR } from "date-fns/locale";
 import axios from "axios";
-import {
-  format,
-  parse,
-  addDays,
-  startOfDay,
-  isAfter,
-  isBefore,
-  isEqual,
-  addMinutes,
-} from "date-fns";
-
-
+import { format, parse, addDays, startOfDay } from "date-fns";
 
 export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora }) {
 
   const apiUrl = import.meta.env.VITE_API_URL_V2;
+  const token = sessionStorage.getItem("authToken");
 
   const diasVisiveis = 4;
   const horariosVisiveis = 4;
 
   const [inicioDias, setInicioDias] = useState(0);
-  const [dataSelecionada, setDataSelecionada] = useState(null);
-
   const [inicioHorarios, setInicioHorarios] = useState(0);
+
+  const [dataSelecionada, setDataSelecionada] = useState(null);
   const [horarioSelecionado, setHorarioSelecionado] = useState(null);
-  const [horarioDisponivel, setHorarioDisponivel] = useState([]);
 
   const [diasSemanaAPI, setDiasSemanaAPI] = useState([]);
-  const [workStart, setWorkStart] = useState(null);
-  const [workEnd, setWorkEnd] = useState(null);
-  const [breakStart, setBreakStart] = useState(null);
-  const [breakEnd, setBreakEnd] = useState(null);
-
   const [diasParaMostrar, setDiasParaMostrar] = useState([]);
+
+  const [horarioDisponivel, setHorarioDisponivel] = useState([]);
   const [horariosParaMostrar, setHorariosParaMostrar] = useState([]);
 
   const [dataAtual, setDataAtual] = useState(null);
-  const token = sessionStorage.getItem("authToken");
 
   const diaNomeParaNumero = (dia) => {
     switch (dia) {
@@ -58,41 +43,14 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
     const fim = addDays(hoje, 365);
     const datas = [];
 
+    const diasAPIEmNum = diasSemanaAPI.map(diaNomeParaNumero);
+
     for (let d = hoje; d <= fim; d = addDays(d, 1)) {
-      const diaNum = d.getDay();
-      const diasAPIEmNum = diasSemanaAPI.map(diaNomeParaNumero);
-      if (diasAPIEmNum.includes(diaNum)) {
+      if (diasAPIEmNum.includes(d.getDay())) {
         datas.push(d);
       }
     }
     return datas;
-  };
-
-  const gerarHorarios = () => {
-    if (!workStart || !workEnd) return [];
-
-    const formatoHora = "HH:mm:ss";
-
-    const inicioTrabalho = parse(workStart, formatoHora, new Date());
-    const fimTrabalho = parse(workEnd, formatoHora, new Date());
-
-    const inicioPausa = breakStart ? parse(breakStart, formatoHora, new Date()) : null;
-    const fimPausa = breakEnd ? parse(breakEnd, formatoHora, new Date()) : null;
-
-    let atual = inicioTrabalho;
-    const horarios = [];
-
-    while (isBefore(atual, fimTrabalho) || isEqual(atual, fimTrabalho)) {
-
-      if (inicioPausa && fimPausa && ((isAfter(atual, inicioPausa) || isEqual(atual, inicioPausa)) &&
-        (isBefore(atual, fimPausa)))) { }
-      else {
-        horarios.push(format(atual, "HH:mm"));
-      }
-      atual = addMinutes(atual, 30);
-    }
-
-    return horarios;
   };
 
   useEffect(() => {
@@ -101,95 +59,51 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
   }, [diasSemanaAPI, inicioDias]);
 
   useEffect(() => {
-    const horarios = gerarHorarios();
-
-    if (dataSelecionada) {
-      const dataFormatada = format(dataSelecionada, "yyyy-MM-dd");
-
-      const disponibilidadeDoDia = horarioDisponivel.find(
-        (item) => item.date === dataFormatada
-      );
-
-      if (disponibilidadeDoDia) {
-        const horasDisponiveis = (disponibilidadeDoDia.availableTimes || []).map(h =>
-          parse(h, "HH:mm:ss", new Date())
-        );
-
-        const horariosFiltrados = horarios.filter(h => {
-          return horasDisponiveis.some(hDisponivel =>
-            format(hDisponivel, "HH:mm") === h
-          );
-        });
-
-        setHorariosParaMostrar(
-          horariosFiltrados.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
-        );
-
-        return;
-      }
-    }
-
-    setHorariosParaMostrar(
-      horarios.slice(inicioHorarios, inicioHorarios + horariosVisiveis)
-    );
-  }, [dataSelecionada, horarioDisponivel, inicioHorarios, workStart, workEnd, breakStart, breakEnd]);
-
-  useEffect(() => {
     if (diasParaMostrar.length > 0) {
       setDataAtual(diasParaMostrar[0]);
     }
   }, [diasParaMostrar]);
 
+
   useEffect(() => {
     async function buscarConfiguracoes() {
       try {
-
         const response = await axios.get(`${apiUrl}/configuracao-agendamento`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        const dados = response.data;
-
-        setDiasSemanaAPI(dados.daysOfWeek || []);
-        setWorkStart(dados.workStart);
-        setWorkEnd(dados.workEnd);
-        setBreakStart(dados.breakStart);
-        setBreakEnd(dados.breakEnd);
+        setDiasSemanaAPI(response.data.daysOfWeek || []);
       } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
+        console.error("Erro ao buscar configurações:", error);
       }
     }
-
     buscarConfiguracoes();
   }, []);
-
 
   useEffect(() => {
     async function buscarHorariosDisponiveis() {
       if (diasSemanaAPI.length === 0) return;
 
       try {
-
-        const dataFormatada = dataSelecionada
+        const dataBase = dataSelecionada
           ? format(dataSelecionada, "yyyy-MM-dd")
-          : (datasDiasSemana().length > 0 ? format(datasDiasSemana()[0], "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd"));
+          : format(new Date(), "yyyy-MM-dd");
 
-        const horariosAPI = await axios.get(`${apiUrl}/agendamentos/available-times`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            durationInMinutes: duracaoTotal,
-            firstDayOfWeek: dataFormatada,
-          },
-        });
+        const response = await axios.get(
+          `${apiUrl}/agendamentos/available-times`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: {
+              durationInMinutes: duracaoTotal,
+              firstDayOfWeek: dataBase,
+            },
+          }
+        );
 
-        const horaDisponivel = horariosAPI.data;
-        setHorarioDisponivel(horaDisponivel || []);
+        setHorarioDisponivel(response.data || []);
+        setInicioHorarios(0);
       } catch (error) {
-        console.error("Erro ao buscar dados da API:", error);
+        console.error("Erro ao buscar horários:", error);
       }
     }
 
@@ -197,6 +111,60 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
   }, [duracaoTotal, diasSemanaAPI, dataSelecionada]);
 
 
+  useEffect(() => {
+    if (!dataSelecionada) {
+      setHorariosParaMostrar([]);
+      return;
+    }
+
+    const dataFormatada = format(dataSelecionada, "yyyy-MM-dd");
+
+    const dia = horarioDisponivel.find(d => d.date === dataFormatada);
+    if (!dia) {
+      setHorariosParaMostrar([]);
+      return;
+    }
+
+    const horarios = (dia.availableTimes || []).map(h =>
+      format(parse(h, "HH:mm:ss", new Date()), "HH:mm")
+    );
+
+    const janela = horarios.slice(
+      inicioHorarios,
+      inicioHorarios + horariosVisiveis
+    );
+
+    setHorariosParaMostrar(janela);
+
+    if (horarioSelecionado && !horarios.includes(horarioSelecionado)) {
+      setHorarioSelecionado(null);
+      onSelecionarDataHora?.({
+        data: format(dataSelecionada, "dd/MM/yyyy"),
+        horario: null
+      });
+    }
+  }, [dataSelecionada, horarioDisponivel, inicioHorarios]);
+
+
+  const handleSelecionarData = (dia) => {
+    setDataSelecionada(dia);
+    setHorarioSelecionado(null);
+    setInicioHorarios(0);
+
+    onSelecionarDataHora?.({
+      data: format(dia, "dd/MM/yyyy"),
+      horario: null
+    });
+  };
+
+  const handleSelecionarHorario = (horario) => {
+    setHorarioSelecionado(horario);
+
+    onSelecionarDataHora?.({
+      data: format(dataSelecionada, "dd/MM/yyyy"),
+      horario
+    });
+  };
 
   const handleProximoDias = () => {
     if (inicioDias + diasVisiveis < datasDiasSemana().length) {
@@ -211,7 +179,7 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
   };
 
   const handleProximoHorarios = () => {
-    if (inicioHorarios + horariosVisiveis < gerarHorarios().length) {
+    if (inicioHorarios + horariosVisiveis < horariosParaMostrar.length + inicioHorarios) {
       setInicioHorarios(inicioHorarios + horariosVisiveis);
     }
   };
@@ -222,109 +190,54 @@ export default function CalendarioCarrossel({ duracaoTotal, onSelecionarDataHora
     }
   };
 
-  const handleSelecionarData = (dia) => {
-    if (
-      dataSelecionada &&
-      format(dia, "yyyy-MM-dd") === format(dataSelecionada, "yyyy-MM-dd")
-    ) {
-      setDataSelecionada(null);
-    } else {
-      setDataSelecionada(dia);
-      if (onSelecionarDataHora) {
-        onSelecionarDataHora({ data: format(dia, "dd/MM/yyyy"), horario: horarioSelecionado });
-      }
-    }
-  };
-
-  const handleSelecionarHorario = (horario) => {
-    if (horarioSelecionado === horario) {
-      setHorarioSelecionado(null);
-    } else {
-      setHorarioSelecionado(horario);
-      if (onSelecionarDataHora) {
-        onSelecionarDataHora({ data: dataSelecionada ? format(dataSelecionada, "dd/MM/yyyy") : "", horario });
-      }
-    }
-  };
-
   return (
-    <>
+    <div className="w-full flex flex-col items-center pt-5">
 
-      <div className="w-full h-full flex flex-col justify-center items-center pt-5 ">
-       
-        <h1 className="text-[#982546] text-xl font-bold mb-4 mt-5 xl:text-2xl ">
-          {dataAtual ? (format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).toUpperCase().slice(0, 1) +
-            format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR }).slice(1)) : ""}
-        </h1>
+      <h1 className="text-[#982546] text-xl font-bold mb-4">
+        {dataAtual &&
+          format(dataAtual, "MMMM 'de' yyyy", { locale: ptBR })
+            .replace(/^./, c => c.toUpperCase())}
+      </h1>
 
-        <div className="flex justify-center items-center gap-2 md:gap-6 border-b-1 border-[#982546] pb-4">
-          <button onClick={handleDiasAnteriores} className="text-[#982546] text-xl cursor-pointer">
-            ❮
-          </button>
+      <div className="flex items-center gap-4 pb-4">
+        <button onClick={handleDiasAnteriores}>❮</button>
 
-          {diasParaMostrar.map((dia) => {
-            const selecionado =
-              dataSelecionada &&
-              format(dia, "yyyy-MM-dd") === format(dataSelecionada, "yyyy-MM-dd");
-
-            return (
-              <button
-                key={dia.toString()}
-                onClick={() => handleSelecionarData(dia)}
-                className={`w-20 h-20 md:w-15 md:h-20 flex flex-col items-center justify-center rounded-xl border font-bold transition-all cursor-pointer
-                  ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
-              >
-                <span className="text-sm">
-                  {format(dia, "EEE", { locale: ptBR })
-                    .substring(0, 3)
-                    .toUpperCase()}
-                </span>
-                <span className="text-md">{format(dia, "d")}</span>
-              </button>
-            );
-          })}
-
+        {diasParaMostrar.map(dia => (
           <button
-            onClick={handleProximoDias}
-            className="text-[#982546] text-2xl cursor-pointer"
+            key={dia}
+            onClick={() => handleSelecionarData(dia)}
+            className={`w-20 h-20 rounded-xl border font-bold
+              ${dataSelecionada &&
+                format(dia, "yyyy-MM-dd") === format(dataSelecionada, "yyyy-MM-dd")
+                ? "bg-[#4B1F1F] text-white"
+                : "text-[#362323]"}`}
           >
-            ❯
+            <div>{format(dia, "EEE", { locale: ptBR }).slice(0, 3).toUpperCase()}</div>
+            <div>{format(dia, "d")}</div>
           </button>
-        </div>
+        ))}
 
-        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 mt-5">
-          <button
-            onClick={handleHorariosAnteriores}
-            className="text-[#982546] text-xl cursor-pointer"
-          >
-            ❮
-          </button>
-
-          {horariosParaMostrar.map((horario) => {
-            const selecionado = horarioSelecionado === horario;
-
-            return (
-              <button
-                key={horario}
-                onClick={() => handleSelecionarHorario(horario)}
-                className={`w-20 h-10 flex items-center justify-center rounded-xl border font-bold transition-all cursor-pointer text-md
-                  ${selecionado ? "bg-[#4B1F1F] text-white" : "text-[#362323]"}`}
-              >
-                {horario}
-              </button>
-            );
-          })}
-
-          <button
-            onClick={handleProximoHorarios}
-            className="text-[#982546] text-xl cursor-pointer"
-          >
-            ❯
-          </button>
-        </div>
-
-
+        <button onClick={handleProximoDias}>❯</button>
       </div>
-    </>
+
+      <div className="flex items-center gap-4 mt-5">
+        <button onClick={handleHorariosAnteriores}>❮</button>
+
+        {horariosParaMostrar.map(horario => (
+          <button
+            key={horario}
+            onClick={() => handleSelecionarHorario(horario)}
+            className={`w-20 h-10 rounded-xl border font-bold
+              ${horarioSelecionado === horario
+                ? "bg-[#4B1F1F] text-white"
+                : "text-[#362323]"}`}
+          >
+            {horario}
+          </button>
+        ))}
+
+        <button onClick={handleProximoHorarios}>❯</button>
+      </div>
+    </div>
   );
 }

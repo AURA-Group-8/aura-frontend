@@ -52,7 +52,7 @@ export default function Dashboard() {
         axios.get(`${apiUrl}/agendamentos/card`, {
             params: {
                 page,
-                size: 3
+                size: 4
             },
             headers: {
                 Authorization: `Bearer ${token}`

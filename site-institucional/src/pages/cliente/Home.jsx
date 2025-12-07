@@ -70,7 +70,6 @@ export default function Home() {
                     </h1>
 
                     <div className="relative w-full max-w-4xl overflow-hidden">
-                        {/* Carousel Wrapper */}
                         <div
                             className="flex transition-transform duration-500 ease-in-out"
                             style={{
@@ -107,7 +106,6 @@ export default function Home() {
                             ))}
                         </div>
 
-                        {/* Navigation Buttons */}
                         <button
                             onClick={prevSlide}
                             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#982546] text-[#FFF3DC] p-2 rounded-full shadow-lg hover:bg-[#b36078] transition"
@@ -122,7 +120,7 @@ export default function Home() {
                         </button>
                     </div>
 
-                     {/* Botão para agendamento */}
+                     
                     <button
                         onClick={() => navigate("/cliente/agendar")}
                         className="cursor-pointer mt-12 bg-[#341C1C] text-[#FFF3DC] p-4 rounded-2xl self-center text-xl font-bold mb-10 hover:bg-[#452f2e] transition-transform transform hover:scale-105 shadow-lg"
@@ -133,7 +131,7 @@ export default function Home() {
                 </div>
 
                 <footer className="bg-[#341C1C] text-[#FFF3DC] p-6 text-center">
-                    <p>© 2025 AURA. Todos os direitos reservados.</p>
+                    <p>© 2025 AURA</p>
                     <div className="flex justify-center gap-4 mt-4">
                         <a href="#" className="hover:text-[#b36078]">Facebook</a>
                         <a href="#" className="hover:text-[#b36078]">Instagram</a>

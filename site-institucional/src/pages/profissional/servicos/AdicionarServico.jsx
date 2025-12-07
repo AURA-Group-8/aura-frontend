@@ -161,7 +161,7 @@ export default function AddServico() {
                             <button
                                 type="reset"
                                 className="border-1 border-[#982546] py-2 px-8 rounded-2xl text-[#982546] hover:bg-[#f9ebdb] transition-colors cursor-pointer"
-                                onClick={() => navigate("/pages/profissional-pages/MeusServicos")}
+                                onClick={() => navigate("/profissional/meus-servicos")}
                             >
                                 Cancelar
                             </button>
