@@ -13,15 +13,15 @@ export default function CardNotificacao() {
 
     const [paginaAtual, setPaginaAtual] = useState(0);
     const [totalPaginas, setTotalPaginas] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchNotificacoes = async () => {
             try {
                 const response = await axios.get(`${apiUrl}/notificacoes/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
-                    params: { page: paginaAtual, size: 2, sortBy: "id" },
+                    params: { page: paginaAtual, size: 4, sortBy: "id"},
                 });
-
                 const data = response.data;
                 setNotificacoes(data.content);
                 setTotalPaginas(data.totalPages);
@@ -40,10 +40,11 @@ export default function CardNotificacao() {
     };
 
     const marcarComoLida = async (id) => {
+        setLoading(true);
         try {
             await axios.patch(
                 `${apiUrl}/notificacoes/${id}`,
-                { id, isRead: true }, 
+                { id, isRead: true },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
@@ -54,6 +55,8 @@ export default function CardNotificacao() {
             );
         } catch (error) {
             console.error("Erro ao marcar notificação como lida:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -78,7 +81,7 @@ export default function CardNotificacao() {
                                     {!notificacao.isRead && (
                                         <button
                                             onClick={() => marcarComoLida(notificacao.id)}
-                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                                            className="bg-[#7c1d34] text-white text-sm px-3 py-1 rounded-md hover:bg-[#5a1425] transition-colors"
                                         >
                                             Marcar como lida
                                         </button>
