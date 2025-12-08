@@ -9,8 +9,10 @@ export default function SelecaoServicoCliente({ onSelecionarCliente, onSeleciona
     const [clientes, setClientes] = useState([]);
     const [clienteSelecionado, setClienteSelecionado] = useState("");
     const [servicosSelecionados, setServicosSelecionados] = useState([]);
+    const [duracaoTotal, setDuracaoTotal] = useState(0);
     const [isClienteOpen, setIsClienteOpen] = useState(false);
     const [isServicoOpen, setIsServicoOpen] = useState(false);
+    
 
     const apiUrl = import.meta.env.VITE_API_URL_V2;
 
@@ -45,6 +47,10 @@ export default function SelecaoServicoCliente({ onSelecionarCliente, onSeleciona
         if (onSelecionarServicos) onSelecionarServicos(servicosSelecionados);
     }, [servicosSelecionados]);
 
+    useEffect(() => {
+        const total = servicosSelecionados.reduce((acc, item) => acc + (Number(item.expectedDurationMinutes) || 0), 0);
+        setDuracaoTotal(total);
+    }, [servicosSelecionados]);
 
     const adicionarServico = (id) => {
         const servicoExistente = servicosSelecionados.find((item) => item.id === id);

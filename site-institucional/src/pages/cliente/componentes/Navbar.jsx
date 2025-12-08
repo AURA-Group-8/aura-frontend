@@ -23,7 +23,7 @@ export default function NavbarCli({ caminho, atualizarNotificacoes }) {
                 const dataArray = Array.isArray(response.data)
                     ? response.data
                     : (response.data.content || []);
-                const notificacoesNaoLidas = dataArray.some((notificacao) => !notificacao.wasAnswered);
+                const notificacoesNaoLidas = dataArray.some((notificacao) => !notificacao.isRead);
                 setTemNotificacaoNova(notificacoesNaoLidas);
                 if (atualizarNotificacoes) {
                     atualizarNotificacoes(notificacoesNaoLidas);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Alerta from "../../componentes/PopUp";
 
-export default function CardCliente({ id, name, phone, birthDate, observation }) {
+export default function CardCliente({ id, username, phone, dateOfBirth, observation}) {
 
   const [mensagem, setMensagem] = useState("");
   const [caminho, setCaminho] = useState("");
@@ -24,9 +24,11 @@ export default function CardCliente({ id, name, phone, birthDate, observation })
     return `${dia}/${mes}/${ano}`;
   };
 
-  useEffect(() => {
+useEffect(() => {
+  if (observation !== undefined && observation !== observacao) {
     setObservacao(observation || "");
-  }, [observation]);
+  }
+}, [observation]);
 
 const salvarObs = async () => {
   try {
@@ -45,7 +47,9 @@ const salvarObs = async () => {
     };
     
     const body = {
+      id: id,
       observation: textObs,
+      roleId: 2
     };
 
     await axios.patch(`${apiUrl}/usuarios/${id}`, body, { headers });
@@ -69,13 +73,13 @@ return (
 
     <div className="flex flex-col mt-6 md:mt-0 xl:w-250 md:w-210 h-60 xl:text-lg">
       <div className="bg-[#982546] rounded-t-2xl p-2 w-full flex flex-row justify-between items-center text-white text-lg font-bold">
-        <span>{name}</span>
+        <span>{username}</span>
       </div>
 
       <div className="bg-[#982546b9] rounded-b-2xl p-2 w-full text-white flex flex-col gap-5 md:flex-row justify-between items-center">
         <div className="flex flex-col justify-between self-left text-lg">
           <span>Telefone: {phone}</span>
-          <span>Data de Nascimento: {formatarData(birthDate)}</span>
+          <span>Data de Nascimento: {formatarData(dateOfBirth)}</span>
 
         </div>
 

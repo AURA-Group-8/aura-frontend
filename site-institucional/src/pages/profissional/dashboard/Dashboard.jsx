@@ -11,6 +11,8 @@ export default function Dashboard() {
     const [agendamentos, setAgendamentos] = useState([]);
     const [agendamentosFiltrados, setAgendamentosFiltrados] = useState([]);
     const [periodoSelecionado, setPeriodoSelecionado] = useState(null);
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
 
     const aplicarFiltros = () => {
         let resultado = [...agendamentos];
@@ -18,24 +20,18 @@ export default function Dashboard() {
         if (periodoSelecionado && periodoSelecionado !== "todos") {
             const hoje = new Date();
             resultado = resultado.filter((ag) => {
-
                 const data = new Date(ag.startDatetime);
 
                 if (periodoSelecionado === "hoje") {
-
                     return data.toDateString() === hoje.toDateString();
-
                 } else if (periodoSelecionado === "semana") {
-
                     const primeiroDia = new Date(hoje);
                     primeiroDia.setDate(hoje.getDate() - hoje.getDay());
 
                     const ultimoDia = new Date(primeiroDia);
-
                     ultimoDia.setDate(primeiroDia.getDate() + 6);
 
                     return data >= primeiroDia && data <= ultimoDia;
-
                 } else if (periodoSelecionado === "mes") {
                     return data.getMonth() === hoje.getMonth() &&
                         data.getFullYear() === hoje.getFullYear();
@@ -54,6 +50,10 @@ export default function Dashboard() {
         const token = sessionStorage.getItem("authToken");
 
         axios.get(`${apiUrl}/agendamentos/card`, {
+            params: {
+                page,
+                size: 4
+            },
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -61,13 +61,13 @@ export default function Dashboard() {
             .then((response) => {
                 setAgendamentos(response.data.content);
                 setAgendamentosFiltrados(response.data.content);
-
+                setTotalPages(response.data.totalPages);
             })
             .catch((error) => {
                 console.error("Erro ao buscar agendamentos:", error);
             });
 
-    }, []);
+    }, [page]);
 
     const formatDateDDMMYYYY = (date) => {
         const d = date.getDate().toString().padStart(2, '0');
@@ -77,6 +77,18 @@ export default function Dashboard() {
     };
 
     const isActive = (p) => periodoSelecionado === p;
+
+    const handleNextPage = () => {
+        if (page < totalPages - 1) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            setPage(page - 1);
+        }
+    };
 
     return (
         <div className="w-full h-screen bg-[#FFF3DC]">
@@ -157,6 +169,33 @@ export default function Dashboard() {
                                 Nenhum agendamento encontrado.
                             </p>
                         )}
+                    </div>
+                    <div className="flex justify-center items-center gap-4 mt-4">
+                        <button
+                            className=" p-2 text-[#FFF3DC] rounded-2xl cursor-pointer hover:bg-[#b36078]"
+                            onClick={handlePreviousPage}
+                            disabled={page === 0}
+                        >
+                            <img
+                                    src="/assets/Back.png"
+                                    alt="Próxima Página"
+                                    className="h-6 w-6"
+                                />
+                        </button>
+                        <span className="text-[#982546] font-semibold">
+                            Página {page + 1} de {totalPages}
+                        </span>
+                        <button
+                            className=" p-2 text-[#FFF3DC] rounded-2xl cursor-pointer hover:bg-[#b36078]"
+                            onClick={handleNextPage}
+                            disabled={page === totalPages - 1}
+                        >
+                            <img
+                                    src="/assets/Back.png"
+                                    alt="Próxima Página"
+                                    className="h-6 w-6 transform rotate-180"
+                                />
+                        </button>
                     </div>
                 </div>
             </div>

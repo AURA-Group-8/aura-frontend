@@ -45,9 +45,8 @@ export default function FormularioLogin() {
                     setCaminho("/assets/Check-pop.png");
 
                     setTimeout(() => {
-                        if (role === 2) navigate("/cliente/home");
-                        else if (role === 1) navigate("/profissional/dashboard");
-                        else navigate("/");
+                        if (role === 1) navigate("/profissional/dashboard");
+                        else navigate("/cliente/home");
                     }, 1500);
 
                 }).catch(() => {
