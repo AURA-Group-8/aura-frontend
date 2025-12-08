@@ -36,14 +36,6 @@ export default function NavbarPro({ caminho, atualizarNotificacoes }) {
         verificarNotificacoes();
     }, []);
 
-    useEffect(() => {
-        if (location.pathname === "/cliente/notificacoes") {
-            setTemNotificacaoNova(false);
-            if (atualizarNotificacoes) {
-                atualizarNotificacoes(false);
-            }
-        }
-    }, [location]);
 
     return (
 
@@ -55,14 +47,12 @@ export default function NavbarPro({ caminho, atualizarNotificacoes }) {
                 </div>
 
                 <div className="flex flex-row items-center gap-5">
-                    <img src="/assets/user.png" alt="" className="h-8 cursor-pointer " onClick={() => navigate("/cliente/configuracoes")} />
+                    
                     <div className="relative">
-                        <Link to="/cliente/notificacoes">
                             <img src="/assets/Doorbell.png" alt="Notificações" className="h-8" />
                             {temNotificacaoNova && (
                                 <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
                             )}
-                        </Link>
                     </div>
                 </div>
             </div>
