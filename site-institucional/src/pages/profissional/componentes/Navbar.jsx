@@ -46,15 +46,7 @@ export default function NavbarPro({ caminho, atualizarNotificacoes }) {
                     <img src="/assets/Back.png" alt="" className="h-10 cursor-pointer" onClick={() => navigate(caminho)} />
                 </div>
 
-                <div className="flex flex-row items-center gap-5">
-                    
-                    <div className="relative">
-                            <img src="/assets/Doorbell.png" alt="Notificações" className="h-8" />
-                            {temNotificacaoNova && (
-                                <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full"></span>
-                            )}
-                    </div>
-                </div>
+                
             </div>
         </>
     )
